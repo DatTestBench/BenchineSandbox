@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Core">
+      <UniqueIdentifier>{69e3e5ac-6c3a-4955-8a12-09dbf75208c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components">
+      <UniqueIdentifier>{a8b355f5-56e1-4cd4-840d-347359c51a40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Helpers">
+      <UniqueIdentifier>{987f49bb-6fc5-4155-a82a-abade96ee4c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{5577fd11-870d-4aff-ab3e-cdda2987388a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Content">
+      <UniqueIdentifier>{6eadbc11-20e3-4804-8394-1d028d48ac44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{ffceb42a-d703-4f3b-8e7a-e2152c2d09fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ImGUI">
+      <UniqueIdentifier>{da1f077c-f191-4230-a21d-c5b301c84a1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Debugging">
+      <UniqueIdentifier>{5408523a-6de6-42c7-b1c0-2163a4bc1dd9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BenchinePCH.cpp" />
+    <ClCompile Include="Scene\GameObject.cpp" />
+    <ClCompile Include="Scene\Scene.cpp" />
+    <ClCompile Include="Scene\SceneManager.cpp" />
+    <ClCompile Include="Graphics\Renderer.cpp" />
+    <ClCompile Include="Debugging\Logger.cpp" />
+    <ClCompile Include="Core\BaseGame.cpp" />
+    <ClCompile Include="Core\Benchine.cpp" />
+    <ClCompile Include="Core\InputManager.cpp" />
+    <ClCompile Include="Components\BaseComponent.cpp" />
+    <ClCompile Include="Components\FPSComponent.cpp" />
+    <ClCompile Include="Components\TextComponent.cpp" />
+    <ClCompile Include="Components\TransformComponent.cpp" />
+    <ClCompile Include="Resources\Loaders.cpp" />
+    <ClCompile Include="Resources\ResourceLoader.cpp" />
+    <ClCompile Include="Resources\ResourceManager.cpp" />
+    <ClCompile Include="Resources\Texture2D.cpp" />
+    <ClCompile Include="Resources\Font.cpp" />
+    <ClCompile Include="Components\RenderComponent.cpp" />
+    <ClCompile Include="Scene\DefaultScene.cpp" />
+    <ClCompile Include="ImGui\imgui.cpp" />
+    <ClCompile Include="ImGui\imgui_demo.cpp" />
+    <ClCompile Include="ImGui\imgui_draw.cpp" />
+    <ClCompile Include="ImGui\imgui_plot.cpp" />
+    <ClCompile Include="ImGui\imgui_sdl.cpp" />
+    <ClCompile Include="ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="Helpers\SAT.cpp" />
+    <ClCompile Include="Components\PhysicsComponent2D.cpp" />
+    <ClCompile Include="ImGui\imgui_impl_sdl.cpp" />
+    <ClCompile Include="ImGui\imgui_impl_opengl2.cpp" />
+    <ClCompile Include="Graphics\GLTextureWrapper.cpp" />
+    <ClCompile Include="Debugging\DebugRenderer.cpp" />
+    <ClCompile Include="Components\ControllerComponent.cpp" />
+    <ClCompile Include="Components\SpriteComponent.cpp" />
+    <ClCompile Include="Components\TextureComponent.cpp" />
+    <ClCompile Include="Helpers\GeneralHelpers.cpp" />
+    <ClCompile Include="Resources\SoundByte.cpp" />
+    <ClCompile Include="Resources\SoundStream.cpp" />
+    <ClCompile Include="Components\LifetimeComponent.cpp" />
+    <ClCompile Include="Components\ScoreComponent.cpp" />
+    <ClCompile Include="Components\AIControllerComponent.cpp" />
+    <ClCompile Include="Components\BubbleComponent.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BenchinePCH.h" />
+    <ClInclude Include="Scene\GameObject.h" />
+    <ClInclude Include="Scene\Scene.h" />
+    <ClInclude Include="Scene\SceneManager.h" />
+    <ClInclude Include="Helpers\Singleton.h" />
+    <ClInclude Include="Helpers\Utils.h" />
+    <ClInclude Include="Graphics\Renderer.h" />
+    <ClInclude Include="Debugging\Logger.h" />
+    <ClInclude Include="Core\BaseGame.h" />
+    <ClInclude Include="Core\Benchine.h" />
+    <ClInclude Include="Core\InputManager.h" />
+    <ClInclude Include="Components\BaseComponent.h" />
+    <ClInclude Include="Components\Components.h" />
+    <ClInclude Include="Components\FPSComponent.h" />
+    <ClInclude Include="Components\TextComponent.h" />
+    <ClInclude Include="Components\TransformComponent.h" />
+    <ClInclude Include="Resources\Loaders.h" />
+    <ClInclude Include="Resources\ResourceLoader.h" />
+    <ClInclude Include="Resources\ResourceManager.h" />
+    <ClInclude Include="Resources\Texture2D.h" />
+    <ClInclude Include="Resources\Font.h" />
+    <ClInclude Include="Components\RenderComponent.h" />
+    <ClInclude Include="Scene\DefaultScene.h" />
+    <ClInclude Include="Resources\Resources.h" />
+    <ClInclude Include="ImGui\imconfig.h" />
+    <ClInclude Include="ImGui\imgui.h" />
+    <ClInclude Include="ImGui\imgui_internal.h" />
+    <ClInclude Include="ImGui\imgui_plot.h" />
+    <ClInclude Include="ImGui\imgui_sdl.h" />
+    <ClInclude Include="ImGui\imstb_rectpack.h" />
+    <ClInclude Include="ImGui\imstb_textedit.h" />
+    <ClInclude Include="ImGui\imstb_truetype.h" />
+    <ClInclude Include="Helpers\SAT.h" />
+    <ClInclude Include="Components\PhysicsComponent2D.h" />
+    <ClInclude Include="ImGui\imgui_impl_opengl2.h" />
+    <ClInclude Include="ImGui\imgui_impl_sdl.h" />
+    <ClInclude Include="Graphics\GLTextureWrapper.h" />
+    <ClInclude Include="Debugging\DebugRenderer.h" />
+    <ClInclude Include="Helpers\GeneralHelpers.h" />
+    <ClInclude Include="Components\ControllerComponent.h" />
+    <ClInclude Include="Components\SpriteComponent.h" />
+    <ClInclude Include="Components\TextureComponent.h" />
+    <ClInclude Include="Helpers\json.hpp" />
+    <ClInclude Include="Helpers\Observer.h" />
+    <ClInclude Include="Resources\SoundByte.h" />
+    <ClInclude Include="Resources\SoundStream.h" />
+    <ClInclude Include="Components\LifetimeComponent.h" />
+    <ClInclude Include="Components\ScoreComponent.h" />
+    <ClInclude Include="Components\AIControllerComponent.h" />
+    <ClInclude Include="Components\BubbleComponent.h" />
+  </ItemGroup>
+</Project>

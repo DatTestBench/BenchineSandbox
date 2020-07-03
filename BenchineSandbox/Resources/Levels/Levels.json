@@ -1,0 +1,32 @@
+{
+    "Level1" : {
+        "Level" : {
+            "Texture" : "Level1.png",
+            "Collider" : "Level1.svg",
+            "Scale" : [3, 3]
+        },
+        "Enemies" : {
+    
+        }
+    },
+    "Level2" : {
+        "Level" : {
+            "Texture" : "Level2.png",
+            "Collider" : "Level2.svg",
+            "Scale" : [3, 3]
+        },
+        "Enemies" : {
+    
+        }
+    },
+    "Level3" : {
+        "Level" : {
+            "Texture" : "Level3.png",
+            "Collider" : "Level3.svg",
+            "Scale" : [3, 3]
+        },
+        "Enemies" : {
+            
+        }
+    }
+}

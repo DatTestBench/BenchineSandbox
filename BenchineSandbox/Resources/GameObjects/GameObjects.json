@@ -1,0 +1,68 @@
+{
+    "Bub" : {
+        "SpriteSheet" : "GameSprites.png",
+        "Animations" : [
+            {"RunRight" : 0},
+            {"RunLeft" : 1},
+            {"ShootRight" : 2},
+            {"ShootLeft" : 3}
+        ],
+        "Type" : "Player",
+        "PlayerId" : 0
+    },
+    "BubbleBub" : {
+        "SpriteSheet" : "GameSprites.png",
+        "Animations" : [
+            {"Default" : 4}
+        ]
+    },
+    "Bob" : {
+        "SpriteSheet" : "GameSprites.png",
+        "Animations" : [
+            {"RunRight" : 5},
+            {"RunLeft" : 6},
+            {"ShootRight" : 7},
+            {"ShootLeft" : 8}
+        ],
+        "Type" : "Player",
+        "PlayerId" : 1
+    },
+    "BubbleBob" : {
+        "SpriteSheet" : "GameSprites.png",
+        "Animations" : [
+            {"Default" : 9}
+        ]
+    },
+    "Zen-Chan" : {
+        "SpriteSheet" : "GameSprites.png",
+        "Animations" : [
+            {"RunRight" : 10},
+            {"RunLeft" : 11},
+            {"Caught" : 12}
+        ],
+        "Type" : "Enemy",
+        "Drop" : "WaterMelon"
+    },
+    "Maita" : {
+        "SpriteSheet" : "GameSprites.png" ,
+        "Animations" : [
+            {"RunRight" : 13},
+            {"RunLeft" : 14},
+            {"Caught" : 15}
+        ],
+        "Type" : "Enemy",
+        "Drop" : "Fries"
+    },
+    "Fries" : {
+        "SpriteSheet" : "Pickups.png",
+        "Cell" : 0,
+        "Value" : 200,
+        "Type" : "Pickup"
+    },
+    "WaterMelon" : {
+        "SpriteSheet" : "Pickups.png",
+        "Cell" : 1,
+        "Value" : 100,
+        "Type" : "Pickup"
+    }
+}
