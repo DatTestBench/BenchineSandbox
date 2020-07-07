@@ -69,6 +69,11 @@
     <ClCompile Include="Components\ScoreComponent.cpp" />
     <ClCompile Include="Components\AIControllerComponent.cpp" />
     <ClCompile Include="Components\BubbleComponent.cpp" />
+    <ClCompile Include="ImGui\crude_json.cpp" />
+    <ClCompile Include="ImGui\imgui_canvas.cpp" />
+    <ClCompile Include="ImGui\imgui_node_editor.cpp" />
+    <ClCompile Include="ImGui\imgui_node_editor_api.cpp" />
+    <ClCompile Include="NodeEditor\BNEditor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BenchinePCH.h" />
@@ -121,5 +126,17 @@
     <ClInclude Include="Components\ScoreComponent.h" />
     <ClInclude Include="Components\AIControllerComponent.h" />
     <ClInclude Include="Components\BubbleComponent.h" />
+    <ClInclude Include="ImGui\crude_json.h" />
+    <ClInclude Include="ImGui\imgui_bezier_math.h" />
+    <ClInclude Include="ImGui\imgui_canvas.h" />
+    <ClInclude Include="ImGui\imgui_extra_math.h" />
+    <ClInclude Include="ImGui\imgui_node_editor.h" />
+    <ClInclude Include="ImGui\imgui_node_editor_internal.h" />
+    <ClInclude Include="NodeEditor\BNEditor.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ImGui\imgui_bezier_math.inl" />
+    <None Include="ImGui\imgui_extra_math.inl" />
+    <None Include="ImGui\imgui_node_editor_internal.inl" />
   </ItemGroup>
 </Project>

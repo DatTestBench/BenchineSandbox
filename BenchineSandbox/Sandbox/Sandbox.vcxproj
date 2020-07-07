@@ -229,6 +229,7 @@ xcopy "$(SolutionDir)Resources\*" "$(OutDir)..\Resources\" /y /D /S</Command>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Scenes\NodeEditorScene.cpp" />
     <ClCompile Include="Scenes\TestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -240,6 +241,7 @@ xcopy "$(SolutionDir)Resources\*" "$(OutDir)..\Resources\" /y /D /S</Command>
     <ClInclude Include="Sandbox.h" />
     <ClInclude Include="SandboxPCH.h" />
     <ClInclude Include="Factories\Factories.h" />
+    <ClInclude Include="Scenes\NodeEditorScene.h" />
     <ClInclude Include="Scenes\TestScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
