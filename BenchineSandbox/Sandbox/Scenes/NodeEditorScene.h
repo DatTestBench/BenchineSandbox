@@ -1,11 +1,11 @@
 #pragma once
 #include "Scene/Scene.h"
-
-class NodeEditorScene final : public NodeEditorScene
+#include "NodeEditor/BNEditor.h"
+class NodeEditorScene final : public Scene
 {
 public:
 	NodeEditorScene(const std::string_view& sceneName);
-	virtual ~NodeEditorScene() override;
+	virtual ~NodeEditorScene();
 	DEL_ROF(NodeEditorScene)
 
 protected:
@@ -13,5 +13,5 @@ protected:
 	void Update([[maybe_unused]] float dT) override;
 
 private:
-
+	BNEditor editor;
 };

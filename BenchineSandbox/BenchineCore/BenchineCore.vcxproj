@@ -303,6 +303,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="NodeEditor\BNEditor.cpp" />
+    <ClCompile Include="NodeEditor\BNEditorHelpers.cpp" />
     <ClCompile Include="Resources\Loaders.cpp" />
     <ClCompile Include="Resources\ResourceLoader.cpp" />
     <ClCompile Include="Resources\ResourceManager.cpp" />
@@ -359,6 +360,8 @@
     <ClInclude Include="ImGui\imstb_textedit.h" />
     <ClInclude Include="ImGui\imstb_truetype.h" />
     <ClInclude Include="NodeEditor\BNEditor.h" />
+    <ClInclude Include="NodeEditor\BNEditorHelpers.h" />
+    <ClInclude Include="NodeEditor\BNNodes.h" />
     <ClInclude Include="Resources\Loaders.h" />
     <ClInclude Include="Resources\ResourceLoader.h" />
     <ClInclude Include="Resources\ResourceManager.h" />

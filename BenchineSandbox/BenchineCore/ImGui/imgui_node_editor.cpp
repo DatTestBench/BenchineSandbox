@@ -142,6 +142,7 @@ void ed::Log(const char* fmt, ...)
     LogV(fmt, args);
     va_end(args);
 # endif
+    (void*)fmt;
 }
 
 

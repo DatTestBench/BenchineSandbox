@@ -74,6 +74,7 @@
     <ClCompile Include="ImGui\imgui_node_editor.cpp" />
     <ClCompile Include="ImGui\imgui_node_editor_api.cpp" />
     <ClCompile Include="NodeEditor\BNEditor.cpp" />
+    <ClCompile Include="NodeEditor\BNEditorHelpers.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BenchinePCH.h" />
@@ -133,6 +134,8 @@
     <ClInclude Include="ImGui\imgui_node_editor.h" />
     <ClInclude Include="ImGui\imgui_node_editor_internal.h" />
     <ClInclude Include="NodeEditor\BNEditor.h" />
+    <ClInclude Include="NodeEditor\BNNodes.h" />
+    <ClInclude Include="NodeEditor\BNEditorHelpers.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ImGui\imgui_bezier_math.inl" />
