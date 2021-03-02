@@ -61,7 +61,7 @@ void Logger::OutputLog() noexcept
 					break;
 				case Verbosity::HeaderAndLocationCompact:
 				{
-					std::string_view fileName = log.file.substr(log.file.find_last_of('/') + 1);
+					const std::string fileName = log.file.substr(log.file.find_last_of('/') + 1);
 					ImGui::TextColored(logColor, fmt::format("[{0}] {1} {2}:({3}) > {4}", magic_enum::enum_name(log.level), fileName, log.function, log.line, log.message).c_str(), 0);
 					break;
 				}
