@@ -26,7 +26,6 @@
 // IMGUI
 #pragma warning (push, 0)
 #include "ImGui/imgui.h"
-#include "ImGui/imgui_sdl.h"
 #include "ImGui/imgui_impl_sdl.h"
 #include "ImGui/imgui_impl_opengl2.h"
 #pragma warning (pop)
@@ -63,8 +62,8 @@ inline void SafeDelete(T& pObject)
 #include "Resources/ResourceManager.h"
 #include "Core/InputManager.h"
 #include "Scene/SceneManager.h"
-#include "Debugging/Logger.h"
+#include "Debugging/Logger.hpp"
 #include "Graphics/Renderer.h"
 
 //The Big Helper File
-#include "Helpers/GeneralHelpers.h"
+#include "Helpers/GeneralHelpers.hpp"

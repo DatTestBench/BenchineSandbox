@@ -1,10 +1,10 @@
 #pragma once
 #include <unordered_map>
-#include <string_view>
 
 #include <filesystem>
-#include "Debugging/Logger.h"
-#include "Helpers/GeneralHelpers.h"
+
+#include "Debugging/Logger.hpp"
+#include "Helpers/GeneralHelpers.hpp"
 class BaseLoader
 {
 public:
@@ -42,7 +42,7 @@ public:
 		// https://stackoverflow.com/questions/12774207/fastest-way-to-check-if-a-file-exist-using-standard-c-c11-c
 		if (!std::filesystem::exists(m_DataPath + filePath))
 		{
-			DEBUGONLY(Logger::Log<LEVEL_ERROR>("ContentManager::GetResource()") << "file at following location not found\n" << m_DataPath + filePath);
+			LOG(LEVEL_ERROR, "file at following location not found {0}\n", m_DataPath + filePath);
 			return nullptr;
 		}
 

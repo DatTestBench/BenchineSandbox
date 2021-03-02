@@ -57,20 +57,15 @@ bool InputManager::ProcessInput()
 		{
 			// Controller Connected
 			m_Controllers.at(i).IsConnected = true;
-			DEBUGONLY(Logger::Log<LEVEL_DEBUG>("InputManager::ProcessInput()") << "Controller Connected");
-
-
+			LOG(LEVEL_DEBUG, "Controller Connected");
 		}
 		else if (dwResult != ERROR_SUCCESS && m_Controllers[i].IsConnected)
 		{
 			// Controller Disconnected
 			m_Controllers.at(i).IsConnected = false;
-			DEBUGONLY(Logger::Log<LEVEL_DEBUG>("InputManager::ProcessInput()") << "Controller Disconnected");
-
+			LOG(LEVEL_DEBUG, "Controller Disconnected");
 		}
 		// Bind all inputs to each controller
-
-		
 		CheckControllerInput(i, state, GamepadButton::DPAD_UP, XINPUT_GAMEPAD_DPAD_UP);
 		CheckControllerInput(i, state, GamepadButton::DPAD_DOWN, XINPUT_GAMEPAD_DPAD_DOWN);
 		CheckControllerInput(i, state, GamepadButton::DPAD_LEFT, XINPUT_GAMEPAD_DPAD_LEFT);
@@ -98,18 +93,18 @@ bool InputManager::ProcessInput()
 
 
 
-	for (auto& bind : m_InputBinds)
+	for (auto& [id, bind] : m_InputBinds)
 	{
 		// Keyboard Checks
 		bool keyBoardActive = false;
 
-		if (bind.second.State == InputState::Down)
+		if (bind.State == InputState::Down)
 		{
 			const Uint8* state = SDL_GetKeyboardState(NULL);
-			if (state[bind.second.KeyCode])
+			if (state[bind.KeyCode])
 			{
 				//auto a = std::async(bind.second.CallBack);
-				bind.second.CallBack();
+				bind.CallBack();
 				keyBoardActive = true;
 			}
 		}
@@ -117,10 +112,10 @@ bool InputManager::ProcessInput()
 		{
 			for (auto& keyEvent : m_KeyEvents)
 			{
-				if (keyEvent.KeyCode == bind.second.KeyCode && keyEvent.State == bind.second.State)
+				if (keyEvent.KeyCode == bind.KeyCode && keyEvent.State == bind.State)
 				{
 					//auto a = std::async(bind.second.CallBack);
-					bind.second.CallBack();
+					bind.CallBack();
 					keyBoardActive = true;
 					keyEvent.Processed = true;
 				}
@@ -129,34 +124,31 @@ bool InputManager::ProcessInput()
 
 		// XINPUT Checks
 		bool controllerActive = false;
-		if (bind.second.Button != GamepadButton::MAX_BUTTONS)
+		if (bind.Button != GamepadButton::MAX_BUTTONS)
 		{
-			if (m_Controllers.at(static_cast<uint32_t>(bind.second.ControllerId)).Buttons.at(bind.second.Button) 
-				&& (m_Controllers.at(static_cast<uint32_t>(bind.second.ControllerId)).ButtonStates.at(bind.second.Button) == bind.second.State))
+			if (m_Controllers.at(static_cast<uint32_t>(bind.ControllerId)).Buttons.at(bind.Button) 
+				&& (m_Controllers.at(static_cast<uint32_t>(bind.ControllerId)).ButtonStates.at(bind.Button) == bind.State))
 			{
 				//auto a = std::async(bind.second.CallBack);
-				bind.second.CallBack();
+				bind.CallBack();
 				controllerActive = true;
 			}
 		}
-		bind.second.IsActive = keyBoardActive || controllerActive;
+		bind.IsActive = keyBoardActive || controllerActive;
 	}
 
 	return false;
 }
 
-
-
-
 bool InputManager::AddInputBinding(InputBinding binding)
 {
-	size_t oldSize = m_InputBinds.size();
+	const size_t oldSize = m_InputBinds.size();
 	m_InputBinds.emplace(binding.ActionId, binding);
-	size_t newSize = m_InputBinds.size();
+	const size_t newSize = m_InputBinds.size();
 
 	if (oldSize == newSize)
 	{
-		DEBUGONLY(Logger::Log<LEVEL_WARNING>("InputManager::AddInputBinding()") << "Input with ID " << binding.ActionId << " already exists");
+		LOG(LEVEL_WARNING, "Input with ID {0} already exists", binding.ActionId);
 		return false;
 	}
 	return true;
@@ -202,7 +194,7 @@ void InputManager::ClearInputs()
 
 void InputManager::CheckControllerInput(DWORD index, XINPUT_STATE xinputstate, GamepadButton button, int xinputconstant)
 {
-	bool previous = m_Controllers.at(index).Buttons.at(button);
+	const bool previous = m_Controllers.at(index).Buttons.at(button);
 	if (xinputstate.Gamepad.wButtons & xinputconstant)
 	{
 		m_Controllers.at(index).Buttons.at(button) = true;

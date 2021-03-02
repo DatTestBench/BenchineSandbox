@@ -1,6 +1,6 @@
 #include "BenchinePCH.h"
 #include "Core/Benchine.h"
-#include "Helpers/Singleton.h"
+#include "Helpers/Singleton.hpp"
 void Benchine::Initialize()
 {
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)

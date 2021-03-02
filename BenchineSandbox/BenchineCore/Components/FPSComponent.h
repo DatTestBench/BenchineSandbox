@@ -9,7 +9,7 @@ public:
 
 	void Update([[maybe_unused]] float dT) override;
 
-	[[nodiscard]] constexpr auto GetFPS() const noexcept-> float { return m_FPS; }
+	[[nodiscard]] constexpr auto GetFPS() const noexcept -> float { return m_FPS; }
 
 protected:
 	void Initialize() override;
@@ -17,4 +17,3 @@ protected:
 private:
 	float m_FPS;
 };
-

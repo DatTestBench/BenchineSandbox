@@ -1,5 +1,5 @@
 #include "BenchinePCH.h"
-#include "Helpers/SAT.h"
+#include "Helpers/SAT.hpp"
 #include "Components/PhysicsComponent2D.h"
 #include "Components/TransformComponent.h"
 #include "glm/geometric.hpp"
@@ -41,7 +41,7 @@ PolygonCollisionResult sat::PolygonCollision(PhysicsComponent2D* pActorA, Physic
 		const auto projectionA = ProjectPolygon(axis, colliderA);
 		const auto projectionB = ProjectPolygon(axis, colliderB);
 
-		// Check if the polygon projections are currentlty intersecting
+		// Check if the polygon projections are currently intersecting
 		if (IntervalDistance(projectionA, projectionB) > 0)
 		{
 			result.intersect = false;
@@ -67,7 +67,7 @@ PolygonCollisionResult sat::PolygonCollision(PhysicsComponent2D* pActorA, Physic
 	}
 
 	// The minimum translation vector
-	// can be used to push the polygons appart.
+	// can be used to push the polygons apart.
 	if (result.intersect)
 		result.minimumTranslationVector = translationAxis * minIntervalDistance;
 
@@ -85,8 +85,8 @@ PolygonCollisionResult sat::PolygonCollision(PhysicsComponent2D* pActor, const C
 
 	const auto& collider = pActor->GetCollider();
 
-	size_t vertexCountA = collider.size();
-	size_t vertexCountB = staticPoly.size();
+	const size_t vertexCountA = collider.size();
+	const size_t vertexCountB = staticPoly.size();
 	float minIntervalDistance = std::numeric_limits<float>::infinity();
 	glm::vec2 translationAxis{}, currentVertex{}, nextVertex{};
 
@@ -113,7 +113,7 @@ PolygonCollisionResult sat::PolygonCollision(PhysicsComponent2D* pActor, const C
 		const auto projectionA = ProjectPolygon(axis, collider);
 		const auto projectionB = ProjectPolygon(axis, staticPoly);
 
-		// Check if the polygon projections are currentlty intersecting
+		// Check if the polygon projections are currently intersecting
 		if (IntervalDistance(projectionA, projectionB) > 0)
 		{
 			result.intersect = false;
@@ -124,7 +124,7 @@ PolygonCollisionResult sat::PolygonCollision(PhysicsComponent2D* pActor, const C
 		// Check if the current interval distance is the minimum one. If so store
 		// the interval distance and the current distance.
 		// This will be used to calculate the minimum translation vector
-		float intervalDistance = abs(IntervalDistance(projectionA, projectionB));
+		const float intervalDistance = glm::abs(IntervalDistance(projectionA, projectionB));
 		if (intervalDistance < minIntervalDistance)
 		{
 			minIntervalDistance = intervalDistance;
@@ -137,7 +137,7 @@ PolygonCollisionResult sat::PolygonCollision(PhysicsComponent2D* pActor, const C
 	}
 
 	// The minimum translation vector
-	// can be used to push the polygons appart.
+	// can be used to push the polygons apart.
 	if (result.intersect)
 		result.minimumTranslationVector = translationAxis * minIntervalDistance;
 

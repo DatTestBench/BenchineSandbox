@@ -1,6 +1,6 @@
 #pragma once
 // Wrapper the OpenGL texture system, to work with SDL_Surface
-#include "Helpers/GeneralHelpers.h"
+#include "Helpers/GeneralHelpers.hpp"
 
 enum class TextureOffsetMode
 {

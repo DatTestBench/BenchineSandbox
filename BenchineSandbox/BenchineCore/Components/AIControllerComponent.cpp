@@ -3,17 +3,16 @@
 #include "Components/PhysicsComponent2D.h"
 #include "Components/TransformComponent.h"
 #include "Components/SpriteComponent.h"
-#include "Debugging/DebugRenderer.h"
 #include <functional>
 #include <algorithm>
+
 AIControllerComponent::AIControllerComponent()
 	: m_Velocity(0, 0)
 	, m_Direction(-1, 0)
 	, m_pPhysicsComponent(nullptr)
-	, m_BubbleTimer()
 	, m_State(AIState::FREE)
+	, m_BubbleTimer()
 {
-
 }
 
 void AIControllerComponent::Initialize()
@@ -21,19 +20,17 @@ void AIControllerComponent::Initialize()
 	m_pPhysicsComponent = GetGameObject()->GetComponent<PhysicsComponent2D>();
 	if (m_pPhysicsComponent == nullptr)
 	{
-		DEBUGONLY(Logger::Log<LEVEL_ERROR>("ControllerComponent::Initialize()") << "No PhysicsComponent specified, please attach a PhysicsComponent when using a ControllerComponent");
+		LOG(LEVEL_ERROR, "No PhysicsComponent specified, please attach a PhysicsComponent when using a ControllerComponent");
 	}
-
-
 }
 
 void AIControllerComponent::Update(float dT)
 {
 	if (m_BubbleTimer > 0)
 	{
-		m_BubbleTimer-= dT;
+		m_BubbleTimer -= dT;
 	}
-	else 
+	else
 	{
 		if (m_State == AIState::CAPTURED)
 		{
@@ -42,7 +39,7 @@ void AIControllerComponent::Update(float dT)
 			{
 				GetGameObject()->GetComponent<SpriteComponent>()->SetAnimation("RunRight");
 			}
-				else if (m_Direction.x < 0)
+			else if (m_Direction.x < 0)
 			{
 				GetGameObject()->GetComponent<SpriteComponent>()->SetAnimation("RunLeft");
 			}
@@ -68,7 +65,7 @@ void AIControllerComponent::Update(float dT)
 
 		m_Velocity.x = std::clamp(m_Velocity.x, -150.f, 150.f);
 
-    	if (GetTransform()->GetPosition().y < 0.f)
+		if (GetTransform()->GetPosition().y < 0.f)
 		{
 			GetTransform()->SetPosition(GetTransform()->GetPosition().x, static_cast<float>(RENDERER->GetWindowSettings().Height));
 		}
@@ -94,7 +91,6 @@ void AIControllerComponent::InvertDirection()
 	{
 		GetGameObject()->GetComponent<SpriteComponent>()->SetAnimation("RunLeft");
 	}
-
 }
 
 void AIControllerComponent::Jump()

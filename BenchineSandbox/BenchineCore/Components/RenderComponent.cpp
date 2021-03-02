@@ -6,7 +6,6 @@
 
 RenderComponent::RenderComponent()
 {
-
 }
 
 RenderComponent::~RenderComponent()
@@ -22,16 +21,15 @@ void RenderComponent::Initialize()
 
 void RenderComponent::Update([[maybe_unused]] float dT)
 {
-	
 }
 
 void RenderComponent::Render() const
 {
 	const auto renderPos = GetGameObject()->GetTransform()->GetPosition();
 	const auto renderScale = GetGameObject()->GetTransform()->GetScale();
-	for (auto texture : m_RenderBuffer)
+	for (auto [order, texture] : m_RenderBuffer)
 	{
-		Renderer::GetInstance()->RenderTexture(texture.second, renderPos, renderScale);
+		Renderer::GetInstance()->RenderTexture(texture, renderPos, renderScale);
 	}
 }
 

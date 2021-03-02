@@ -16,10 +16,10 @@ public:
 
 	void Update(float dT) override;
 	void InvertDirection();
-    void SetDirection (const glm::vec2& direction) { m_Direction = direction; }
+	void SetDirection(const glm::vec2& direction) { m_Direction = direction; }
 	void BubbleHit();
 
-	[[nodiscard]] constexpr auto GetState() const noexcept-> AIState { return m_State; }
+	[[nodiscard]] constexpr auto GetState() const noexcept -> AIState { return m_State; }
 	void SetState(AIState state) noexcept { m_State = state; }
 
 protected:
@@ -37,5 +37,4 @@ private:
 	AIState m_State;
 
 	float m_BubbleTimer;
-
 };

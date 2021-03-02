@@ -12,7 +12,12 @@ void Sandbox::Initialize()
 	SceneManager::GetInstance()->SetStartScene("NodeEditorScene");
 
 	SceneManager::GetInstance()->Initialize();
-	
+
+	LOG(LEVEL_INFO, "{0} Test", "Info");
+	LOG(LEVEL_WARNING, "{0} Test", "Warning");
+	LOG(LEVEL_ERROR, "{0} Test", "Error");
+	LOG(LEVEL_DEBUG, "{0} Test", "Debug");
+	LOG(LEVEL_SUCCESS, "{0} Test", "Success");
 }
 
 void Sandbox::Update([[maybe_unused]] float dT)

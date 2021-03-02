@@ -1,8 +1,10 @@
 #pragma once
-//#include "Components/TransformComponent.h"
-//#include "Components/RenderComponent.h"
-#include "Helpers/Utils.h"
+
+#include "Helpers/Utils.hpp"
 #include "Scene/Scene.h"
+
+#include "Helpers/Concepts.hpp"
+
 class TransformComponent;
 class RenderComponent;
 class BaseComponent;
@@ -21,11 +23,8 @@ public:
 	 * @param pComponent The component that will be added to the scene
 	 * @return The component passed, returned for further use
 	 * */
-	template <
-		class T,
-		class = std::enable_if_t<std::is_base_of_v<BaseComponent, T>> // SFINAE doesn't look horrible at all :/
-	>
-		T* AddComponent(T* pComponent)
+	template <IsComponent Component>
+	Component* AddComponent(Component* pComponent)
 	{
 		m_pComponents.push_back(pComponent);
 		pComponent->m_pGameObject = this;
@@ -35,50 +34,49 @@ public:
 	void SetParentScene(Scene* pScene);
 	void SetParentObject(GameObject* pObject);
 	void SetRenderComponent(RenderComponent* pRenderComponent) { m_pRenderComponent = pRenderComponent; }
-	[[nodiscard]] constexpr auto GetTransform() const noexcept-> TransformComponent* { return m_pTransform; }
-	[[nodiscard]] constexpr auto GetRenderComponent() const noexcept-> RenderComponent* { return m_pRenderComponent; }
-	[[nodiscard]] constexpr auto MarkedForDelete() const noexcept-> bool { return m_MarkedForDelete;  }
-	Scene* GetScene() const;
-	void MarkForDelete() { m_MarkedForDelete = true; } 
+	[[nodiscard]] constexpr auto GetTransform() const noexcept -> TransformComponent* { return m_pTransform; }
+	[[nodiscard]] constexpr auto GetRenderComponent() const noexcept -> RenderComponent* { return m_pRenderComponent; }
+	[[nodiscard]] constexpr auto MarkedForDelete() const noexcept -> bool { return m_MarkedForDelete; }
+	[[nodiscard]] auto GetScene() const noexcept -> Scene*;
+	void MarkForDelete() { m_MarkedForDelete = true; }
 
-	template <class T>
-	T* GetComponent()
+	template <IsComponent Component>
+	Component* GetComponent()
 	{
-		const type_info& ti = typeid(T);
+		const type_info& ti = typeid(Component);
 		for (auto* component : m_pComponents)
 		{
 			if (component && typeid(*component) == ti)
-				return static_cast<T*>(component);
+				return static_cast<Component*>(component);
 		}
-
 		return nullptr;
 	}
 
-	template <class T>
-	std::vector<T*> GetComponents()
+	template <IsComponent Component>
+	std::vector<Component*> GetComponents()
 	{
-		const type_info& ti = typeid(T);
-		std::vector<T*> pComponents;
-		for (auto pComponent : m_pComponents)
+		const type_info& ti = typeid(Component);
+		std::vector<Component*> pComponents;
+		for (auto* pComponent : m_pComponents)
 		{
 			if (pComponent && typeid(*pComponent) == ti)
 			{
-				pComponents.push_back(static_cast<T*>(pComponent));
+				pComponents.push_back(static_cast<Component*>(pComponent));
 			}
 		}
-
 		return pComponents;
 	}
 
-
-
 protected:
 	// For future use
-	virtual void Initialize() {}
-	virtual void Update([[maybe_unused]] float dT) {}
+	virtual void Initialize()
+	{
+	}
+	virtual void Update([[maybe_unused]] float dT)
+	{
+	}
 
 private:
-
 	Scene* m_pParentScene;
 	GameObject* m_pParentObject;
 	std::list<BaseComponent*> m_pComponents;
@@ -87,4 +85,3 @@ private:
 	RenderComponent* m_pRenderComponent;
 	bool m_MarkedForDelete;
 };
-

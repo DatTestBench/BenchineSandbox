@@ -1,13 +1,13 @@
 #pragma once
-#include "Helpers/Singleton.h"
-#include "Helpers/GeneralHelpers.h"
+#include "Helpers/Singleton.hpp"
+#include "Helpers/GeneralHelpers.hpp"
 
 struct SDL_Window;
 class GLTextureWrapper;
 class Renderer final : public Singleton<Renderer>
 {
 public:
-	Renderer(token) {}
+	explicit Renderer(Token) {}
 	virtual ~Renderer();
 
 	void Initialize(const WindowSettings& windowSettings);
@@ -27,6 +27,6 @@ private:
 	SDL_GLContext m_pContext;
 	SDL_Window* m_pWindow;
 
-	const std::array<VertexUV, 4> CreateRenderParams(GLTextureWrapper* pTexture) const;
+	std::array<VertexUV, 4> CreateRenderParams(GLTextureWrapper* pTexture) const;
 };
 

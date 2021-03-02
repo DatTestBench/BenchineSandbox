@@ -16,7 +16,6 @@ public:
 		Initialize(); // Setup SDL
 
 		RESOURCES->Initialize("../Resources/");
-		DEBUGONLY(Logger* pLogger = Logger::GetInstance());
 
 		LoadGame();
 
@@ -25,6 +24,8 @@ public:
 		auto lastTime = std::chrono::high_resolution_clock::now();
 		//float lag = 0.f;
 
+		auto pLogger = Logger::GetInstance();
+		
 		while (!quit)
 		{
 			auto currentTime = std::chrono::high_resolution_clock::now();

@@ -5,9 +5,7 @@
 #include <tuple>
 #include <vector>
 #include <functional>
-#include <string_view>
-#include <functional>
-#include "Helpers/Singleton.h"
+#include "Helpers/Singleton.hpp"
 
 enum InputState
 {
@@ -55,7 +53,6 @@ struct InputBinding
 		, ControllerId(controllerId)
 		, IsActive(false)
 	{
-
 	}
 };
 
@@ -64,12 +61,11 @@ struct KeyEvent
 	int KeyCode;
 	InputState State;
 	bool Processed;
-	KeyEvent(int keyCode, InputState state)
+	KeyEvent(const int keyCode, const InputState state)
 		: KeyCode(keyCode)
 		, State(state)
 		, Processed(false)
 	{
-
 	}
 };
 
@@ -83,12 +79,11 @@ struct Controller
 class InputManager final : public Singleton<InputManager>
 {
 public:
-	InputManager(token)
+	explicit InputManager(Token)
 		: m_KeyEvents()
 		, m_Controllers()
 		, m_InputBinds()
 	{
-
 	}
 
 	bool AddInputBinding(InputBinding binding);
@@ -106,11 +101,9 @@ private:
 	std::vector<KeyEvent> m_KeyEvents;
 
 	std::array<Controller, XUSER_MAX_COUNT> m_Controllers;
-	
+
 	std::multimap<std::string_view, InputBinding> m_InputBinds;
 
 	void ClearInputs();
 	void CheckControllerInput(DWORD index, XINPUT_STATE xInputState, GamepadButton Button, int xInputConstant);
 };
-
-

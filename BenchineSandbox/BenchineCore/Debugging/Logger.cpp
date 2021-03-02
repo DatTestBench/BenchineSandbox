@@ -1,19 +1,23 @@
 #include "BenchinePCH.h"
-#include "Debugging/Logger.h"
+#include "Debugging/Logger.hpp"
 
-void Logger::OutputLog()
+#include <regex>
+
+#include "Helpers/GeneralHelpers.hpp"
+
+void Logger::OutputLog() noexcept
 {
-	m_LogList.erase(std::remove_if(m_LogList.begin(), m_LogList.end(), [](const LogEntry& entry) { return entry.MarkedForClear; }), m_LogList.end());
+	m_LogList.remove_if([] (const LogEntry& entry) { return entry.markedForClear; });
 
 	if (ImGui::Begin("Log"))
 	{
-		if (ImGui::BeginCombo("LevelSelection", m_LevelTags.at(m_CurrentLevel).c_str())) // Reference to implementation https://github.com/ocornut/imgui/issues/1658
+		if (ImGui::BeginCombo("LevelSelection", ENUM_TO_C_STR(m_CurrentLevel)))
 		{
-			for (size_t i = 0; i < m_LevelTags.size(); i++)
+			for (auto [level, name] : magic_enum::enum_entries<LogLevel>())
 			{
-				if (ImGui::Selectable(m_LevelTags.at(i).c_str(), m_CurrentLevel == i))
+				if (ImGui::Selectable(C_STR_FROM_VIEW(name)))
 				{
-					m_CurrentLevel = static_cast<LogLevel>(i);
+					m_CurrentLevel = level;
 				}
 			}
 			ImGui::EndCombo();
@@ -21,37 +25,51 @@ void Logger::OutputLog()
 
 		ImGui::SameLine();
 
-		ImGui::Checkbox("Show Headers", &m_ShowHeaders);
-
-		int logLine = 1;
-		for (auto& log : m_LogList)
+		if (ImGui::BeginCombo("Verbosity", ENUM_TO_C_STR(m_VerbosityLevel)))
 		{
-			if (log.OutputLocation == LOG_IMGUI)
+			for (auto [verbosity, name] : magic_enum::enum_entries<Verbosity>())
 			{
-				if (log.Level == m_CurrentLevel || m_CurrentLevel == LEVEL_FULL)
+				if (ImGui::Selectable(C_STR_FROM_VIEW(name)))
 				{
-					if (ImGui::SmallButton((std::to_string(logLine++) + "::").c_str()))
-					{
-						log.MarkedForClear = true;
-					}
-
-					ImGui::SameLine();
-
-					if (m_ShowHeaders)
-					{
-						ImGui::TextColored(m_ImGuiColors.at(log.Level), ("[" + m_LevelTags.at(log.Level) + "] " + log.Header + " > " + log.Message.str()).c_str(), 0);
-					}
-					else
-					{
-						ImGui::LogText("");
-						ImGui::TextColored(m_ImGuiColors.at(log.Level), log.Message.str().c_str(), 0);
-					}
+					m_VerbosityLevel = verbosity;
 				}
 			}
-			if (log.OutputLocation == LOG_CONSOLE)
+			ImGui::EndCombo();
+		}
+
+		uint32_t logLine = 1;
+
+		const std::regex pattern(".*\\\\([a-zA-Z]*\\.(?:cpp|h(?:pp)?))");
+		for (auto& log : m_LogList)
+		{
+			if (log.level == m_CurrentLevel || m_CurrentLevel == LogLevel::LEVEL_FULL)
 			{
-				// TODO: fix repeat console output
-				std::cout << "[" + m_LevelTags.at(log.Level) + "]" + log.Header + " > " + log.Message.str() << "\n";
+				if (ImGui::SmallButton((std::to_string(logLine++) + "::").c_str()))
+					log.markedForClear = true;
+
+				ImGui::SameLine();
+
+				const auto logColor = COLOR_LUT.at(magic_enum::enum_integer(log.level)).ImGuiColor;
+				
+				switch (m_VerbosityLevel)
+				{
+				case Verbosity::MessageOnly:
+					ImGui::TextColored(logColor, log.message.c_str());
+					break;
+				case Verbosity::HeaderOnly:
+					ImGui::TextColored(logColor, fmt::format("[{0}] {1}", magic_enum::enum_name(log.level), log.message).c_str());
+					break;
+				case Verbosity::HeaderAndLocationCompact:
+				{
+					std::string_view fileName = log.file.substr(log.file.find_last_of('/') + 1);
+					ImGui::TextColored(logColor, fmt::format("[{0}] {1} {2}:({3}) > {4}", magic_enum::enum_name(log.level), fileName, log.function, log.line, log.message).c_str(), 0);
+					break;
+				}
+				case Verbosity::Full:
+					ImGui::TextColored(logColor, fmt::format("[{0}] {1} {2}:({3}) > {4}", magic_enum::enum_name(log.level), log.file, log.function, log.line, log.message).c_str(), 0);
+					break;
+				default: ;
+				}
 			}
 		}
 	}

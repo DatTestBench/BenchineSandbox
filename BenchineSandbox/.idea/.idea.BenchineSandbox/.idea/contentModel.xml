@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\matth\AppData\Local\JetBrains\Rider2020.3\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\matth\AppData\Local\JetBrains\Rider2020.3\resharper-host\Local\Transient\Rider\v203\SolutionCaches\_BenchineSandbox.1718926469.00" t="ExcludeRecursive" />
+    <e p="D:\RandomCPP\BenchineSandbox\BenchineSandbox" t="IncludeFlat">
+      <e p="BenchineCore" t="IncludeRecursive">
+        <e p="BenchineCore.vcxproj" t="IncludeRecursive" />
+        <e p="BenchinePCH.cpp" t="Include" />
+        <e p="BenchinePCH.h" t="Include" />
+        <e p="bin" t="ExcludeRecursive">
+          <e p="Debug\x64" t="ExcludeRecursive" />
+        </e>
+        <e p="Components" t="Include">
+          <e p="AIControllerComponent.cpp" t="Include" />
+          <e p="AIControllerComponent.h" t="Include" />
+          <e p="BaseComponent.cpp" t="Include" />
+          <e p="BaseComponent.h" t="Include" />
+          <e p="BubbleComponent.cpp" t="Include" />
+          <e p="BubbleComponent.h" t="Include" />
+          <e p="Components.h" t="Include" />
+          <e p="ControllerComponent.cpp" t="Include" />
+          <e p="ControllerComponent.h" t="Include" />
+          <e p="FPSComponent.cpp" t="Include" />
+          <e p="FPSComponent.h" t="Include" />
+          <e p="LifetimeComponent.cpp" t="Include" />
+          <e p="LifetimeComponent.h" t="Include" />
+          <e p="PhysicsComponent2D.cpp" t="Include" />
+          <e p="PhysicsComponent2D.h" t="Include" />
+          <e p="RenderComponent.cpp" t="Include" />
+          <e p="RenderComponent.h" t="Include" />
+          <e p="ScoreComponent.cpp" t="Include" />
+          <e p="ScoreComponent.h" t="Include" />
+          <e p="SpriteComponent.cpp" t="Include" />
+          <e p="SpriteComponent.h" t="Include" />
+          <e p="TextComponent.cpp" t="Include" />
+          <e p="TextComponent.h" t="Include" />
+          <e p="TextureComponent.cpp" t="Include" />
+          <e p="TextureComponent.h" t="Include" />
+          <e p="TransformComponent.cpp" t="Include" />
+          <e p="TransformComponent.h" t="Include" />
+        </e>
+        <e p="Core" t="Include">
+          <e p="BaseGame.cpp" t="Include" />
+          <e p="BaseGame.h" t="Include" />
+          <e p="Benchine.cpp" t="Include" />
+          <e p="Benchine.h" t="Include" />
+          <e p="InputManager.cpp" t="Include" />
+          <e p="InputManager.h" t="Include" />
+        </e>
+        <e p="Debugging" t="Include">
+          <e p="DebugRenderer.cpp" t="Include" />
+          <e p="DebugRenderer.h" t="Include" />
+          <e p="Logger.cpp" t="Include" />
+          <e p="Logger.hpp" t="Include" />
+        </e>
+        <e p="Graphics" t="Include">
+          <e p="GLTextureWrapper.cpp" t="Include" />
+          <e p="GLTextureWrapper.h" t="Include" />
+          <e p="Renderer.cpp" t="Include" />
+          <e p="Renderer.h" t="Include" />
+        </e>
+        <e p="Helpers" t="Include">
+          <e p="Concepts.hpp" t="Include" />
+          <e p="GeneralHelpers.cpp" t="Include" />
+          <e p="GeneralHelpers.hpp" t="Include" />
+          <e p="SAT.cpp" t="Include" />
+          <e p="SAT.hpp" t="Include" />
+          <e p="Singleton.hpp" t="Include" />
+          <e p="Utils.hpp" t="Include" />
+        </e>
+        <e p="NodeEditor" t="Include">
+          <e p="BNEditor.cpp" t="Include" />
+          <e p="BNEditor.h" t="Include" />
+          <e p="BNEditorHelpers.cpp" t="Include" />
+          <e p="BNEditorHelpers.h" t="Include" />
+          <e p="BNNodes.h" t="Include" />
+        </e>
+        <e p="Resources" t="Include">
+          <e p="Font.cpp" t="Include" />
+          <e p="Font.h" t="Include" />
+          <e p="Loaders.cpp" t="Include" />
+          <e p="Loaders.h" t="Include" />
+          <e p="ResourceLoader.cpp" t="Include" />
+          <e p="ResourceLoader.h" t="Include" />
+          <e p="ResourceManager.cpp" t="Include" />
+          <e p="ResourceManager.h" t="Include" />
+          <e p="Resources.h" t="Include" />
+          <e p="SoundByte.cpp" t="Include" />
+          <e p="SoundByte.h" t="Include" />
+          <e p="SoundStream.cpp" t="Include" />
+          <e p="SoundStream.h" t="Include" />
+          <e p="Texture2D.cpp" t="Include" />
+          <e p="Texture2D.h" t="Include" />
+        </e>
+        <e p="Scene" t="Include">
+          <e p="DefaultScene.cpp" t="Include" />
+          <e p="DefaultScene.h" t="Include" />
+          <e p="GameObject.cpp" t="Include" />
+          <e p="GameObject.h" t="Include" />
+          <e p="Scene.cpp" t="Include" />
+          <e p="Scene.h" t="Include" />
+          <e p="SceneManager.cpp" t="Include" />
+          <e p="SceneManager.h" t="Include" />
+        </e>
+      </e>
+      <e p="BenchineSandbox.sln" t="IncludeFlat" />
+      <e p="CoreDependencies" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive">
+          <e p="Debug\x64" t="ExcludeRecursive" />
+        </e>
+        <e p="CoreDependencies.vcxproj" t="IncludeRecursive" />
+        <e p="fmt" t="Include">
+          <e p="chrono.h" t="Include" />
+          <e p="color.h" t="Include" />
+          <e p="compile.h" t="Include" />
+          <e p="core.h" t="Include" />
+          <e p="format-inl.h" t="Include" />
+          <e p="format.cc" t="Include" />
+          <e p="format.h" t="Include" />
+          <e p="locale.h" t="Include" />
+          <e p="os.cc" t="Include" />
+          <e p="os.h" t="Include" />
+          <e p="ostream.h" t="Include" />
+          <e p="posix.h" t="Include" />
+          <e p="printf.h" t="Include" />
+          <e p="ranges.h" t="Include" />
+        </e>
+        <e p="ImGui" t="Include">
+          <e p="imconfig.h" t="Include" />
+          <e p="imgui.cpp" t="Include" />
+          <e p="imgui.h" t="Include" />
+          <e p="imgui_demo.cpp" t="Include" />
+          <e p="imgui_draw.cpp" t="Include" />
+          <e p="imgui_impl_opengl2.cpp" t="Include" />
+          <e p="imgui_impl_opengl2.h" t="Include" />
+          <e p="imgui_impl_sdl.cpp" t="Include" />
+          <e p="imgui_impl_sdl.h" t="Include" />
+          <e p="imgui_internal.h" t="Include" />
+          <e p="imgui_tables.cpp" t="Include" />
+          <e p="imgui_widgets.cpp" t="Include" />
+          <e p="imstb_rectpack.h" t="Include" />
+          <e p="imstb_textedit.h" t="Include" />
+          <e p="imstb_truetype.h" t="Include" />
+        </e>
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="Sandbox" t="IncludeRecursive">
+        <e p="bin\Debug\x64" t="ExcludeRecursive" />
+        <e p="Factories" t="Include">
+          <e p="Factories.cpp" t="Include" />
+          <e p="Factories.h" t="Include" />
+        </e>
+        <e p="main.cpp" t="Include" />
+        <e p="Sandbox.cpp" t="Include" />
+        <e p="Sandbox.h" t="Include" />
+        <e p="Sandbox.vcxproj" t="IncludeRecursive" />
+        <e p="SandboxPCH.cpp" t="Include" />
+        <e p="SandboxPCH.h" t="Include" />
+        <e p="Scenes" t="Include">
+          <e p="NodeEditorScene.cpp" t="Include" />
+          <e p="NodeEditorScene.h" t="Include" />
+          <e p="TestScene.cpp" t="Include" />
+          <e p="TestScene.h" t="Include" />
+        </e>
+      </e>
+    </e>
+    <e p="D:\RandomCPP\BenchineSandbox\bin\Debug\x64" t="ExcludeRecursive" />
+  </component>
+</project>

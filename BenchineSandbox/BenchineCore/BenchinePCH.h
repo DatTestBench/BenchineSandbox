@@ -32,7 +32,6 @@
 // IMGUI
 #pragma warning (push, 0)
 #include "ImGui/imgui.h"
-#include "ImGui/imgui_sdl.h"
 #include "ImGui/imgui_impl_sdl.h"
 #include "ImGui/imgui_impl_opengl2.h"
 #pragma warning (pop)
@@ -48,6 +47,7 @@
 /*#include <Helpers/json.hpp>
 using json = nlohmann::json;*/
 
+#define GLM_FORCE_SILENT_WARNINGS
 
 // Macros
 #define DEL_ROF(className) \
@@ -75,8 +75,8 @@ inline void SafeDelete(T& pObject)
 #include "Resources/ResourceManager.h"
 #include "Core/InputManager.h"
 #include "Scene/SceneManager.h"
-#include "Debugging/Logger.h"
+#include "Debugging/Logger.hpp"
 #include "Graphics/Renderer.h"
 
 //The Big Helper File
-#include "Helpers/GeneralHelpers.h"
+#include "Helpers/GeneralHelpers.hpp"

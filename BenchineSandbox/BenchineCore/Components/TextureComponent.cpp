@@ -3,18 +3,16 @@
 #include "Components/RenderComponent.h"
 
 TextureComponent::TextureComponent(Texture2D* pTexture)
-    : m_pTexture(pTexture)
+	: m_pTexture(pTexture)
 {
-
 }
 
 void TextureComponent::Initialize()
 {
-
 }
 
 
 void TextureComponent::Update(float)
 {
-    GetGameObject()->GetRenderComponent()->AddTexture(m_pTexture->GetTextureWrapper());
+	GetGameObject()->GetRenderComponent()->AddTexture(m_pTexture->GetTextureWrapper());
 }

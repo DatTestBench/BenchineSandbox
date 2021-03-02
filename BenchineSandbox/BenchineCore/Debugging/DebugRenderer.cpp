@@ -1,5 +1,6 @@
 #include "BenchinePCH.h"
 #include "Debugging/DebugRenderer.h"
+#include <glm/gtc/constants.hpp>
 
 //POINTS
 #pragma region Points
@@ -208,7 +209,7 @@ void DebugRenderer::DrawArc(const float centerX, const float centerY, const floa
 {
 	if (fromAngle > tillAngle)
 	{
-		DEBUGONLY(Logger::Log<LEVEL_WARNING>("DebugRenderer::DrawArc()") << "fromAngle > tillAngle, arc can not be drawn");
+		LOG(LEVEL_WARNING, "fromAngle > tillAngle, arc can not be drawn");
 		return;
 	}
 
@@ -235,10 +236,10 @@ void DebugRenderer::FillArc(const float centerX, const float centerY, const floa
 {
 	if (fromAngle > tillAngle)
 	{
-		DEBUGONLY(Logger::Log<LEVEL_WARNING>("DebugRenderer::FillArc") << "fromAngle > tillAngle, arc can not be drawn.");
+		LOG(LEVEL_WARNING, "fromAngle > tillAngle, arc can not be drawn.");
 		return;
 	}
-	float dAngle = radX > radY ? glm::pi<float>() / radX : glm::pi<float>() / radY;
+	const float dAngle = radX > radY ? glm::pi<float>() / radX : glm::pi<float>() / radY;
 
 	glBegin(GL_POLYGON);
 	{

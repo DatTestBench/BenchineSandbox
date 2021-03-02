@@ -6,10 +6,10 @@ std::map<std::type_index, BaseLoader*> ResourceManager::m_Loaders = std::map<std
 
 ResourceManager::~ResourceManager()
 {
-	for (auto loader : m_Loaders)
+	for (auto [type, pLoader] : m_Loaders)
 	{
-		loader.second->ReleaseResources();
-		SafeDelete(loader.second);
+		pLoader->ReleaseResources();
+		SafeDelete(pLoader);
 	}
 }
 
@@ -23,23 +23,23 @@ void ResourceManager::Initialize(const std::string& dataPath)
 
 	if ((IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) != IMG_INIT_PNG)
 	{
-		DEBUGONLY(Logger::Log<LEVEL_ERROR>("ResourceManager::Initialize()") << "Failed to load support for pngs: " << IMG_GetError());
+		LOG(LEVEL_ERROR, "Failed to load support for pngs: {0}", IMG_GetError());
 	}
 
 	if ((IMG_Init(IMG_INIT_JPG) & IMG_INIT_JPG) != IMG_INIT_JPG)
 	{
-		DEBUGONLY(Logger::Log<LEVEL_ERROR>("ResourceManager::Initialize()") << "Failed to laod support for jpgs" << IMG_GetError());
+		LOG(LEVEL_ERROR, "Failed to load support for jpgs: {0}", IMG_GetError());
 	}
 
 	if (TTF_Init() != 0)
 	{
-		DEBUGONLY(Logger::Log<LEVEL_ERROR>("ResourceManager::Initialize()") << "Failed to load support for fonts: " << TTF_GetError());
+		LOG(LEVEL_ERROR, "Failed to load support for fonts: {0}", TTF_GetError());
 	}
 
 	// load SDL_Mixer support
 	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
 	{
-		DEBUGONLY(Logger::Log<LEVEL_ERROR>("ResourceManager::Initialize()") << "Failed to load support for sound: " << Mix_GetError());
+		LOG(LEVEL_ERROR, "Failed to load support for sound: {0}", Mix_GetError());
 	}
 
 

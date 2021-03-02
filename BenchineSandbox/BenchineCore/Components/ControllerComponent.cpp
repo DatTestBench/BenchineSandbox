@@ -3,40 +3,38 @@
 #include "Components/PhysicsComponent2D.h"
 #include "Components/TransformComponent.h"
 #include "Components/SpriteComponent.h"
-#include "Debugging/DebugRenderer.h"
 #include "Resources/SoundByte.h"
 #include <functional>
 #include <algorithm>
+
 ControllerComponent::ControllerComponent(uint32_t playerId)
 	: m_Velocity(0, 0)
 	, m_Movement(0, 0)
 	, m_pPhysicsComponent(nullptr)
 	, m_PlayerId(playerId)
 	, m_MovementState(MovementDirection::RIGHT)
-{
-
-}
+{}
 
 void ControllerComponent::Initialize()
 {
 	m_pPhysicsComponent = GetGameObject()->GetComponent<PhysicsComponent2D>();
 	if (m_pPhysicsComponent == nullptr)
 	{
-		DEBUGONLY(Logger::Log<LEVEL_ERROR>("ControllerComponent::Initialize()") << "No PhysicsComponent specified, please attach a PhysicsComponent when using a ControllerComponent");
+		LOG(LEVEL_ERROR, "No PhysicsComponent specified, please attach a PhysicsComponent when using a ControllerComponent");
 	}
 
 	if (m_PlayerId == 0)
 	{
 		INPUT->AddInputBinding(InputBinding("MoveLeft", std::bind(&ControllerComponent::MoveLeft, this), InputState::Down, 'a', -1, GamepadButton::DPAD_LEFT, m_PlayerId));
 		INPUT->AddInputBinding(InputBinding("MoveRight", std::bind(&ControllerComponent::MoveRight, this), InputState::Down, 'd', -1, GamepadButton::DPAD_RIGHT, m_PlayerId));
-		INPUT->AddInputBinding(InputBinding("Jump", std::bind(&ControllerComponent::Jump, this), InputState::Pressed, 'w' , -1, GamepadButton::A, m_PlayerId));
+		INPUT->AddInputBinding(InputBinding("Jump", std::bind(&ControllerComponent::Jump, this), InputState::Pressed, 'w', -1, GamepadButton::A, m_PlayerId));
 		INPUT->AddInputBinding(InputBinding("Shoot", std::bind(&ControllerComponent::Shoot, this), InputState::Pressed, 'f', -1, GamepadButton::X, m_PlayerId));
 	}
 	else if (m_PlayerId == 1)
 	{
 		INPUT->AddInputBinding(InputBinding("MoveLeft", std::bind(&ControllerComponent::MoveLeft, this), InputState::Down, SDLK_LEFT, -1, GamepadButton::DPAD_LEFT, m_PlayerId));
 		INPUT->AddInputBinding(InputBinding("MoveRight", std::bind(&ControllerComponent::MoveRight, this), InputState::Down, SDLK_RIGHT, -1, GamepadButton::DPAD_RIGHT, m_PlayerId));
-		INPUT->AddInputBinding(InputBinding("Jump", std::bind(&ControllerComponent::Jump, this), InputState::Pressed, SDLK_UP , -1, GamepadButton::A, m_PlayerId));
+		INPUT->AddInputBinding(InputBinding("Jump", std::bind(&ControllerComponent::Jump, this), InputState::Pressed, SDLK_UP, -1, GamepadButton::A, m_PlayerId));
 		INPUT->AddInputBinding(InputBinding("Shoot", std::bind(&ControllerComponent::Shoot, this), InputState::Pressed, SDLK_RETURN, -1, GamepadButton::X, m_PlayerId));
 	}
 }
@@ -70,7 +68,7 @@ void ControllerComponent::Update(float dT)
 		GetTransform()->SetPosition(GetTransform()->GetPosition().x, 0.f);
 	}
 
-	m_Movement = { 0, 0 };
+	m_Movement = {0, 0};
 }
 
 
@@ -79,7 +77,7 @@ void ControllerComponent::MoveLeft()
 	m_Movement.x -= 1;
 	m_Velocity.x = 0;
 
-	GetGameObject()->GetComponent<SpriteComponent>()->SetAnimation("RunLeft");	
+	GetGameObject()->GetComponent<SpriteComponent>()->SetAnimation("RunLeft");
 	m_MovementState = MovementDirection::LEFT;
 }
 
@@ -87,7 +85,7 @@ void ControllerComponent::MoveRight()
 {
 	m_Movement.x += 1;
 	m_Velocity.x = 0;
-	GetGameObject()->GetComponent<SpriteComponent>()->SetAnimation("RunRight");	
+	GetGameObject()->GetComponent<SpriteComponent>()->SetAnimation("RunRight");
 	m_MovementState = MovementDirection::RIGHT;
 }
 
@@ -96,13 +94,11 @@ void ControllerComponent::Jump()
 {
 	//if (m_pPhysicsComponent->IsOnGround())
 	{
-		DEBUGONLY(Logger::Log<LEVEL_INFO>("ControllerComponent::Jump()") << m_Velocity.x << " " << m_Velocity.y);
+		LOG(LEVEL_INFO, "Velocity: {0}, {1}", m_Velocity.x, m_Velocity.y);
 		m_Velocity.y = 600;
 		RESOURCES->Load<SoundByte>("Sounds/Jump.wav")->Play();
 	}
 }
 
 void ControllerComponent::Shoot()
-{
-
-}
+{}

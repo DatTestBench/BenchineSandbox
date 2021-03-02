@@ -1,8 +1,6 @@
 #include "BenchinePCH.h"
 
-#include "Resources/Texture2D.h"
 #include "glm/geometric.hpp"
-#include "Debugging/DebugRenderer.h"
 #include "Graphics/GLTextureWrapper.h"
 Renderer::~Renderer()
 {
@@ -132,10 +130,10 @@ void Renderer::RenderTexture(GLTextureWrapper* pTexture, const glm::vec2& pos, c
 		glBegin(GL_QUADS);
 		{
 
-			for (auto vertex : vertexBuffer)
+			for (auto [uv, vertexPos] : vertexBuffer)
 			{
-				glTexCoord2f(vertex.first.x, vertex.first.y);
-				glVertex3f(vertex.second.x, vertex.second.y, 1.f - 1.f / static_cast<GLfloat>(pTexture->GetRenderPriority()));
+				glTexCoord2f(uv.x, uv.y);
+				glVertex3f(vertexPos.x, vertexPos.y, 1.f - 1.f / static_cast<GLfloat>(pTexture->GetRenderPriority()));
 			}
 
 		}
@@ -147,7 +145,7 @@ void Renderer::RenderTexture(GLTextureWrapper* pTexture, const glm::vec2& pos, c
 }
 
 
-const std::array<VertexUV, 4> Renderer::CreateRenderParams(GLTextureWrapper* pTexture) const 
+std::array<VertexUV, 4> Renderer::CreateRenderParams(GLTextureWrapper* pTexture) const 
 {
 	const auto source = pTexture->GetSource();
 	const auto textureWidth = pTexture->GetWidth();

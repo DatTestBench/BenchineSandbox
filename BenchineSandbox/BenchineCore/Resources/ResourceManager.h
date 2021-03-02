@@ -1,15 +1,14 @@
 #pragma once
 #include <map>
 #include <typeindex>
-#include "Helpers/Singleton.h"
-#include "Resources/Resources.h"
+#include "Helpers/Singleton.hpp"
 #include "Resources/ResourceLoader.h"
 class ResourceManager final : public Singleton<ResourceManager>
 {
 public:
 
 
-	ResourceManager(token) {}
+	explicit ResourceManager(Token) {}
 	virtual ~ResourceManager();
 	void Initialize(const std::string& data);
 

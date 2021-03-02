@@ -1,14 +1,12 @@
 #pragma once
-#include "Scene/SceneManager.h"
-#include "Helpers/GeneralHelpers.h"
-#include <future>
+
 class GameObject;
 class RenderComponent;
 class PhysicsComponent2D;
 class Scene
 {
 public:
-	
+
 	Scene(const std::string_view& sceneName);
 	virtual ~Scene();
 	DEL_ROF(Scene)
@@ -42,7 +40,7 @@ public:
 	void AddDynamicObject(PhysicsComponent2D* pPhysicsComponent) noexcept;
 	void AddTrigger(PhysicsComponent2D* pPhysicsComponent) noexcept;
 
-	[[nodiscard]] constexpr auto GetSceneName() const noexcept-> std::string_view { return m_Name; }
+	[[nodiscard]] constexpr auto GetSceneName() const noexcept -> std::string_view { return m_Name; }
 
 protected:
 	virtual void Initialize() = 0;
@@ -56,5 +54,4 @@ private:
 	std::list<PhysicsComponent2D*> m_pDynamicObjects;
 	std::list<PhysicsComponent2D*> m_pStaticObjects;
 	std::list<PhysicsComponent2D*> m_pTriggers;
-
 };

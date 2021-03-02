@@ -4,19 +4,17 @@
 class BubbleComponent final : public BaseComponent
 {
 public:
-    BubbleComponent(const glm::vec2& throwDirection);
-    virtual ~BubbleComponent() override = default;
-    DEL_ROF(BubbleComponent)
+	BubbleComponent(const glm::vec2& throwDirection);
+	virtual ~BubbleComponent() override = default;
+	DEL_ROF(BubbleComponent)
 
-    void Update(float dT) override;
-    
+	void Update(float dT) override;
+
 
 protected:
-    void Initialize() override;
+	void Initialize() override;
 
 private:
 
-    glm::vec2 m_Velocity;
-
-
+	glm::vec2 m_Velocity;
 };

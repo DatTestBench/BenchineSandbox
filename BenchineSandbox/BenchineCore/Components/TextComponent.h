@@ -15,8 +15,13 @@ public:
 
 	void SetText(const std::string& text) noexcept;
 	void SetColor(const SDL_Color& color) noexcept { m_Color = color; }
-	void SetColor(Uint8 r, Uint8 g, Uint8 b) noexcept { m_Color.r = r; m_Color.g = g; m_Color.b = b; }
-	[[nodiscard]] constexpr auto GetTexture() const noexcept-> GLTextureWrapper* { return m_pTexture; }
+	void SetColor(Uint8 r, Uint8 g, Uint8 b) noexcept
+	{
+		m_Color.r = r;
+		m_Color.g = g;
+		m_Color.b = b;
+	}
+	[[nodiscard]] constexpr auto GetTexture() const noexcept -> GLTextureWrapper* { return m_pTexture; }
 
 
 protected:
@@ -29,4 +34,3 @@ private:
 	SDL_Color m_Color;
 	GLTextureWrapper* m_pTexture;
 };
-

@@ -17,7 +17,7 @@ public:
 
 	void Update(float dT) override;
 
-	
+
 
 protected:
 	void Initialize() override;

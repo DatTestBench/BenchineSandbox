@@ -3,20 +3,18 @@
 #include "Scene/Scene.h"
 #include "Scene/DefaultScene.h"
 
-SceneManager::SceneManager(token)
-	: m_pScenes()
-	, m_pCurrentScene(nullptr)
+SceneManager::SceneManager(Token)
+	: m_pCurrentScene(nullptr)
 	, m_pSceneToLoad(nullptr)
 	, m_IsInitialized(false)
 {
-
 }
 
 SceneManager::~SceneManager()
 {
-	for (auto pScene : m_pScenes)
+	for (auto [sceneName, pScene] : m_pScenes)
 	{
-		SafeDelete(pScene.second);
+		SafeDelete(pScene);
 	}
 }
 
@@ -27,7 +25,7 @@ void SceneManager::Initialize()
 
 	if (m_pScenes.empty())
 	{
-		DEBUGONLY(Logger::Log<LEVEL_WARNING>("SceneManager::SetStartScene") << "No scenes loaded, falling back on default scene");
+		LOG(LEVEL_WARNING, "No scenes loaded, falling back on default scene");
 
 		auto pDefaultScene = new DefaultScene;
 
@@ -36,15 +34,15 @@ void SceneManager::Initialize()
 		m_pCurrentScene = pDefaultScene;
 	}
 
-	for (auto pScene : m_pScenes)
+	for (auto [sceneName, pScene] : m_pScenes)
 	{
-		pScene.second->BaseInitialize();
+		pScene->BaseInitialize();
 	}
 
 	m_IsInitialized = true;
 }
 
-void SceneManager::Update(float dT)
+void SceneManager::Update(const float dT)
 {
 	if (m_pSceneToLoad != nullptr)
 	{
@@ -62,13 +60,13 @@ void SceneManager::AddScene(Scene* pScene)
 
 	if (currentSize == m_pScenes.size())
 	{
-		DEBUGONLY(Logger::Log<LEVEL_WARNING>("SceneManager::AddScene()") << "A Scene with name: " << pScene->GetSceneName() << " already exists, the scene was not added.");
+		LOG(LEVEL_WARNING, "A Scene with name: {0} already exists, the scene was not added", pScene->GetSceneName());
 	}
 }
 
 void SceneManager::LoadScene(const std::string_view& sceneName)
 {
-	auto pSceneToLoad = m_pScenes.find(sceneName);
+	const auto pSceneToLoad = m_pScenes.find(sceneName);
 
 	if (pSceneToLoad != m_pScenes.cend())
 	{
@@ -76,12 +74,12 @@ void SceneManager::LoadScene(const std::string_view& sceneName)
 		return;
 	}
 
-	DEBUGONLY(Logger::Log<LEVEL_ERROR>("SceneManager::LoadScene") << "Scene: " << sceneName << " not found, loading failed");
+	LOG(LEVEL_ERROR, "Scene: {0} not found, loading failed", sceneName);
 }
 
 void SceneManager::SetStartScene(const std::string_view& sceneName)
 {
-	auto pStartScene = m_pScenes.find(sceneName);
+	const auto pStartScene = m_pScenes.find(sceneName);
 
 	if (pStartScene != m_pScenes.cend())
 	{
@@ -89,14 +87,13 @@ void SceneManager::SetStartScene(const std::string_view& sceneName)
 		return;
 	}
 
-	DEBUGONLY(Logger::Log<LEVEL_WARNING>("SceneManager::SetStartScene") << "Scene: " << sceneName << " not found, defaulting to first scene in the map if present");
+	LOG(LEVEL_WARNING, "Scene: {0} not found, defaulting to first scene in the map if present", sceneName);
 
 	if (m_pScenes.empty())
 	{
 		return;
 	}
 	m_pCurrentScene = (*m_pScenes.begin()).second;
-
 }
 
 void SceneManager::RenderCurrentScene()

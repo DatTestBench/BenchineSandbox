@@ -2,17 +2,12 @@
 #include "Scene/Scene.h"
 #include "Scene/GameObject.h"
 #include "Components/RenderComponent.h"
-#include "Helpers/SAT.h"
 #include "Components/PhysicsComponent2D.h"
-#include "Debugging/DebugRenderer.h"
 #include <future>
 #include <deque>
-Scene::Scene(const std::string_view& name)
-	: m_Name(name)
-	, m_pGameObjects()
-	, m_pRenderComponents()
+Scene::Scene(const std::string_view& sceneName)
+	: m_Name(sceneName)
 {
-
 }
 
 Scene::~Scene()
@@ -35,7 +30,7 @@ void Scene::BaseInitialize()
 	}
 }
 
-void Scene::BaseUpdate(float dT)
+void Scene::BaseUpdate(const float dT)
 {
 	// User Defined Update
 	Update(dT);
@@ -55,14 +50,12 @@ void Scene::BaseUpdate(float dT)
 		{
 			++pGameObject;
 		}
-		
 	}
 	DoPhysics();
 }
 
 void Scene::Render() const
 {
-
 	for (auto pRenderComponent : m_pRenderComponents)
 	{
 		if (pRenderComponent != nullptr)
@@ -72,16 +65,16 @@ void Scene::Render() const
 		}
 		else
 		{
-			DEBUGONLY(Logger::Log<LEVEL_WARNING>("Scene::Render") << "Trying to render deleted RenderComponent, remember to clean up render components when deleting an object that has one");
+			LOG(LEVEL_WARNING, "Trying to render deleted RenderComponent, remember to clean up render components when deleting an object that has one");
 		}
 	}
 }
 
 void Scene::DoPhysics()
 {
-	uint32_t maxThreads = std::thread::hardware_concurrency();
+	const uint32_t maxThreads = std::thread::hardware_concurrency();
 	std::deque<std::future<void>> futures;
-	uint32_t threadCounter = 0;	
+	uint32_t threadCounter = 0;
 
 	for (auto dynamicObject : m_pDynamicObjects)
 	{
@@ -92,7 +85,8 @@ void Scene::DoPhysics()
 			threadCounter--;
 		}
 
-		futures.emplace_back(std::async(std::launch::async, [=](){
+		futures.emplace_back(std::async(std::launch::async, [=]()
+		{
 			for (auto staticObject : m_pStaticObjects)
 			{
 				dynamicObject->HandleCollision(staticObject);
@@ -107,7 +101,8 @@ void Scene::DoPhysics()
 			threadCounter--;
 		}
 
-		futures.emplace_back(std::async(std::launch::async, [=](){
+		futures.emplace_back(std::async(std::launch::async, [=]()
+		{
 			for (auto otherObject : m_pDynamicObjects)
 			{
 				if (dynamicObject != otherObject)
@@ -125,7 +120,8 @@ void Scene::DoPhysics()
 			threadCounter--;
 		}
 
-		futures.emplace_back(std::async(std::launch::async, [=](){
+		futures.emplace_back(std::async(std::launch::async, [=]()
+		{
 			for (auto dynamicObject : m_pDynamicObjects)
 			{
 				trigger->HandleCollision(dynamicObject);
@@ -159,12 +155,12 @@ GameObject* Scene::RemoveGameObject(GameObject* pGameObject) noexcept
 {
 	if (pGameObject == nullptr)
 	{
-		DEBUGONLY(Logger::Log<LEVEL_WARNING>("Scene::RemoveGameObject") << "You just tried to remove a gameobject that was already nullptr");
+		LOG(LEVEL_WARNING, "You just tried to remove a gameobject that was already nullptr");
 		return pGameObject;
 	}
 	m_pGameObjects.remove(pGameObject);
 
-	auto pRenderComponent = pGameObject->GetRenderComponent();
+	const auto pRenderComponent = pGameObject->GetRenderComponent();
 	if (pRenderComponent != nullptr)
 	{
 		m_pRenderComponents.remove(pRenderComponent);
