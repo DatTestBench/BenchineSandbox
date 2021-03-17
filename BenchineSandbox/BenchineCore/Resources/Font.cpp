@@ -1,8 +1,9 @@
 #include "BenchinePCH.h"
 #include "Resources/Font.h"
 #include "Graphics/GLTextureWrapper.h"
-Font::Font(const std::string& fullPath, uint32_t size)
-	: m_pFont(TTF_OpenFont(fullPath.c_str(), static_cast<int>(size)))
+
+Font::Font(const std::string& fullPath, const u32 size)
+	: m_pFont(TTF_OpenFont(fullPath.c_str(), static_cast<i32>(size)))
 	, m_pTexture(nullptr)
 {
 	if (m_pFont == nullptr) 

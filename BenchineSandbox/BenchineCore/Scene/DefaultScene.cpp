@@ -9,6 +9,6 @@ void DefaultScene::Initialize()
 {
 }
 
-void DefaultScene::Update([[maybe_unused]] float dT)
+void DefaultScene::Update([[maybe_unused]] const f32 dT)
 {
 }

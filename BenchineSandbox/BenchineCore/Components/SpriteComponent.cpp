@@ -3,15 +3,15 @@
 #include "Components/RenderComponent.h"
 #include "Graphics/GLTextureWrapper.h"
 
-SpriteComponent::SpriteComponent(Texture2D* pSpriteSheet, uint32_t nrCols, uint32_t nrRows, uint32_t nrZones, float fps)
+SpriteComponent::SpriteComponent(Texture2D* pSpriteSheet, const u32 nrCols, const u32 nrRows, const u32 nrZones, const f32 fps)
 	: m_pSpriteSheet(pSpriteSheet)
 	, m_Cols(nrCols)
 	, m_Rows(nrRows)
 	, m_Zones(nrZones)
+	, m_CurrentZone(0)
 	, m_Fps(fps)
 	, m_CurrentElapsed()
 	, m_CurrentFrame()
-	, m_CurrentZone(0)
 {
 }
 
@@ -22,14 +22,14 @@ void SpriteComponent::Initialize()
 	src.Height = GetFrameHeight();
 
 	src.Pos.x = 0;
-	const uint32_t zoneSize = m_Rows / m_Zones;
-	src.Pos.y = static_cast<int32_t>(src.Height * ((m_CurrentFrame / m_Cols) + (m_CurrentZone * zoneSize)));
+	const u32 zoneSize = m_Rows / m_Zones;
+	src.Pos.y = static_cast<u32>(src.Height * ((m_CurrentFrame / m_Cols) + (m_CurrentZone * zoneSize)));
 
 	m_pSpriteSheet->GetTextureWrapper()->SetSource(src);
 	GetGameObject()->GetRenderComponent()->AddTexture(m_pSpriteSheet->GetTextureWrapper());
 }
 
-void SpriteComponent::Update(float dT)
+void SpriteComponent::Update(const f32 dT)
 {
 	m_CurrentElapsed += dT;
 	if (m_CurrentElapsed >= 1.f / m_Fps)
@@ -41,18 +41,18 @@ void SpriteComponent::Update(float dT)
 		src.Width = GetFrameWidth();
 		src.Height = GetFrameHeight();
 
-		src.Pos.x = static_cast<int32_t>(src.Width * (m_CurrentFrame % m_Cols));
+		src.Pos.x = static_cast<i32>(src.Width * (m_CurrentFrame % m_Cols));
 
-		const uint32_t zoneSize = m_Rows / m_Zones;
+		const u32 zoneSize = m_Rows / m_Zones;
 
-		src.Pos.y = static_cast<int32_t>(src.Height * ((m_CurrentFrame / m_Cols) + (m_CurrentZone * zoneSize)));
+		src.Pos.y = static_cast<i32>(src.Height * ((m_CurrentFrame / m_Cols) + (m_CurrentZone * zoneSize)));
 
 		m_pSpriteSheet->GetTextureWrapper()->SetSource(src);
 	}
 	GetGameObject()->GetRenderComponent()->AddTexture(m_pSpriteSheet->GetTextureWrapper());
 }
 
-void SpriteComponent::SetCurrentZone(uint32_t zone) noexcept
+void SpriteComponent::SetCurrentZone(u32 zone) noexcept
 {
 	if (zone > m_Zones)
 	{
@@ -65,7 +65,7 @@ void SpriteComponent::SetCurrentZone(uint32_t zone) noexcept
 	}
 }
 
-void SpriteComponent::AddAnimation(const std::string& name, uint32_t zone) noexcept
+void SpriteComponent::AddAnimation(const std::string& name, u32 zone) noexcept
 {
 	m_AnimationMap.emplace(std::pair(name, zone));
 }

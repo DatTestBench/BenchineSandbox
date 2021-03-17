@@ -16,9 +16,8 @@ void Benchine::LoadGame() const
 	m_pGame->BaseInitialize();
 }
 
-void Benchine::Cleanup()
+void Benchine::Cleanup() const
 {
-
 	delete m_pGame;
 	SceneManager::Destroy();
 	ResourceManager::Destroy();

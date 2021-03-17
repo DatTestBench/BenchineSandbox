@@ -2,11 +2,13 @@
 #include "Core/InputManager.h"
 #include <future>
 
+#include "BenchineCore.hpp"
+
 bool InputManager::ProcessInput()
 {
 
 	ImGuiIO& io = ImGui::GetIO();
-	int wheel = 0;
+	i32 wheel = 0;
 	ClearInputs();
 
 	// SDL
@@ -33,8 +35,8 @@ bool InputManager::ProcessInput()
 		{
 			if (e.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
 			{
-				io.DisplaySize.x = static_cast<float>(e.window.data1);
-				io.DisplaySize.y = static_cast<float>(e.window.data2);
+				io.DisplaySize.x = static_cast<f32>(e.window.data1);
+				io.DisplaySize.y = static_cast<f32>(e.window.data2);
 			}
 		}
 		if (e.type == SDL_MOUSEWHEEL)
@@ -83,13 +85,13 @@ bool InputManager::ProcessInput()
 
 	}
 
-	int mouseX, mouseY;
+	i32 mouseX, mouseY;
 	const auto buttons = SDL_GetMouseState(&mouseX, &mouseY);
 
-	io.MousePos = ImVec2(static_cast<float>(mouseX), static_cast<float>(mouseY));
+	io.MousePos = ImVec2(static_cast<f32>(mouseX), static_cast<f32>(mouseY));
 	io.MouseDown[0] = buttons & SDL_BUTTON(SDL_BUTTON_LEFT);
 	io.MouseDown[1] = buttons & SDL_BUTTON(SDL_BUTTON_RIGHT);
-	io.MouseWheel = static_cast<float>(wheel);
+	io.MouseWheel = static_cast<f32>(wheel);
 
 
 
@@ -100,7 +102,7 @@ bool InputManager::ProcessInput()
 
 		if (bind.State == InputState::Down)
 		{
-			const Uint8* state = SDL_GetKeyboardState(NULL);
+			const u8* state = SDL_GetKeyboardState(nullptr);
 			if (state[bind.KeyCode])
 			{
 				//auto a = std::async(bind.second.CallBack);
@@ -124,10 +126,10 @@ bool InputManager::ProcessInput()
 
 		// XINPUT Checks
 		bool controllerActive = false;
-		if (bind.Button != GamepadButton::MAX_BUTTONS)
+		if (bind.Button != GamepadButton::NONE)
 		{
-			if (m_Controllers.at(static_cast<uint32_t>(bind.ControllerId)).Buttons.at(bind.Button) 
-				&& (m_Controllers.at(static_cast<uint32_t>(bind.ControllerId)).ButtonStates.at(bind.Button) == bind.State))
+			if (m_Controllers.at(static_cast<u32>(bind.ControllerId)).Buttons.at(EnumIndex(bind.Button)) 
+				&& (m_Controllers.at(static_cast<u32>(bind.ControllerId)).ButtonStates.at(EnumIndex(bind.Button)) == bind.State))
 			{
 				//auto a = std::async(bind.second.CallBack);
 				bind.CallBack();
@@ -160,48 +162,48 @@ bool InputManager::IsBindingActive(std::string_view)
 	//return m_InputBinds.at(actionId).IsActive;
 }
 
-bool InputManager::IsPressed(GamepadButton button, int controllerId)
+bool InputManager::IsPressed(GamepadButton button, const u32 controllerId)
 {
 
-	if (m_Controllers.at(static_cast<uint32_t>(controllerId)).IsConnected)
+	if (m_Controllers.at(controllerId).IsConnected)
 	{
-		return m_Controllers.at(static_cast<uint32_t>(controllerId)).Buttons[button];
+		return m_Controllers.at(controllerId).Buttons.at(EnumIndex(button));
 	}
 	return false;
 }
 
-void InputManager::LogKeyPressed(SDL_Scancode key)
+void InputManager::LogKeyPressed(const SDL_Scancode key)
 {
 	m_KeyEvents.emplace_back(KeyEvent(key, InputState::Pressed));
 }
-void InputManager::LogKeyReleased(SDL_Scancode key)
+void InputManager::LogKeyReleased(const SDL_Scancode key)
 {
 	m_KeyEvents.emplace_back(KeyEvent(key, InputState::Released));
 }
 
 
-std::tuple<int, int, Uint32> InputManager::GetMouseState()
+std::tuple<i32, i32, u32> InputManager::GetMouseState()
 {
-	int x, y;
-	Uint32 mouseState = SDL_GetMouseState(&x, &y);
-	return std::tuple<int, int, Uint32>(x, y, mouseState);
+	i32 x, y;
+	u32 mouseState = SDL_GetMouseState(&x, &y);
+	return std::tuple<i32, i32, u32>(x, y, mouseState);
 }
 
 void InputManager::ClearInputs()
 {
-	m_KeyEvents.erase(std::remove_if(m_KeyEvents.begin(), m_KeyEvents.end(), [](const KeyEvent& keyEvent) { return keyEvent.Processed; }), m_KeyEvents.end());
+	m_KeyEvents.erase(std::ranges::remove_if(m_KeyEvents, [](const KeyEvent& keyEvent) { return keyEvent.Processed; }).begin(), m_KeyEvents.end());
 }
 
-void InputManager::CheckControllerInput(DWORD index, XINPUT_STATE xinputstate, GamepadButton button, int xinputconstant)
+void InputManager::CheckControllerInput(const DWORD index, const XINPUT_STATE xInputState, const GamepadButton button, const i32 xInputConstant)
 {
-	const bool previous = m_Controllers.at(index).Buttons.at(button);
-	if (xinputstate.Gamepad.wButtons & xinputconstant)
+	const bool previous = m_Controllers.at(index).Buttons.at(EnumIndex(button));
+	if (xInputState.Gamepad.wButtons & xInputConstant)
 	{
-		m_Controllers.at(index).Buttons.at(button) = true;
-		m_Controllers.at(index).ButtonStates.at(button) = previous ? InputState::Down : InputState::Pressed;
+		m_Controllers.at(index).Buttons.at(EnumIndex(button)) = true;
+		m_Controllers.at(index).ButtonStates.at(EnumIndex(button)) = previous ? InputState::Down : InputState::Pressed;
 	}
 	else
 	{
-		m_Controllers.at(index).Buttons.at(button) = false;
+		m_Controllers.at(index).Buttons.at(EnumIndex(button)) = false;
 	}
 }

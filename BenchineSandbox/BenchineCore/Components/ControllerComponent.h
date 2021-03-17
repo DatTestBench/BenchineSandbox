@@ -11,11 +11,11 @@ enum class MovementDirection
 class ControllerComponent final : public BaseComponent
 {
 public:
-	ControllerComponent(uint32_t playerId);
+	ControllerComponent(u32 playerId);
 	virtual ~ControllerComponent() override = default;
 	DEL_ROF(ControllerComponent)
 
-	void Update(float dT) override;
+	void Update(f32 dT) override;
 
 
 
@@ -30,6 +30,6 @@ private:
 	glm::vec2 m_Velocity;
 	glm::vec2 m_Movement;
 	PhysicsComponent2D* m_pPhysicsComponent;
-	uint32_t m_PlayerId;
+	u32 m_PlayerId;
 	MovementDirection m_MovementState;
 };

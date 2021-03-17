@@ -4,15 +4,15 @@
 class LifetimeComponent final : public BaseComponent
 {
 public:
-	LifetimeComponent(float lifeTime);
+	explicit LifetimeComponent(f32 lifeTime);
 	virtual ~LifetimeComponent() override = default;
 	DEL_ROF(LifetimeComponent)
 
-	void Update(float dT) override;
+	void Update(f32 dT) override;
 
 protected:
 	void Initialize() override;
 
 private:
-	float m_LifeTime;
+	f32 m_LifeTime;
 };

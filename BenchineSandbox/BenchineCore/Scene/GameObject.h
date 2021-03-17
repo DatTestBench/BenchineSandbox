@@ -16,7 +16,7 @@ public:
 	DEL_ROF(GameObject)
 
 	void BaseInitialize();
-	void BaseUpdate(float dT);
+	void BaseUpdate(f32 dT);
 
 	/**
 	 * Adds a component to the current gameobject
@@ -72,7 +72,7 @@ protected:
 	virtual void Initialize()
 	{
 	}
-	virtual void Update([[maybe_unused]] float dT)
+	virtual void Update([[maybe_unused]] f32 dT)
 	{
 	}
 

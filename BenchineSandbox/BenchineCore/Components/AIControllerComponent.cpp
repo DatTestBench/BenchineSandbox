@@ -24,7 +24,7 @@ void AIControllerComponent::Initialize()
 	}
 }
 
-void AIControllerComponent::Update(float dT)
+void AIControllerComponent::Update(const f32 dT)
 {
 	if (m_BubbleTimer > 0)
 	{
@@ -47,9 +47,9 @@ void AIControllerComponent::Update(float dT)
 
 
 		m_State = AIState::FREE;
-		constexpr float velocity = 100.f;
-		constexpr float gravity = 750.f;
-		constexpr float friction = 500.f;
+		const f32 velocity = 100.f;
+		const f32 gravity = 750.f;
+		const f32 friction = 500.f;
 		if (!m_pPhysicsComponent->IsOnGround())
 		{
 			m_Velocity.y = std::clamp(m_Velocity.y - gravity * dT, -200.f, 1000.f);
@@ -67,9 +67,9 @@ void AIControllerComponent::Update(float dT)
 
 		if (GetTransform()->GetPosition().y < 0.f)
 		{
-			GetTransform()->SetPosition(GetTransform()->GetPosition().x, static_cast<float>(RENDERER->GetWindowSettings().Height));
+			GetTransform()->SetPosition(GetTransform()->GetPosition().x, static_cast<f32>(RENDERER->GetWindowSettings().Height));
 		}
-		else if (GetTransform()->GetPosition().y > static_cast<float>(RENDERER->GetWindowSettings().Height))
+		else if (GetTransform()->GetPosition().y > static_cast<f32>(RENDERER->GetWindowSettings().Height))
 		{
 			GetTransform()->SetPosition(GetTransform()->GetPosition().x, 0.f);
 		}

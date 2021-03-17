@@ -11,8 +11,8 @@ public:
     static void Stop() noexcept;
     static void Pause() noexcept;
     static void Resume() noexcept;
-    static void SetVolume(uint32_t volume) noexcept;
-    static auto GetVolume()noexcept-> int;
+    static void SetVolume(u32 volume) noexcept;
+    static auto GetVolume()noexcept -> i32;
 
 private:
     Mix_Music* m_pMixMusic;

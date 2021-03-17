@@ -20,10 +20,10 @@ TestScene::~TestScene()
 
 void TestScene::Initialize()
 {
-	auto font = RESOURCES->Load<Font>("Lingua.otf");
+	const auto font = RESOURCES->Load<Font>("Lingua.otf");
 
 	m_pFPSCounter = AddGameObject(new GameObject());
-	m_pFPSCounter->GetTransform()->SetPosition(0.f, static_cast<float>(RENDERER->GetWindowSettings().Height));
+	m_pFPSCounter->GetTransform()->SetPosition(0.f, static_cast<f32>(RENDERER->GetWindowSettings().Height));
 	m_pFPSCounter->AddComponent(new RenderComponent());
 	m_pFPSComponent = m_pFPSCounter->AddComponent(new FPSComponent());
 	m_pFPSText = m_pFPSCounter->AddComponent(new TextComponent("a", font));
@@ -49,7 +49,7 @@ void ImGuiEx_EndColumn()
 	ImGui::EndGroup();
 }
 
-void TestScene::Update([[maybe_unused]] float dT)
+void TestScene::Update([[maybe_unused]] const f32 dT)
 {
 	auto& io = ImGui::GetIO();
 	m_pFPSText->SetText(std::to_string(m_pFPSComponent->GetFPS()));

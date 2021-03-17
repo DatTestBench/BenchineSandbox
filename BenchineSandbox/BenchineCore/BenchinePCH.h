@@ -49,27 +49,9 @@ using json = nlohmann::json;*/
 
 #define GLM_FORCE_SILENT_WARNINGS
 
-// Macros
-#define DEL_ROF(className) \
-className(const className&) = delete; \
-className(className&&) noexcept = delete; \
-className& operator= (const className&) = delete; \
-className& operator= (className&&) noexcept = delete;
-
-#define UNUSED(var) var;
 
 
 
-// Functions
-template<class T>
-inline void SafeDelete(T& pObject)
-{
-	if (pObject != nullptr)
-	{
-		delete pObject;
-		pObject = nullptr;
-	}
-}
 
 //Singletons
 #include "Resources/ResourceManager.h"

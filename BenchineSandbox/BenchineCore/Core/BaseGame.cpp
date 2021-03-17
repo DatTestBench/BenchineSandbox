@@ -3,11 +3,11 @@
 
 void BaseGame::BaseInitialize()
 {
-	// User Definined Initialize
+	// User Defined Initialize
 	Initialize();
 }
 
-void BaseGame::BaseUpdate(float dT)
+void BaseGame::BaseUpdate(const f32 dT)
 {
 	SceneManager::GetInstance()->Update(dT);
 	// User Defined Update

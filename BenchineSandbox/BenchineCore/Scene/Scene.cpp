@@ -30,7 +30,7 @@ void Scene::BaseInitialize()
 	}
 }
 
-void Scene::BaseUpdate(const float dT)
+void Scene::BaseUpdate(const f32 dT)
 {
 	// User Defined Update
 	Update(dT);
@@ -72,9 +72,9 @@ void Scene::Render() const
 
 void Scene::DoPhysics()
 {
-	const uint32_t maxThreads = std::thread::hardware_concurrency();
+	const u32 maxThreads = std::thread::hardware_concurrency();
 	std::deque<std::future<void>> futures;
-	uint32_t threadCounter = 0;
+	u32 threadCounter = 0;
 
 	for (auto dynamicObject : m_pDynamicObjects)
 	{
@@ -129,7 +129,7 @@ void Scene::DoPhysics()
 		}));
 	}
 
-	// Make sure that, at the end of this, every single collsion calculation is done
+	// Make sure that, at the end of this, every single collision calculation is done
 	for (auto& future : futures)
 	{
 		future.get();

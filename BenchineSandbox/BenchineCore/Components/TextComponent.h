@@ -11,11 +11,11 @@ public:
 	virtual ~TextComponent() override;
 	DEL_ROF(TextComponent)
 
-	void Update([[maybe_unused]] float dT) override;
+	void Update([[maybe_unused]] f32 dT) override;
 
 	void SetText(const std::string& text) noexcept;
 	void SetColor(const SDL_Color& color) noexcept { m_Color = color; }
-	void SetColor(Uint8 r, Uint8 g, Uint8 b) noexcept
+	void SetColor(const u8 r, const u8 g, const u8 b) noexcept
 	{
 		m_Color.r = r;
 		m_Color.g = g;

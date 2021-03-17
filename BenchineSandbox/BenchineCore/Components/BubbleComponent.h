@@ -8,7 +8,7 @@ public:
 	virtual ~BubbleComponent() override = default;
 	DEL_ROF(BubbleComponent)
 
-	void Update(float dT) override;
+	void Update(f32 dT) override;
 
 
 protected:

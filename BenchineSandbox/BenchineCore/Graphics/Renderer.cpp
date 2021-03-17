@@ -21,8 +21,8 @@ void Renderer::Initialize(const WindowSettings& windowSettings)
 		windowSettings.Name.c_str(),
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
-		static_cast<int>(windowSettings.Width),
-		static_cast<int>(windowSettings.Height),
+		windowSettings.Width,
+		windowSettings.Height,
 		SDL_WINDOW_OPENGL);
 
 	if (m_pWindow == nullptr)
@@ -59,7 +59,7 @@ void Renderer::Initialize(const WindowSettings& windowSettings)
 	gluOrtho2D(0, m_WindowSettings.Width, 0, m_WindowSettings.Height); // y from bottom to top
 	// Set the viewport to the client window area
 	// The viewport is the rectangular region of the window where the image is drawn.
-	glViewport(0, 0, static_cast<int>(m_WindowSettings.Width), static_cast<int>(m_WindowSettings.Height));
+	glViewport(0, 0, static_cast<i32>(m_WindowSettings.Width), static_cast<i32>(m_WindowSettings.Height));
 
 	// Set the Modelview matrix to the identity matrix
 	glMatrixMode(GL_MODELVIEW);
@@ -107,7 +107,7 @@ void Renderer::Cleanup()
 }
 
 
-void Renderer::RenderTexture(GLTextureWrapper* pTexture, const glm::vec2& pos, const glm::vec2& scale) const
+void Renderer::RenderTexture(GLTextureWrapper* pTexture, const glm::vec2& pos, const glm::vec2& scale)
 {
 	if (!pTexture->IsCreationOk())
 	{
@@ -145,20 +145,20 @@ void Renderer::RenderTexture(GLTextureWrapper* pTexture, const glm::vec2& pos, c
 }
 
 
-std::array<VertexUV, 4> Renderer::CreateRenderParams(GLTextureWrapper* pTexture) const 
+std::array<VertexUV, 4> Renderer::CreateRenderParams(GLTextureWrapper* pTexture)
 {
 	const auto source = pTexture->GetSource();
 	const auto textureWidth = pTexture->GetWidth();
 	const auto textureHeight = pTexture->GetHeight();
 
-	const auto targetWidth = (pTexture->GetTargetWidth() > 0.f) ? pTexture->GetTargetWidth() : ((source.Width > 0U) ? static_cast<float>(source.Width) : static_cast<float>(pTexture->GetWidth()));
-	const auto targetHeight = (pTexture->GetTargetHeight() > 0.f) ? pTexture->GetTargetHeight() : ((source.Height > 0U) ? static_cast<float>(source.Height) : static_cast<float>(pTexture->GetHeight()));
+	const auto targetWidth = (pTexture->GetTargetWidth() > 0.f) ? pTexture->GetTargetWidth() : ((source.Width > 0U) ? static_cast<f32>(source.Width) : static_cast<f32>(pTexture->GetWidth()));
+	const auto targetHeight = (pTexture->GetTargetHeight() > 0.f) ? pTexture->GetTargetHeight() : ((source.Height > 0U) ? static_cast<f32>(source.Height) : static_cast<f32>(pTexture->GetHeight()));
 
 	const auto targetPos = pTexture->GetPositionOffset();
 
 
 	// Determine the texturecoordinates that should be rendered;
-	float uvLeft{}, uvRight{}, uvTop{}, uvBottom{};
+	f32 uvLeft{}, uvRight{}, uvTop{}, uvBottom{};
 
 	if (!(source.Width > 0U && source.Height > 0U)) // No source specified
 	{
@@ -171,19 +171,18 @@ std::array<VertexUV, 4> Renderer::CreateRenderParams(GLTextureWrapper* pTexture)
 	else // source specified
 	{
 		// Convert to the range [0.0, 1.0]
-		uvLeft = static_cast<float>(source.Pos.x) / static_cast<float>(textureWidth);
-		uvRight = static_cast<float>(source.Pos.x + static_cast<int32_t>(source.Width)) / static_cast<float>(textureWidth);
-		uvTop = static_cast<float>(source.Pos.y) / static_cast<float>(textureHeight);
-		uvBottom = static_cast<float>(source.Pos.y + static_cast<int32_t>(source.Height)) / static_cast<float>(textureHeight);
+		uvLeft = static_cast<f32>(source.Pos.x) / static_cast<f32>(textureWidth);
+		uvRight = static_cast<f32>(source.Pos.x + static_cast<i32>(source.Width)) / static_cast<f32>(textureWidth);
+		uvTop = static_cast<f32>(source.Pos.y) / static_cast<f32>(textureHeight);
+		uvBottom = static_cast<f32>(source.Pos.y + static_cast<i32>(source.Height)) / static_cast<f32>(textureHeight);
 	}
 
 
-	float vertexLeft{}, vertexBottom{}, vertexRight{}, vertexTop{};
+	f32 vertexLeft{}, vertexBottom{}, vertexRight{}, vertexTop{};
 
 	switch (pTexture->GetOffsetMode())
 	{
 	case TextureOffsetMode::CENTER:
-		
 		vertexLeft = targetPos.x - targetWidth / 2.f;
 		vertexRight = targetPos.x + targetWidth / 2.f;
 		vertexTop = targetPos.y + targetHeight / 2.f;

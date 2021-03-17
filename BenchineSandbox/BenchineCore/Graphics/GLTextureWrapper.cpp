@@ -1,13 +1,12 @@
 #include "BenchinePCH.h"
 #include "GLTextureWrapper.h"
 
-GLTextureWrapper::GLTextureWrapper(SDL_Surface* pSurface, TextureOffsetMode offsetMode, uint32_t renderPriority)
+GLTextureWrapper::GLTextureWrapper(SDL_Surface* pSurface, const TextureOffsetMode offsetMode, const u32 renderPriority)
 	: m_Id()
 	, m_Width()
 	, m_Height()
 	, m_TargetWidth()
 	, m_TargetHeight()
-	, m_Source()
 	, m_RenderPriority(renderPriority)
 	, m_PositionOffset()
 	, m_OffsetMode(offsetMode)
@@ -27,8 +26,8 @@ void GLTextureWrapper::CreateTextureFromSurface(SDL_Surface* pSurface)
 	m_CreationOk = true;
 
 	//Get image dimensions
-	m_Width = static_cast<uint32_t>(pSurface->w);
-	m_Height = static_cast<uint32_t>(pSurface->h);
+	m_Width = static_cast<u32>(pSurface->w);
+	m_Height = static_cast<u32>(pSurface->h);
 
 	// Get pixel format information and translate to OpenGl format
 	GLenum pixelFormat = GL_RGB;
@@ -56,7 +55,6 @@ void GLTextureWrapper::CreateTextureFromSurface(SDL_Surface* pSurface)
 		break;
 	default:
 		LOG(LEVEL_ERROR, "Unknown pixel format, {0} bytes per pixel.\nUse 32 bit or 24 bit images.", pSurface->format->BytesPerPixel);
-		//std::cerr << "Texture::CreateFromSurface, unknow pixel format, BytesPerPixel: " << pSurface->format->BytesPerPixel << "\nUse 32 bit or 24 bit images.\n";
 		m_CreationOk = false;
 		return;
 	}
@@ -74,10 +72,6 @@ void GLTextureWrapper::CreateTextureFromSurface(SDL_Surface* pSurface)
 	{
 		LOG(LEVEL_ERROR, "Error Binding Texture, Error ID: {0}", e);
 		LOG(LEVEL_INFO, "Can happen if a texture is created before performing the initialization code (e.g. a static Texture object).\nThere  might be a white rectangle instead of the image.");
-
-		/*std::cerr << "Texture::CreateFromSurface, error binding textures, Error id = " << e << '\n';
-		std::cerr << "Can happen if a texture is created before performing the initialization code (e.g. a static Texture object).\n";
-		std::cerr << "There might be a white rectangle instead of the image.\n";*/
 	}
 
 	// Specify the texture's data.  

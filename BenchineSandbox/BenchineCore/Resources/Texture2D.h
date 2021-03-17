@@ -9,7 +9,7 @@ public:
 	~Texture2D();
 	DEL_ROF(Texture2D)
 
-	[[nodiscard]] constexpr auto GetTextureWrapper() const noexcept-> GLTextureWrapper* { return m_pTexture; }
+	[[nodiscard]] constexpr auto GetTextureWrapper() const noexcept -> GLTextureWrapper* { return m_pTexture; }
 
 
 private:

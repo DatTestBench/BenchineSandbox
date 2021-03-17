@@ -19,7 +19,7 @@ void RenderComponent::Initialize()
 	GetGameObject()->SetRenderComponent(this);
 }
 
-void RenderComponent::Update([[maybe_unused]] float dT)
+void RenderComponent::Update([[maybe_unused]] f32 dT)
 {
 }
 

@@ -3,7 +3,7 @@
 #include "NodeEditor/BNNodes.h"
 NodeEditorScene::NodeEditorScene(const std::string_view& sceneName)
 	: Scene(sceneName)
-	, editor("TestEditor")
+	, m_Editor("TestEditor")
 {
 }
 
@@ -13,10 +13,10 @@ NodeEditorScene::~NodeEditorScene()
 
 void NodeEditorScene::Initialize()
 {
-	editor.Initialize();
+	m_Editor.Initialize();
 }
 
-void NodeEditorScene::Update([[maybe_unused]] float dT)
+void NodeEditorScene::Update([[maybe_unused]] const f32 dT)
 {
-	editor.Update(dT);
+	m_Editor.Update(dT);
 }

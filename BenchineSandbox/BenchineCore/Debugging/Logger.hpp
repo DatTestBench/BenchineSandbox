@@ -6,12 +6,13 @@
 #include <array>
 
 // Project Includes
+#include "Core/BenchineCore.hpp"
 #include "fmt/color.h"
 #include "Helpers/Singleton.hpp"
 #include "magic_enum/magic_enum.hpp"
 #include "fmt/format.h" // shows up as unused, used in macro
 
-enum class LogLevel : int16_t
+enum class LogLevel : u16
 {
 	Success = 0,
     LEVEL_SUCCESS = Success,
@@ -27,7 +28,7 @@ enum class LogLevel : int16_t
     LEVEL_FULL = Full // Only used to for displaying in the log window, should not be passed to logentries
 };
 
-enum class Verbosity : uint16_t
+enum class Verbosity : u16
 {
 	MessageOnly = 0,
 	HeaderOnly = 1,
@@ -66,16 +67,18 @@ struct LogEntry
 	LogLevel level;
 	std::string file;
 	std::string function;
-	uint32_t line;
+	u32 line;
 	std::string message;
 	bool markedForClear;
-	LogEntry(const LogLevel lvl, const std::string& fl, const std::string& func, uint32_t ln, const std::string& msg = "")
+	bool consoleLogged;
+	LogEntry(const LogLevel lvl, const std::string& fl, const std::string& func, const u32 ln, const std::string& msg = "")
 		: level(lvl)
 		, file(fl)
 		, function(func)
 		, line(ln)
 		, message(msg)	
 		, markedForClear(false)
+		, consoleLogged(false)
 	{
 	}
 };
@@ -90,7 +93,9 @@ public:
 	/**
 	* Log Function 
 	* @template Level LogLevel
-	* @param header Name of the scope this log was called in
+	* @param file
+	* @param function
+	* @param line
 	* @param message Log message
 	* */
 	template <LogLevel Level>
@@ -114,10 +119,12 @@ public:
 	 * */
 	void OutputLog() noexcept;
 
+	void OutputToConsole(LogEntry& log) noexcept;
 
-	struct ColorWrapper
+
+	struct OutputWrapper
 	{
-		ColorWrapper(const ImVec4& imCol, const fmt::color& fmtCol)
+		OutputWrapper(const ImVec4& imCol, const fmt::color& fmtCol)
             : ImGuiColor(imCol)
             , FmtColor(fmtCol)
 		{}
@@ -125,14 +132,22 @@ public:
 		ImVec4 ImGuiColor;
 		fmt::color FmtColor;
 	};
-	inline static const std::array<ColorWrapper, 6> COLOR_LUT
+	inline static const std::array<OutputWrapper, 6> COLOR_LUT
 	{
-		ColorWrapper{ ImVec4{ 0.f, 1.f, 0.f, 1.f }, fmt::color::green },  // SUCCESS	
-		ColorWrapper{ ImVec4{ 1.f, 0.f, 1.f, 1.f }, fmt::color::purple }, // DEBUG
-		ColorWrapper{ ImVec4{ 1.f, 1.f, 1.f, 1.f }, fmt::color::white },  // INFO	
-		ColorWrapper{ ImVec4{ 1.f, 1.f, 0.f, 1.f }, fmt::color::yellow }, // WARNING	
-		ColorWrapper{ ImVec4{ 1.f, 0.f, 0.f, 1.f }, fmt::color::red },	  // ERROR	
-		ColorWrapper{ ImVec4{ 1.f, 1.f, 1.f, 1.f }, fmt::color::white }   // DEFAULT
+		OutputWrapper{ ImVec4{ 0.f, 1.f, 0.f, 1.f }, fmt::color::green },  // SUCCESS	
+		OutputWrapper{ ImVec4{ 1.f, 0.f, 1.f, 1.f }, fmt::color::purple }, // DEBUG
+		OutputWrapper{ ImVec4{ 1.f, 1.f, 1.f, 1.f }, fmt::color::white },  // INFO	
+		OutputWrapper{ ImVec4{ 1.f, 1.f, 0.f, 1.f }, fmt::color::yellow }, // WARNING	
+		OutputWrapper{ ImVec4{ 1.f, 0.f, 0.f, 1.f }, fmt::color::red },	  // ERROR	
+		OutputWrapper{ ImVec4{ 1.f, 1.f, 1.f, 1.f }, fmt::color::white }   // DEFAULT
+	};
+
+	inline static const std::array<std::string, EnumCount<Verbosity>()> VERBOSITY_FORMAT_LUT
+	{
+		"{0}", // {message}
+		"[{0}] {1}", // [{level}] {message}
+		"[{0}] {1} {2}:({3}) > {4}", // [{level}] {fileName} {functionName}:({lineNumber}) > {message}
+		"[{0}] {1} {2}:({3}) > {4}" // [{level}] {fullPath} {functionName}:({lineNumber}) > {message}
 	};
 	
 

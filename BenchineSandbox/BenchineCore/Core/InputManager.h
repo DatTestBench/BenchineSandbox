@@ -5,16 +5,18 @@
 #include <tuple>
 #include <vector>
 #include <functional>
+
+#include "BenchineCore.hpp"
 #include "Helpers/Singleton.hpp"
 
-enum InputState
+enum class InputState
 {
 	Pressed,
 	Released,
 	Down
 };
 
-enum GamepadButton : uint16_t
+enum class GamepadButton : u16
 {
 	DPAD_UP,
 	DPAD_DOWN,
@@ -30,20 +32,20 @@ enum GamepadButton : uint16_t
 	B,
 	X,
 	Y,
-	MAX_BUTTONS
+	NONE
 };
 struct InputBinding
 {
 	std::string_view ActionId;
 	std::function<void()> CallBack;
 	InputState State;
-	int KeyCode; // Remapped to an SDL keycode
-	int MouseCode;
+	i32 KeyCode; // Remapped to an SDL keycode
+	i32 MouseCode;
 	GamepadButton Button;
-	int ControllerId;
+	i32 ControllerId;
 	bool IsActive;
 
-	explicit InputBinding(std::string_view id, std::function<void()> callBack, InputState state, int keyCode = -1, int mouseCode = -1, GamepadButton button = MAX_BUTTONS, int controllerId = 0)
+	explicit InputBinding(const std::string_view id, const std::function<void()> callBack, const InputState state, const i32 keyCode = -1, const i32 mouseCode = -1, const GamepadButton button = GamepadButton::NONE, const i32 controllerId = 0)
 		: ActionId(id)
 		, CallBack(callBack)
 		, State(state)
@@ -58,10 +60,10 @@ struct InputBinding
 
 struct KeyEvent
 {
-	int KeyCode;
+	i32 KeyCode;
 	InputState State;
 	bool Processed;
-	KeyEvent(const int keyCode, const InputState state)
+	KeyEvent(const i32 keyCode, const InputState state)
 		: KeyCode(keyCode)
 		, State(state)
 		, Processed(false)
@@ -72,17 +74,15 @@ struct KeyEvent
 struct Controller
 {
 	bool IsConnected;
-	std::array<bool, MAX_BUTTONS> Buttons;
-	std::array<InputState, MAX_BUTTONS> ButtonStates;
+	std::array<bool, magic_enum::enum_count<GamepadButton>()> Buttons;
+	std::array<InputState, magic_enum::enum_count<GamepadButton>()> ButtonStates;
 };
 
 class InputManager final : public Singleton<InputManager>
 {
 public:
 	explicit InputManager(Token)
-		: m_KeyEvents()
-		, m_Controllers()
-		, m_InputBinds()
+		: m_Controllers()
 	{
 	}
 
@@ -90,8 +90,8 @@ public:
 	bool IsBindingActive(std::string_view actionId);
 
 	bool ProcessInput();
-	bool IsPressed(GamepadButton button, int controllerId);
-	std::tuple<int, int, Uint32> GetMouseState();
+	bool IsPressed(GamepadButton button, uint32_t controllerId);
+	std::tuple<i32, i32, u32> GetMouseState();
 
 
 private:
@@ -105,5 +105,5 @@ private:
 	std::multimap<std::string_view, InputBinding> m_InputBinds;
 
 	void ClearInputs();
-	void CheckControllerInput(DWORD index, XINPUT_STATE xInputState, GamepadButton Button, int xInputConstant);
+	void CheckControllerInput(DWORD index, XINPUT_STATE xInputState, GamepadButton button, i32 xInputConstant);
 };

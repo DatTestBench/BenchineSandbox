@@ -8,6 +8,5 @@ public:
 	DEL_ROF(DefaultScene)
 protected:
 	void Initialize() override;
-	void Update(float dT) override;
-private:
+	void Update(f32 dT) override;
 };

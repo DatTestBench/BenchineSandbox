@@ -42,7 +42,7 @@ void SceneManager::Initialize()
 	m_IsInitialized = true;
 }
 
-void SceneManager::Update(const float dT)
+void SceneManager::Update(const f32 dT)
 {
 	if (m_pSceneToLoad != nullptr)
 	{
@@ -96,7 +96,7 @@ void SceneManager::SetStartScene(const std::string_view& sceneName)
 	m_pCurrentScene = (*m_pScenes.begin()).second;
 }
 
-void SceneManager::RenderCurrentScene()
+void SceneManager::RenderCurrentScene() const
 {
 	m_pCurrentScene->Render();
 }

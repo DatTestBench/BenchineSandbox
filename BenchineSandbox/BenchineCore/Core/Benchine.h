@@ -6,7 +6,6 @@ struct SDL_Window;
 class Benchine
 {
 public:
-	
 
 	template<typename T> // Templated to allow the use of any kind of basegame
 	void Run()
@@ -22,16 +21,15 @@ public:
 		bool quit = false;
 
 		auto lastTime = std::chrono::high_resolution_clock::now();
-		//float lag = 0.f;
-
+		
 		auto pLogger = Logger::GetInstance();
 		
 		while (!quit)
 		{
+			
 			auto currentTime = std::chrono::high_resolution_clock::now();
-			float deltaTime = std::min(std::chrono::duration<float>(currentTime - lastTime).count(), 0.1f);
+			const f32 deltaTime = std::min(std::chrono::duration<f32>(currentTime - lastTime).count(), 0.1f);
 			lastTime = currentTime;
-			//lag += deltaTime;
 			quit = INPUT->ProcessInput();
 
 			
@@ -40,17 +38,6 @@ public:
 			DEBUGONLY(pLogger->OutputLog());
 			m_pGame->BaseUpdate(deltaTime);
 			RENDERER->PresentRender();
-			//std::this_thread::sleep_until(currentTime + std::chrono::milliseconds(MsPerFrame));
-			/*RENDERER->SetupRender();
-			SceneManager::GetInstance()->RenderCurrentScene();
-			while (lag >= MsPerFrame / 1000.f)
-			{
-				DEBUGONLY(pLogger->OutputLog());
-				m_pGame->BaseUpdate(MsPerFrame / 1000.f);
-				lag -= MsPerFrame / 1000.f;
-			}
-			RENDERER->PresentRender();*/
-		
 		}
 		Cleanup();
 
@@ -58,11 +45,13 @@ public:
 	}
 
 private:
-	void Initialize();
+
+	
+	static void Initialize();
 	void LoadGame() const;
-	void Cleanup();
+	void Cleanup() const;
 
-	static const int MsPerFrame = 16; //16 for 60 fps, 33 for 30 fps
+	static const i32 MsPerFrame = 16; //16 for 60 fps, 33 for 30 fps
 
-	BaseGame* m_pGame;
+	BaseGame* m_pGame = nullptr;
 };

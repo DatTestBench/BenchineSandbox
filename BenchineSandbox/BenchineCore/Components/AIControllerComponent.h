@@ -14,7 +14,7 @@ public:
 	virtual ~AIControllerComponent() override = default;
 	DEL_ROF(AIControllerComponent)
 
-	void Update(float dT) override;
+	void Update(f32 dT) override;
 	void InvertDirection();
 	void SetDirection(const glm::vec2& direction) { m_Direction = direction; }
 	void BubbleHit();
@@ -36,5 +36,5 @@ private:
 
 	AIState m_State;
 
-	float m_BubbleTimer;
+	f32 m_BubbleTimer;
 };

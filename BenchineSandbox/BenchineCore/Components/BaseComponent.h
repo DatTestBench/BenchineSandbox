@@ -13,7 +13,7 @@ public:
 	[[nodiscard]] constexpr auto GetTransform() const noexcept -> TransformComponent* { return m_pGameObject->GetTransform(); }
 
 	void BaseInitialize();
-	virtual void Update([[maybe_unused]] float dT) {}
+	virtual void Update([[maybe_unused]] f32 dT) {}
 
 protected:
 	friend GameObject;

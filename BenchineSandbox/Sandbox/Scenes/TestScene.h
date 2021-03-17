@@ -5,13 +5,13 @@
 class TestScene final : public Scene
 {
 public:
-	TestScene(const std::string_view& sceneName);
+	explicit TestScene(const std::string_view& sceneName);
 	virtual ~TestScene() override;
 	DEL_ROF(TestScene)
 
 protected:
 	void Initialize() override;
-	void Update([[maybe_unused]] float dT) override;
+	void Update([[maybe_unused]] f32 dT) override;
 
 private:
 	GameObject* m_pFPSCounter;

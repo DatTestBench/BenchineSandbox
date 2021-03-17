@@ -38,7 +38,7 @@ public:
 
 protected:
 	void Initialize() override;
-	void Update([[maybe_unused]] float dT) override;
+	void Update([[maybe_unused]] f32 dT) override;
 
 private:
 

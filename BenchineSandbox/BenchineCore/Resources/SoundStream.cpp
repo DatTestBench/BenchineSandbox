@@ -16,7 +16,7 @@ SoundStream::~SoundStream()
 	m_pMixMusic = nullptr;
 }
 
-void SoundStream::Play(bool shouldRepeat) const noexcept
+void SoundStream::Play(const bool shouldRepeat) const noexcept
 {
 	if (m_pMixMusic != nullptr)
 	{
@@ -43,11 +43,11 @@ void SoundStream::Resume() noexcept
 {
 	Mix_ResumeMusic();
 }
-void SoundStream::SetVolume(uint32_t volume) noexcept
+void SoundStream::SetVolume(const u32 volume) noexcept
 {
 	Mix_VolumeMusic(volume);
 }
-auto SoundStream::GetVolume() noexcept -> int
+auto SoundStream::GetVolume() noexcept -> i32
 {
 	return Mix_VolumeMusic(-1);
 }

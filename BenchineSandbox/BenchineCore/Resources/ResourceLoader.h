@@ -13,12 +13,10 @@ public:
 	DEL_ROF(BaseLoader)
 
 	static void SetDataPath(const std::string& dataPath) { m_DataPath = dataPath; }
-	[[nodiscard]] auto GetDataPath() const noexcept-> const std::string& { return m_DataPath; }
+	[[nodiscard]] static auto GetDataPath() noexcept-> const std::string& { return m_DataPath; }
 	virtual void ReleaseResources() = 0;
 protected:
 	static std::string m_DataPath; // due to the need of appending this with the specific resource path, usage of string_view is impossible
-private:
-
 };
 
 template <class T>

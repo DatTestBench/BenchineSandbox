@@ -37,7 +37,7 @@ void Logger::OutputLog() noexcept
 			ImGui::EndCombo();
 		}
 
-		uint32_t logLine = 1;
+		u32 logLine = 1;
 
 		const std::regex pattern(".*\\\\([a-zA-Z]*\\.(?:cpp|h(?:pp)?))");
 		for (auto& log : m_LogList)
@@ -48,28 +48,37 @@ void Logger::OutputLog() noexcept
 					log.markedForClear = true;
 
 				ImGui::SameLine();
-
-				const auto logColor = COLOR_LUT.at(magic_enum::enum_integer(log.level)).ImGuiColor;
 				
+				std::string textOutput;
+
 				switch (m_VerbosityLevel)
 				{
 				case Verbosity::MessageOnly:
-					ImGui::TextColored(logColor, log.message.c_str());
+					textOutput = fmt::format("{0}\n", log.message);
 					break;
 				case Verbosity::HeaderOnly:
-					ImGui::TextColored(logColor, fmt::format("[{0}] {1}", magic_enum::enum_name(log.level), log.message).c_str());
+					textOutput = fmt::format("[{0}] {1}\n", magic_enum::enum_name(log.level), log.message);
 					break;
 				case Verbosity::HeaderAndLocationCompact:
 				{
 					const std::string fileName = log.file.substr(log.file.find_last_of('/') + 1);
-					ImGui::TextColored(logColor, fmt::format("[{0}] {1} {2}:({3}) > {4}", magic_enum::enum_name(log.level), fileName, log.function, log.line, log.message).c_str(), 0);
+					textOutput = fmt::format("[{0}] {1} {2}:({3}) > {4}\n", magic_enum::enum_name(log.level), fileName, log.function, log.line, log.message);
 					break;
 				}
 				case Verbosity::Full:
-					ImGui::TextColored(logColor, fmt::format("[{0}] {1} {2}:({3}) > {4}", magic_enum::enum_name(log.level), log.file, log.function, log.line, log.message).c_str(), 0);
+					textOutput = fmt::format("[{0}] {1} {2}:({3}) > {4}\n", magic_enum::enum_name(log.level), log.file, log.function, log.line, log.message);
 					break;
-				default: ;
+				default:
+					break;
 				}
+
+				if (!log.consoleLogged)
+				{
+					fmt::print(fg(COLOR_LUT.at(EnumIndex(log.level)).FmtColor), textOutput);
+					log.consoleLogged = true;
+				}
+
+				ImGui::TextColored(COLOR_LUT.at(EnumIndex(log.level)).ImGuiColor, textOutput.c_str());
 			}
 		}
 	}

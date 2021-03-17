@@ -8,7 +8,7 @@ public:
 	virtual ~TextureComponent() override = default;
 	DEL_ROF(TextureComponent)
 
-	void Update(float dT) override;
+	void Update(f32 dT) override;
 
 
 	/**

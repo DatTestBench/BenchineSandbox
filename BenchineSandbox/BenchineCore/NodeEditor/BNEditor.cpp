@@ -17,7 +17,7 @@ void BNEditor::Initialize()
 {
 }
 
-void BNEditor::Update([[maybe_unused]] float dT)
+void BNEditor::Update([[maybe_unused]] f32 dT)
 {
 	auto& io = ImGui::GetIO();
 	ImGui::Text("FPS: %.2f (%.2gms)", io.Framerate, io.Framerate ? 1000.f / io.Framerate : 0.f);

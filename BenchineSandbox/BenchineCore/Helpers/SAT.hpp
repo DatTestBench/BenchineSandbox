@@ -20,6 +20,6 @@ namespace sat
 	PolygonCollisionResult PolygonCollision(PhysicsComponent2D* pActor, const Collider2D& staticPoly);
 	// Maps the polygon min / max bounds onto an axis
 	Projection2D ProjectPolygon(const glm::vec2& axis, const Collider2D& vertexSet);
-	float IntervalDistance(const Projection2D& projectionA, const Projection2D& projectionB);
+	f32 IntervalDistance(const Projection2D& projectionA, const Projection2D& projectionB);
 	glm::vec2 MakeAxis(const glm::vec2& vertexA, const glm::vec2& vertexB);
 }

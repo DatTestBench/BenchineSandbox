@@ -16,7 +16,7 @@ SoundByte::~SoundByte()
 	m_pMixChunk = nullptr;
 }
 
-void SoundByte::Play(uint32_t repeats) const
+void SoundByte::Play(const u32 repeats) const
 {
 	if (m_pMixChunk != nullptr)
 	{
@@ -31,7 +31,7 @@ void SoundByte::Play(uint32_t repeats) const
 	}
 }
 
-void SoundByte::SetVolume(uint32_t volume) const
+void SoundByte::SetVolume(const u32 volume) const
 {
 	if (m_pMixChunk != nullptr)
 	{
@@ -43,7 +43,7 @@ void SoundByte::SetVolume(uint32_t volume) const
 	}
 }
 
-[[nodiscard]] constexpr auto SoundByte::GetVolume() const noexcept -> int
+constexpr auto SoundByte::GetVolume() const noexcept -> i32
 {
 	if (m_pMixChunk != nullptr)
 	{

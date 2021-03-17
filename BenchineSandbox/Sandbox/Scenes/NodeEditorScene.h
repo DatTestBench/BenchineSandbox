@@ -4,14 +4,14 @@
 class NodeEditorScene final : public Scene
 {
 public:
-	NodeEditorScene(const std::string_view& sceneName);
+	explicit NodeEditorScene(const std::string_view& sceneName);
 	virtual ~NodeEditorScene();
 	DEL_ROF(NodeEditorScene)
 
 protected:
 	void Initialize() override;
-	void Update([[maybe_unused]] float dT) override;
+	void Update([[maybe_unused]] f32 dT) override;
 
 private:
-	BNEditor editor;
+	BNEditor m_Editor;
 };

@@ -20,7 +20,7 @@ void Sandbox::Initialize()
 	LOG(LEVEL_SUCCESS, "{0} Test", "Success");
 }
 
-void Sandbox::Update([[maybe_unused]] float dT)
+void Sandbox::Update([[maybe_unused]] const f32 dT)
 {
 }
 

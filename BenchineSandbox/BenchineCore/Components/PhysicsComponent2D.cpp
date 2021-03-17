@@ -35,7 +35,7 @@ void PhysicsComponent2D::Initialize()
 	}
 }
 
-void PhysicsComponent2D::Update([[maybe_unused]] float dT)
+void PhysicsComponent2D::Update([[maybe_unused]] f32 dT)
 {
 	m_IsOnGround = false;
 	const auto tMat = glm::translate(glm::mat3(1.f), static_cast<glm::vec2>(GetTransform()->GetPosition()));

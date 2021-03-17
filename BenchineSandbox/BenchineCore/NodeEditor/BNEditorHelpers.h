@@ -16,8 +16,8 @@ enum class PinSide
 };
 
 #if 0
-static uint32_t nextId = 1U;
-static uint32_t GetNextId()
+static u32 nextId = 1U;
+static u32 GetNextId()
 {
 	return nextId++;
 }

@@ -10,7 +10,7 @@ void BubbleComponent::Initialize()
 {
 }
 
-void BubbleComponent::Update(float dT)
+void BubbleComponent::Update(f32 dT)
 {
 	GetTransform()->Move(m_Velocity * dT);
 }

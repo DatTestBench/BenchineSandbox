@@ -7,12 +7,12 @@ class Scene
 {
 public:
 
-	Scene(const std::string_view& sceneName);
+	explicit Scene(const std::string_view& sceneName);
 	virtual ~Scene();
 	DEL_ROF(Scene)
 
 	void BaseInitialize();
-	void BaseUpdate(float dT);
+	void BaseUpdate(f32 dT);
 	void Render() const;
 	void DoPhysics();
 
@@ -44,7 +44,7 @@ public:
 
 protected:
 	virtual void Initialize() = 0;
-	virtual void Update(float dT) = 0;
+	virtual void Update(f32 dT) = 0;
 
 private:
 	std::string_view m_Name;

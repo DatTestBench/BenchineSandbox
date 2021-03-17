@@ -7,7 +7,7 @@
 #include <functional>
 #include <algorithm>
 
-ControllerComponent::ControllerComponent(uint32_t playerId)
+ControllerComponent::ControllerComponent(const u32 playerId)
 	: m_Velocity(0, 0)
 	, m_Movement(0, 0)
 	, m_pPhysicsComponent(nullptr)
@@ -39,11 +39,11 @@ void ControllerComponent::Initialize()
 	}
 }
 
-void ControllerComponent::Update(float dT)
+void ControllerComponent::Update(const f32 dT)
 {
-	constexpr float velocity = 100.f;
-	constexpr float gravity = 750.f;
-	constexpr float friction = 500.f;
+	constexpr f32 velocity = 100.f;
+	constexpr f32 gravity = 750.f;
+	constexpr f32 friction = 500.f;
 	if (!m_pPhysicsComponent->IsOnGround())
 	{
 		m_Velocity.y = std::clamp(m_Velocity.y - gravity * dT, -200.f, 1000.f);
@@ -61,9 +61,9 @@ void ControllerComponent::Update(float dT)
 
 	if (GetTransform()->GetPosition().y < 0.f)
 	{
-		GetTransform()->SetPosition(GetTransform()->GetPosition().x, static_cast<float>(RENDERER->GetWindowSettings().Height));
+		GetTransform()->SetPosition(GetTransform()->GetPosition().x, static_cast<f32>(RENDERER->GetWindowSettings().Height));
 	}
-	else if (GetTransform()->GetPosition().y > static_cast<float>(RENDERER->GetWindowSettings().Height))
+	else if (GetTransform()->GetPosition().y > static_cast<f32>(RENDERER->GetWindowSettings().Height))
 	{
 		GetTransform()->SetPosition(GetTransform()->GetPosition().x, 0.f);
 	}

@@ -7,14 +7,14 @@ TransformComponent::TransformComponent()
 {
 }
 
-void TransformComponent::SetPosition(const float x, const float y, const float z) noexcept
+void TransformComponent::SetPosition(const f32 x, const f32 y, const f32 z) noexcept
 {
 	m_Position.x = x;
 	m_Position.y = y;
 	m_Position.z = z;
 }
 
-void TransformComponent::Move(const float x, const float y, const float z) noexcept
+void TransformComponent::Move(const f32 x, const f32 y, const f32 z) noexcept
 {
 	m_Position.x += x;
 	m_Position.y += y;
@@ -35,6 +35,6 @@ void TransformComponent::SetScale(const glm::vec2& scale) noexcept
 void TransformComponent::Initialize()
 {
 }
-void TransformComponent::Update([[maybe_unused]] float dT)
+void TransformComponent::Update([[maybe_unused]] f32 dT)
 {
 }

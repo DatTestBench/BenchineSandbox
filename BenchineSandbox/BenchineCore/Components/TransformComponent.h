@@ -11,8 +11,8 @@ public:
 	DEL_ROF(TransformComponent)
 
 
-	void SetPosition(float x, float y, float z = 1.f) noexcept;
-	void Move(float x, float y, float z) noexcept;
+	void SetPosition(f32 x, f32 y, f32 z = 1.f) noexcept;
+	void Move(f32 x, f32 y, f32 z) noexcept;
 	void Move(const glm::vec2& movementVec) noexcept;
 	void SetScale(const glm::vec2& scale) noexcept;
 
@@ -22,7 +22,7 @@ public:
 
 protected:
 	void Initialize() override;
-	void Update([[maybe_unused]] float dT) override;
+	void Update([[maybe_unused]] f32 dT) override;
 private:
 	glm::vec3 m_Position;
 	glm::vec2 m_Scale;

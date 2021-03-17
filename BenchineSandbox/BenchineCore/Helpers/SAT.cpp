@@ -15,7 +15,7 @@ PolygonCollisionResult sat::PolygonCollision(PhysicsComponent2D* pActorA, Physic
 	size_t vertexCountA = colliderA.size();
 	size_t vertexCountB = colliderB.size();
 
-	float minIntervalDistance = std::numeric_limits<float>::infinity();
+	f32 minIntervalDistance = std::numeric_limits<f32>::infinity();
 	glm::vec2 translationAxis{}, currentVertex{}, nextVertex{};
 
 	// Loop through all the vertices of both polygons
@@ -54,7 +54,7 @@ PolygonCollisionResult sat::PolygonCollision(PhysicsComponent2D* pActorA, Physic
 		// Check if the current interval distance is the minimum one. If so store
 		// the interval distance and the current distance.
 		// This will be used to calculate the minimum translation vector
-		float intervalDistance = abs(IntervalDistance(projectionA, projectionB));
+		f32 intervalDistance = abs(IntervalDistance(projectionA, projectionB));
 		if (intervalDistance < minIntervalDistance)
 		{
 			minIntervalDistance = intervalDistance;
@@ -87,7 +87,7 @@ PolygonCollisionResult sat::PolygonCollision(PhysicsComponent2D* pActor, const C
 
 	const size_t vertexCountA = collider.size();
 	const size_t vertexCountB = staticPoly.size();
-	float minIntervalDistance = std::numeric_limits<float>::infinity();
+	f32 minIntervalDistance = std::numeric_limits<f32>::infinity();
 	glm::vec2 translationAxis{}, currentVertex{}, nextVertex{};
 
 	// Loop through all the vertices of both polygons
@@ -124,7 +124,7 @@ PolygonCollisionResult sat::PolygonCollision(PhysicsComponent2D* pActor, const C
 		// Check if the current interval distance is the minimum one. If so store
 		// the interval distance and the current distance.
 		// This will be used to calculate the minimum translation vector
-		const float intervalDistance = glm::abs(IntervalDistance(projectionA, projectionB));
+		const f32 intervalDistance = glm::abs(IntervalDistance(projectionA, projectionB));
 		if (intervalDistance < minIntervalDistance)
 		{
 			minIntervalDistance = intervalDistance;
@@ -148,7 +148,7 @@ PolygonCollisionResult sat::PolygonCollision(PhysicsComponent2D* pActor, const C
 Projection2D sat::ProjectPolygon(const glm::vec2& axis, const Collider2D& polygon)
 {
 	// To project a point on an axis use the dot product
-	float dotProduct = glm::dot(axis, polygon.at(0));
+	f32 dotProduct = glm::dot(axis, polygon.at(0));
 	Projection2D projectionBounds{dotProduct};
 	for (size_t i = 0; i < polygon.size(); ++i)
 	{
@@ -161,7 +161,7 @@ Projection2D sat::ProjectPolygon(const glm::vec2& axis, const Collider2D& polygo
 	return projectionBounds;
 }
 
-float sat::IntervalDistance(const Projection2D& projectionA, const Projection2D& projectionB)
+f32 sat::IntervalDistance(const Projection2D& projectionA, const Projection2D& projectionB)
 {
 	if (projectionA.Min < projectionB.Min)
 		return projectionB.Min - projectionA.Max;

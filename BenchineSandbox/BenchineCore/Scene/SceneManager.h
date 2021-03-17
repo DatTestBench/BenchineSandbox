@@ -9,13 +9,13 @@ public:
 	explicit SceneManager(Token);
 	virtual ~SceneManager();
 	void Initialize();
-	void Update(float dT);
+	void Update(f32 dT);
 
 	void AddScene(Scene* pScene);
 	void LoadScene(const std::string_view& sceneName);
 
 	void SetStartScene(const std::string_view& sceneName);
-	void RenderCurrentScene();
+	void RenderCurrentScene() const;
 
 
 

@@ -15,7 +15,7 @@ GameObject::GameObject()
 
 GameObject::~GameObject()
 {
-	for (auto& pComponent : m_pComponents)
+	for (auto pComponent : m_pComponents)
 	{
 		SafeDelete(pComponent);
 	}
@@ -37,7 +37,7 @@ void GameObject::BaseInitialize()
 
 	m_IsInitialized = true;
 }
-void GameObject::BaseUpdate(const float dT)
+void GameObject::BaseUpdate(const f32 dT)
 {
 	// User Defined Update
 	Update(dT);

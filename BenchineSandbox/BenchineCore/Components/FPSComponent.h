@@ -7,13 +7,13 @@ public:
 	virtual ~FPSComponent() override = default;
 	DEL_ROF(FPSComponent)
 
-	void Update([[maybe_unused]] float dT) override;
+	void Update([[maybe_unused]] f32 dT) override;
 
-	[[nodiscard]] constexpr auto GetFPS() const noexcept -> float { return m_FPS; }
+	[[nodiscard]] constexpr auto GetFPS() const noexcept -> f32 { return m_FPS; }
 
 protected:
 	void Initialize() override;
 
 private:
-	float m_FPS;
+	f32 m_FPS;
 };

@@ -21,7 +21,7 @@ public:
 	}
 	
 	template <class T>
-	T* Load(const std::string& resourcePath)
+	static T* Load(const std::string& resourcePath)
 	{
 		return (static_cast<ResourceLoader<T>*>(m_Loaders.at(std::type_index(typeid(T)))))->GetResource(resourcePath);
 	}
