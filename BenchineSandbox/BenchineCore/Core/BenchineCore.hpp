@@ -4,6 +4,7 @@
 // General includes
 #include <fmt/core.h>
 #include <glm/glm.hpp>
+struct fuckyou{}; // removing this breaks everything for some reason https://developercommunity.visualstudio.com/t/unexpected-error-c2131-expression-did-not-evaluate/1343697?viewtype=all (yes I could just move the includes, but I can't be bothered)
 #include <magic_enum/magic_enum.hpp>
 
 // Type simplification
