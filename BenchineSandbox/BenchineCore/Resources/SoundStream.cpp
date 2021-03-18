@@ -4,10 +4,8 @@
 SoundStream::SoundStream(const std::string& fullPath)
 	: m_pMixMusic(Mix_LoadMUS(fullPath.c_str()))
 {
-	if (m_pMixMusic == nullptr)
-	{
-		LOG(LEVEL_ERROR, "Failed to load soundstream: {0}", Mix_GetError());
-	}
+
+	LOG_CONDITIONAL(m_pMixMusic == nullptr, Error, "Failed to load soundstream: {0}", Mix_GetError());
 }
 
 SoundStream::~SoundStream()
@@ -22,12 +20,12 @@ void SoundStream::Play(const bool shouldRepeat) const noexcept
 	{
 		if (Mix_PlayMusic(m_pMixMusic, shouldRepeat ? -1 : 1))
 		{
-			LOG(LEVEL_WARNING, "Couldn't play music");
+			LOG(Warning, "Couldn't play music");
 		}
 	}
 	else
 	{
-		LOG(LEVEL_WARNING, "SoundStream is nullptr");
+		LOG(Warning, "SoundStream is nullptr");
 	}
 }
 
