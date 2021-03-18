@@ -1,11 +1,8 @@
 #include "BenchinePCH.h"
-
 #include "Components/TextComponent.h"
-#include "Graphics/Renderer.h"
-#include "Resources/Font.h"
-#include "Resources/Texture2D.h"
-#include "Components/TransformComponent.h"
 #include "Components/RenderComponent.h"
+#include "Components/TransformComponent.h"
+#include "Resources/Font.h"
 #include "Scene/GameObject.h"
 
 TextComponent::TextComponent(const std::string& text, Font* font)
@@ -26,7 +23,7 @@ void TextComponent::Initialize()
 {
 }
 
-void TextComponent::Update([[maybe_unused]] f32 dT)
+void TextComponent::Update([[maybe_unused]] const f32 dT)
 {
 	if (m_NeedsUpdate)
 	{

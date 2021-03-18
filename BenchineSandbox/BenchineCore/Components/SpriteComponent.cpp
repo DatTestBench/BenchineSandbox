@@ -17,7 +17,7 @@ SpriteComponent::SpriteComponent(Texture2D* pSpriteSheet, const u32 nrCols, cons
 
 void SpriteComponent::Initialize()
 {
-	IRect src{};
+	IRect src;
 	src.Width = GetFrameWidth();
 	src.Height = GetFrameHeight();
 
@@ -37,7 +37,7 @@ void SpriteComponent::Update(const f32 dT)
 		++m_CurrentFrame %= (m_Cols * (m_Rows / m_Zones));
 		m_CurrentElapsed -= 1.f / m_Fps;
 
-		IRect src{};
+		IRect src;
 		src.Width = GetFrameWidth();
 		src.Height = GetFrameHeight();
 
@@ -56,7 +56,7 @@ void SpriteComponent::SetCurrentZone(u32 zone) noexcept
 {
 	if (zone > m_Zones)
 	{
-		LOG(LEVEL_WARNING, "Trying to use zone {0}, but the spritesheet only has {1} zones (defaulting to last zone on sheet)", zone, m_Zones);
+		LOG(Warning, "Trying to use zone {0}, but the spritesheet only has {1} zones (defaulting to last zone on sheet)", zone, m_Zones);
 		m_CurrentZone = m_Zones;
 	}
 	else

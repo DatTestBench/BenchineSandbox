@@ -6,8 +6,6 @@
 class ResourceManager final : public Singleton<ResourceManager>
 {
 public:
-
-
 	explicit ResourceManager(Token) {}
 	virtual ~ResourceManager();
 	void Initialize(const std::string& data);
@@ -25,8 +23,6 @@ public:
 	{
 		return (static_cast<ResourceLoader<T>*>(m_Loaders.at(std::type_index(typeid(T)))))->GetResource(resourcePath);
 	}
-
-protected:
 
 private:
 	std::string m_DataPath;

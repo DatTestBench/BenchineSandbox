@@ -4,10 +4,6 @@
 #include "Scene/GameObject.h"
 #include "Components/TransformComponent.h"
 
-RenderComponent::RenderComponent()
-{
-}
-
 RenderComponent::~RenderComponent()
 {
 	GetGameObject()->GetScene()->RemoveRenderComponent(this);
@@ -19,7 +15,7 @@ void RenderComponent::Initialize()
 	GetGameObject()->SetRenderComponent(this);
 }
 
-void RenderComponent::Update([[maybe_unused]] f32 dT)
+void RenderComponent::Update([[maybe_unused]] const f32 dT)
 {
 }
 

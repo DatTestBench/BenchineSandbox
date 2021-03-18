@@ -144,7 +144,6 @@ PolygonCollisionResult sat::PolygonCollision(PhysicsComponent2D* pActor, const C
 	return result;
 }
 
-
 Projection2D sat::ProjectPolygon(const glm::vec2& axis, const Collider2D& polygon)
 {
 	// To project a point on an axis use the dot product

@@ -2,8 +2,8 @@
 #include "Debugging/Logger.hpp"
 
 #include <regex>
-
-#include "Helpers/GeneralHelpers.hpp"
+#include "Core/BenchineCore.hpp"
+#include <magic_enum/magic_enum.hpp>
 
 void Logger::OutputLog() noexcept
 {
@@ -42,7 +42,7 @@ void Logger::OutputLog() noexcept
 		const std::regex pattern(".*\\\\([a-zA-Z]*\\.(?:cpp|h(?:pp)?))");
 		for (auto& log : m_LogList)
 		{
-			if (log.level == m_CurrentLevel || m_CurrentLevel == LogLevel::LEVEL_FULL)
+			if (log.level == m_CurrentLevel || m_CurrentLevel == LogLevel::Full)
 			{
 				if (ImGui::SmallButton((std::to_string(logLine++) + "::").c_str()))
 					log.markedForClear = true;
@@ -74,7 +74,7 @@ void Logger::OutputLog() noexcept
 
 				if (!log.consoleLogged)
 				{
-					fmt::print(fg(COLOR_LUT.at(EnumIndex(log.level)).FmtColor), textOutput);
+					print(fg(COLOR_LUT.at(EnumIndex(log.level)).FmtColor), textOutput);
 					log.consoleLogged = true;
 				}
 

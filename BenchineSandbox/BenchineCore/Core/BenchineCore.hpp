@@ -4,7 +4,6 @@
 // General includes
 #include <fmt/core.h>
 #include <glm/glm.hpp>
-#include "Helpers/Concepts.hpp"
 #include <magic_enum/magic_enum.hpp>
 
 // Type simplification
@@ -31,7 +30,6 @@ constexpr auto EnumCount() noexcept
 {
 	return magic_enum::enum_count<EnumName>();
 }
-
 // Adding structured bindings for GLM, do note, this will not work in Clang, nor GCC, for those this should be in namespace glm, not namespace std https://stackoverflow.com/questions/60785190/why-can-i-create-user-defined-structured-bindings-for-glmvec-in-msvc-and-icc
 namespace std
 {
@@ -55,7 +53,7 @@ namespace std
     struct tuple_element<I, glm::vec<N, T, Q>> {
 		using type = decltype(get<I>(declval<glm::vec<N,T,Q>>()));
 	};
-}
+};
 
 // Macros
 #define DEL_ROF(className) \
@@ -67,12 +65,4 @@ className& operator= (className&&) noexcept = delete;
 #define UNUSED(var) var;
 
 // Helper functions
-template<class T>
-inline void SafeDelete(T& pObject)
-{
-	if (pObject != nullptr)
-	{
-		delete pObject;
-		pObject = nullptr;
-	}
-}
+

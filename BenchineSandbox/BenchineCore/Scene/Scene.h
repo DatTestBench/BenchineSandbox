@@ -35,7 +35,6 @@ public:
 	void AddRenderComponent(RenderComponent* pRenderComponent) noexcept;
 	void RemoveRenderComponent(RenderComponent* pRenderComponent) noexcept;
 
-	void AddPhysicsObject(PhysicsComponent2D* pPhysicsComponent) noexcept;
 	void AddStaticObject(PhysicsComponent2D* pPhysicsComponent) noexcept;
 	void AddDynamicObject(PhysicsComponent2D* pPhysicsComponent) noexcept;
 	void AddTrigger(PhysicsComponent2D* pPhysicsComponent) noexcept;

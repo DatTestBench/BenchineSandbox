@@ -3,7 +3,6 @@
 #include "Scenes/TestScene.h"
 #include "Scenes/NodeEditorScene.h"
 
-
 // This is the only actual useful function here >_>
 void Sandbox::Initialize()
 {
@@ -13,11 +12,11 @@ void Sandbox::Initialize()
 
 	SceneManager::GetInstance()->Initialize();
 
-	LOG(LEVEL_INFO, "{0} Test", "Info");
-	LOG(LEVEL_WARNING, "{0} Test", "Warning");
-	LOG(LEVEL_ERROR, "{0} Test", "Error");
-	LOG(LEVEL_DEBUG, "{0} Test", "Debug");
-	LOG(LEVEL_SUCCESS, "{0} Test", "Success");
+	LOG(Info, "{0} Test", "Info");
+	LOG(Warning, "{0} Test", "Warning");
+	LOG(Error, "{0} Test", "Error");
+	LOG(Debug, "{0} Test", "Debug");
+	LOG(Success, "{0} Test", "Success");
 }
 
 void Sandbox::Update([[maybe_unused]] const f32 dT)

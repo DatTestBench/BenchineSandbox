@@ -3,8 +3,8 @@
 
 enum class AIState
 {
-	FREE,
-	CAPTURED
+	Free,
+	Captured
 };
 
 class AIControllerComponent final : public BaseComponent
@@ -20,7 +20,7 @@ public:
 	void BubbleHit();
 
 	[[nodiscard]] constexpr auto GetState() const noexcept -> AIState { return m_State; }
-	void SetState(AIState state) noexcept { m_State = state; }
+	void SetState(const AIState state) noexcept { m_State = state; }
 
 protected:
 	void Initialize() override;

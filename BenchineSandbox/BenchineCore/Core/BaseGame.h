@@ -8,7 +8,6 @@ public:
 	virtual ~BaseGame() = default;
 	DEL_ROF(BaseGame)
 
-
 	void BaseInitialize();
 	void BaseUpdate(f32 dT);
 

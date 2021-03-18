@@ -40,7 +40,7 @@ public:
 		// https://stackoverflow.com/questions/12774207/fastest-way-to-check-if-a-file-exist-using-standard-c-c11-c
 		if (!std::filesystem::exists(m_DataPath + filePath))
 		{
-			LOG(LEVEL_ERROR, "file at following location not found {0}\n", m_DataPath + filePath);
+			LOG(Error, "file at following location not found {0}\n", m_DataPath + filePath);
 			return nullptr;
 		}
 

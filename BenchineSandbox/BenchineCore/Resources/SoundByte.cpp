@@ -4,10 +4,7 @@
 SoundByte::SoundByte(const std::string& fullPath)
 	: m_pMixChunk(Mix_LoadWAV(fullPath.c_str()))
 {
-	if (m_pMixChunk == nullptr)
-	{
-		LOG(LEVEL_ERROR, "Failed to load soundbyte: {0}", Mix_GetError());
-	}
+	LOG_CONDITIONAL(m_pMixChunk == nullptr, Error, "Failed to load soundbyte: {0}", Mix_GetError());
 }
 
 SoundByte::~SoundByte()
@@ -22,12 +19,12 @@ void SoundByte::Play(const u32 repeats) const
 	{
 		if (Mix_PlayChannel(-1, m_pMixChunk, repeats) == -1)
 		{
-			LOG(LEVEL_WARNING, "No free channel available to play sound");
+			LOG(Warning, "No free channel available to play sound");
 		}
 	}
 	else
 	{
-		LOG(LEVEL_WARNING, "SoundByte is nullptr");
+		LOG(Warning, "SoundByte is nullptr");
 	}
 }
 
@@ -39,7 +36,7 @@ void SoundByte::SetVolume(const u32 volume) const
 	}
 	else
 	{
-		LOG(LEVEL_WARNING, "SoundByte is nullptr");
+		LOG(Warning, "SoundByte is nullptr");
 	}
 }
 
@@ -51,7 +48,7 @@ constexpr auto SoundByte::GetVolume() const noexcept -> i32
 	}
 	else
 	{
-		LOG(LEVEL_WARNING, "SoundByte is nullptr");
+		LOG(Warning, "SoundByte is nullptr");
 		return -1;
 	}
 }

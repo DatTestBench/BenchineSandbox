@@ -209,7 +209,7 @@ void DebugRenderer::DrawArc(const f32 centerX, const f32 centerY, const f32 radX
 {
 	if (fromAngle > tillAngle)
 	{
-		LOG(LEVEL_WARNING, "fromAngle > tillAngle, arc can not be drawn");
+		LOG(Warning, "fromAngle > tillAngle, arc can not be drawn");
 		return;
 	}
 
@@ -236,7 +236,7 @@ void DebugRenderer::FillArc(const f32 centerX, const f32 centerY, const f32 radX
 {
 	if (fromAngle > tillAngle)
 	{
-		LOG(LEVEL_WARNING, "fromAngle > tillAngle, arc can not be drawn.");
+		LOG(Warning, "fromAngle > tillAngle, arc can not be drawn.");
 		return;
 	}
 	const f32 dAngle = radX > radY ? glm::pi<f32>() / radX : glm::pi<f32>() / radY;

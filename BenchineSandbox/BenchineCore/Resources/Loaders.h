@@ -1,5 +1,7 @@
 #pragma once
 #include <string>
+#include "Core/Memory.hpp"
+
 #include "Resources/ResourceLoader.h"
 
 /*Resource Types*/

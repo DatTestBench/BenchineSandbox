@@ -5,6 +5,8 @@
 #include "Components/PhysicsComponent2D.h"
 #include <future>
 #include <deque>
+
+#include "Core/Memory.hpp"
 Scene::Scene(const std::string_view& sceneName)
 	: m_Name(sceneName)
 {
@@ -65,7 +67,7 @@ void Scene::Render() const
 		}
 		else
 		{
-			LOG(LEVEL_WARNING, "Trying to render deleted RenderComponent, remember to clean up render components when deleting an object that has one");
+			LOG(Warning, "Trying to render deleted RenderComponent, remember to clean up render components when deleting an object that has one");
 		}
 	}
 }
@@ -155,7 +157,7 @@ GameObject* Scene::RemoveGameObject(GameObject* pGameObject) noexcept
 {
 	if (pGameObject == nullptr)
 	{
-		LOG(LEVEL_WARNING, "You just tried to remove a gameobject that was already nullptr");
+		LOG(Warning, "You just tried to remove a gameobject that was already nullptr");
 		return pGameObject;
 	}
 	m_pGameObjects.remove(pGameObject);
@@ -173,13 +175,13 @@ GameObject* Scene::RemoveGameObject(GameObject* pGameObject) noexcept
 		{
 			switch (pPhysicsComponent->GetCollisionMode())
 			{
-			case CollisionMode::DYNAMIC:
+			case CollisionMode::Dynamic:
 				m_pDynamicObjects.remove(pPhysicsComponent);
 				break;
-			case CollisionMode::STATIC:
+			case CollisionMode::Static:
 				m_pStaticObjects.remove(pPhysicsComponent);
 				break;
-			case CollisionMode::TRIGGER:
+			case CollisionMode::Trigger:
 				m_pTriggers.remove(pPhysicsComponent);
 				break;
 			}

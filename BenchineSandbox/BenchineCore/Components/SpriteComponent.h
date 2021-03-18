@@ -19,7 +19,6 @@ public:
 
 	void Update(f32 dT) override;
 
-
 	[[nodiscard]] constexpr auto GetFrameWidth() const noexcept -> u32 { return m_pSpriteSheet->GetTextureWrapper()->GetWidth() / m_Cols; }
 	[[nodiscard]] constexpr auto GetFrameHeight() const noexcept -> u32 { return m_pSpriteSheet->GetTextureWrapper()->GetHeight() / m_Rows; }
 	[[nodiscard]] constexpr auto GetTextureWrapper() const noexcept -> GLTextureWrapper* { return m_pSpriteSheet->GetTextureWrapper(); }
@@ -40,7 +39,6 @@ private:
 	u32 m_CurrentZone;
 
 	std::map<std::string, u32> m_AnimationMap;
-
 
 	f32 m_Fps;
 	f32 m_CurrentElapsed;

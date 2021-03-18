@@ -3,15 +3,15 @@
 
 enum class MovementDirection
 {
-	LEFT,
-	RIGHT
+	Left,
+	Right
 };
 
 
 class ControllerComponent final : public BaseComponent
 {
 public:
-	ControllerComponent(u32 playerId);
+	explicit ControllerComponent(u32 playerId);
 	virtual ~ControllerComponent() override = default;
 	DEL_ROF(ControllerComponent)
 
@@ -26,7 +26,6 @@ private:
 	void MoveLeft();
 	void MoveRight();
 	void Jump();
-	void Shoot();
 	glm::vec2 m_Velocity;
 	glm::vec2 m_Movement;
 	PhysicsComponent2D* m_pPhysicsComponent;

@@ -140,6 +140,7 @@
     <ClInclude Include="Components\TextureComponent.h" />
     <ClInclude Include="Components\TransformComponent.h" />
     <ClInclude Include="Core\BenchineCore.hpp" />
+    <ClInclude Include="Core\Memory.hpp" />
     <ClInclude Include="Debugging\DebugRenderer.h" />
     <ClInclude Include="Graphics\GLTextureWrapper.h" />
     <ClInclude Include="Helpers\Concepts.hpp" />

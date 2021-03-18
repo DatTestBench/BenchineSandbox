@@ -28,7 +28,7 @@ void TestScene::Initialize()
 	m_pFPSComponent = m_pFPSCounter->AddComponent(new FPSComponent());
 	m_pFPSText = m_pFPSCounter->AddComponent(new TextComponent("a", font));
 	m_pFPSText->SetColor(0, 255, 0);
-	m_pFPSText->GetTexture()->SetOffsetMode(TextureOffsetMode::TOPLEFT);
+	m_pFPSText->GetTexture()->SetOffsetMode(TextureOffsetMode::Topleft);
 	m_pFPSText->GetTexture()->SetRenderPriority(10U);
 }
 

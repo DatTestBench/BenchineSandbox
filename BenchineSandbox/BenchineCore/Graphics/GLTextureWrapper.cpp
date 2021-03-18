@@ -54,7 +54,7 @@ void GLTextureWrapper::CreateTextureFromSurface(SDL_Surface* pSurface)
 		}
 		break;
 	default:
-		LOG(LEVEL_ERROR, "Unknown pixel format, {0} bytes per pixel.\nUse 32 bit or 24 bit images.", pSurface->format->BytesPerPixel);
+		LOG(Error, "Unknown pixel format, {0} bytes per pixel.\nUse 32 bit or 24 bit images.", pSurface->format->BytesPerPixel);
 		m_CreationOk = false;
 		return;
 	}
@@ -70,8 +70,8 @@ void GLTextureWrapper::CreateTextureFromSurface(SDL_Surface* pSurface)
 	GLenum e = glGetError();
 	if (e != GL_NO_ERROR)
 	{
-		LOG(LEVEL_ERROR, "Error Binding Texture, Error ID: {0}", e);
-		LOG(LEVEL_INFO, "Can happen if a texture is created before performing the initialization code (e.g. a static Texture object).\nThere  might be a white rectangle instead of the image.");
+		LOG(Error, "Error Binding Texture, Error ID: {0}", e);
+		LOG(Info, "Can happen if a texture is created before performing the initialization code (e.g. a static Texture object).\nThere  might be a white rectangle instead of the image.");
 	}
 
 	// Specify the texture's data.  

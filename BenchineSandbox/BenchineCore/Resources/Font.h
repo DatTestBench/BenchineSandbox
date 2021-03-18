@@ -12,7 +12,6 @@ public:
 	[[nodiscard]] constexpr auto GetTextureWrapper() const noexcept -> GLTextureWrapper* { return m_pTexture; }
 	GLTextureWrapper* GenerateFontTexture(const std::string& text, const SDL_Color& color);
 
-
 private:
 	_TTF_Font* m_pFont;
 	GLTextureWrapper* m_pTexture;

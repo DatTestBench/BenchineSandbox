@@ -3,14 +3,13 @@
 #include "Components/PhysicsComponent2D.h"
 #include "Components/TransformComponent.h"
 #include "Components/SpriteComponent.h"
-#include <functional>
 #include <algorithm>
 
 AIControllerComponent::AIControllerComponent()
 	: m_Velocity(0, 0)
 	, m_Direction(-1, 0)
 	, m_pPhysicsComponent(nullptr)
-	, m_State(AIState::FREE)
+	, m_State(AIState::Free)
 	, m_BubbleTimer()
 {
 }
@@ -20,7 +19,7 @@ void AIControllerComponent::Initialize()
 	m_pPhysicsComponent = GetGameObject()->GetComponent<PhysicsComponent2D>();
 	if (m_pPhysicsComponent == nullptr)
 	{
-		LOG(LEVEL_ERROR, "No PhysicsComponent specified, please attach a PhysicsComponent when using a ControllerComponent");
+		LOG(Error, "No PhysicsComponent specified, please attach a PhysicsComponent when using a ControllerComponent");
 	}
 }
 
@@ -32,9 +31,9 @@ void AIControllerComponent::Update(const f32 dT)
 	}
 	else
 	{
-		if (m_State == AIState::CAPTURED)
+		if (m_State == AIState::Captured)
 		{
-			m_State = AIState::FREE;
+			m_State = AIState::Free;
 			if (m_Direction.x > 0)
 			{
 				GetGameObject()->GetComponent<SpriteComponent>()->SetAnimation("RunRight");
@@ -46,7 +45,7 @@ void AIControllerComponent::Update(const f32 dT)
 		}
 
 
-		m_State = AIState::FREE;
+		m_State = AIState::Free;
 		const f32 velocity = 100.f;
 		const f32 gravity = 750.f;
 		const f32 friction = 500.f;
@@ -61,7 +60,6 @@ void AIControllerComponent::Update(const f32 dT)
 		}
 
 		m_Velocity += m_Direction * velocity;
-
 
 		m_Velocity.x = std::clamp(m_Velocity.x, -150.f, 150.f);
 
@@ -102,5 +100,5 @@ void AIControllerComponent::BubbleHit()
 {
 	m_BubbleTimer = 5.f;
 	GetGameObject()->GetComponent<SpriteComponent>()->SetAnimation("Caught");
-	m_State = AIState::CAPTURED;
+	m_State = AIState::Captured;
 }

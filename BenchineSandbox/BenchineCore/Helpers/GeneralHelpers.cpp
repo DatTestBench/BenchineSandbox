@@ -1,6 +1,7 @@
 
 #include "BenchinePCH.h"
 #include "GeneralHelpers.hpp"
+
 #pragma warning (push, 0)
 #include <nanosvg.h>
 #pragma warning (pop)
@@ -34,14 +35,14 @@
 	json j{};
 	if (!std::filesystem::exists(fullPath))
 	{
-		LOG(LEVEL_ERROR, "File at location: {0} doesn't exist", fullPath);
+		LOG(Error, "File at location: {0} doesn't exist", fullPath);
 	}
 	else
 	{
 		std::ifstream inputFile(fullPath);
 		if (!inputFile.is_open())
 		{
-			LOG(LEVEL_ERROR, "Failed to open file at location: {0}", fullPath);
+			LOG(Error, "Failed to open file at location: {0}", fullPath);
 		}
 		else
 		{
@@ -59,7 +60,7 @@ void JsonHelper::WriteJson(const json& j, const std::string& filePath) noexcept
 	std::ofstream outputFile(fullPath);
 	if (!outputFile.is_open())
 	{
-		LOG(LEVEL_ERROR, "Failed to open file at location: {0}", fullPath);
+		LOG(Error, "Failed to open file at location: {0}", fullPath);
 	}
 	else
 	{
@@ -73,7 +74,7 @@ void JsonHelper::WriteJson(const json& j, const std::string& filePath) noexcept
 [[nodiscard]] auto SvgHelper::ReadSvg(const std::string& filePath) noexcept-> std::vector<Polygon2D>
 {
     const auto fullPath = RESOURCES->GetDataPath() + filePath;
-    struct NSVGimage* image = nsvgParseFromFile(fullPath.c_str(), "px", 96);
+	const auto image = nsvgParseFromFile(fullPath.c_str(), "px", 96);
     
     std::vector<Polygon2D> polygons;
     for (auto shape = image->shapes; shape != nullptr; shape = shape->next)

@@ -4,7 +4,7 @@
 class RenderComponent final : public BaseComponent
 {
 public:
-	RenderComponent();
+	RenderComponent() = default;
 	virtual ~RenderComponent() override;
 	DEL_ROF(RenderComponent)
 

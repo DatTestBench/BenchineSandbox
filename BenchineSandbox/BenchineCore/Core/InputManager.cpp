@@ -59,13 +59,13 @@ bool InputManager::ProcessInput()
 		{
 			// Controller Connected
 			m_Controllers.at(i).IsConnected = true;
-			LOG(LEVEL_DEBUG, "Controller Connected");
+			LOG(Debug, "Controller Connected");
 		}
 		else if (dwResult != ERROR_SUCCESS && m_Controllers[i].IsConnected)
 		{
 			// Controller Disconnected
 			m_Controllers.at(i).IsConnected = false;
-			LOG(LEVEL_DEBUG, "Controller Disconnected");
+			LOG(Debug, "Controller Disconnected");
 		}
 		// Bind all inputs to each controller
 		CheckControllerInput(i, state, GamepadButton::DPAD_UP, XINPUT_GAMEPAD_DPAD_UP);
@@ -150,7 +150,7 @@ bool InputManager::AddInputBinding(InputBinding binding)
 
 	if (oldSize == newSize)
 	{
-		LOG(LEVEL_WARNING, "Input with ID {0} already exists", binding.ActionId);
+		LOG(Warning, "Input with ID {0} already exists", binding.ActionId);
 		return false;
 	}
 	return true;

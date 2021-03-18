@@ -4,17 +4,17 @@
 
 enum class TextureOffsetMode
 {
-	CENTER,
-	BASE,
-	TOP,
-	TOPLEFT,
-	BOTTOMLEFT
+	Center,
+	Base,
+	Top,
+	Topleft,
+	Bottomleft
 };
 
 class GLTextureWrapper final
 {
 public:
-	explicit GLTextureWrapper(SDL_Surface* pSurface, TextureOffsetMode offsetMode = TextureOffsetMode::CENTER, u32 renderPriority = 1);
+	explicit GLTextureWrapper(SDL_Surface* pSurface, TextureOffsetMode offsetMode = TextureOffsetMode::Center, u32 renderPriority = 1);
 	~GLTextureWrapper();
 	DEL_ROF(GLTextureWrapper)
 

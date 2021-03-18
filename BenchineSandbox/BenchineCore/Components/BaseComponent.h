@@ -1,9 +1,9 @@
 #pragma once
 #include "Scene/GameObject.h"
+
 class TransformComponent;
 class BaseComponent
 {
-	//friend class GameObject;
 public:
 	BaseComponent();
 	virtual ~BaseComponent() = default;

@@ -2,11 +2,9 @@
 struct SDL_Window;
 #include "Core/BaseGame.h"
 
-
 class Benchine
 {
 public:
-
 	template<typename T> // Templated to allow the use of any kind of basegame
 	void Run()
 	{
@@ -31,22 +29,18 @@ public:
 			const f32 deltaTime = std::min(std::chrono::duration<f32>(currentTime - lastTime).count(), 0.1f);
 			lastTime = currentTime;
 			quit = INPUT->ProcessInput();
-
 			
 			RENDERER->SetupRender();
 			SceneManager::GetInstance()->RenderCurrentScene();
-			DEBUGONLY(pLogger->OutputLog());
+			pLogger->OutputLog();
 			m_pGame->BaseUpdate(deltaTime);
 			RENDERER->PresentRender();
 		}
 		Cleanup();
 
-		
 	}
 
-private:
-
-	
+private:	
 	static void Initialize();
 	void LoadGame() const;
 	void Cleanup() const;

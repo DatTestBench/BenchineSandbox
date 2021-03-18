@@ -2,7 +2,7 @@
 #include "Components/ScoreComponent.h"
 
 ScoreComponent::ScoreComponent()
-	: m_Score()
+	: m_Score(0)
 {
 }
 

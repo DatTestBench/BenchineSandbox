@@ -10,12 +10,10 @@ public:
 	virtual ~TransformComponent() override = default;
 	DEL_ROF(TransformComponent)
 
-
 	void SetPosition(f32 x, f32 y, f32 z = 1.f) noexcept;
 	void Move(f32 x, f32 y, f32 z) noexcept;
 	void Move(const glm::vec2& movementVec) noexcept;
 	void SetScale(const glm::vec2& scale) noexcept;
-
 
 	[[nodiscard]] constexpr auto GetPosition() const noexcept -> glm::vec3 { return m_Position; }
 	[[nodiscard]] constexpr auto GetScale() const noexcept -> glm::vec2 { return m_Scale; }

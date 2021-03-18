@@ -1,5 +1,7 @@
 #include "BenchinePCH.h"
 #include "Scene/SceneManager.h"
+
+#include "Core/Memory.hpp"
 #include "Scene/Scene.h"
 #include "Scene/DefaultScene.h"
 
@@ -25,7 +27,7 @@ void SceneManager::Initialize()
 
 	if (m_pScenes.empty())
 	{
-		LOG(LEVEL_WARNING, "No scenes loaded, falling back on default scene");
+		LOG(Warning, "No scenes loaded, falling back on default scene");
 
 		auto pDefaultScene = new DefaultScene;
 
@@ -58,10 +60,7 @@ void SceneManager::AddScene(Scene* pScene)
 	const auto currentSize = m_pScenes.size();
 	m_pScenes.try_emplace(pScene->GetSceneName(), pScene);
 
-	if (currentSize == m_pScenes.size())
-	{
-		LOG(LEVEL_WARNING, "A Scene with name: {0} already exists, the scene was not added", pScene->GetSceneName());
-	}
+	LOG_CONDITIONAL(currentSize == m_pScenes.size(), Warning, "A Scene with name: {0} already exists, the scene was not added", pScene->GetSceneName());
 }
 
 void SceneManager::LoadScene(const std::string_view& sceneName)
@@ -74,7 +73,7 @@ void SceneManager::LoadScene(const std::string_view& sceneName)
 		return;
 	}
 
-	LOG(LEVEL_ERROR, "Scene: {0} not found, loading failed", sceneName);
+	LOG(Error, "Scene: {0} not found, loading failed", sceneName);
 }
 
 void SceneManager::SetStartScene(const std::string_view& sceneName)
@@ -87,7 +86,7 @@ void SceneManager::SetStartScene(const std::string_view& sceneName)
 		return;
 	}
 
-	LOG(LEVEL_WARNING, "Scene: {0} not found, defaulting to first scene in the map if present", sceneName);
+	LOG(Warning, "Scene: {0} not found, defaulting to first scene in the map if present", sceneName);
 
 	if (m_pScenes.empty())
 	{

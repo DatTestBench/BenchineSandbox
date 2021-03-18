@@ -5,7 +5,6 @@ class Scene;
 class SceneManager final : public Singleton<SceneManager>
 {
 public:
-
 	explicit SceneManager(Token);
 	virtual ~SceneManager();
 	void Initialize();
@@ -16,8 +15,6 @@ public:
 
 	void SetStartScene(const std::string_view& sceneName);
 	void RenderCurrentScene() const;
-
-
 
 private:
 	std::map<std::string_view, Scene*> m_pScenes;

@@ -4,7 +4,7 @@
 class BubbleComponent final : public BaseComponent
 {
 public:
-	BubbleComponent(const glm::vec2& throwDirection);
+	explicit BubbleComponent(const glm::vec2& launchDirection);
 	virtual ~BubbleComponent() override = default;
 	DEL_ROF(BubbleComponent)
 

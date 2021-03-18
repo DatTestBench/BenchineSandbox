@@ -20,11 +20,9 @@ public:
 
 	[[nodiscard]] constexpr auto GetWindowSettings() const noexcept -> const WindowSettings& { return m_WindowSettings; }
 
-
 	static void RenderTexture(GLTextureWrapper* pTexture, const glm::vec2& pos, const glm::vec2& scale);
 
 private:
-
 	void Cleanup();
 
 	WindowSettings m_WindowSettings;

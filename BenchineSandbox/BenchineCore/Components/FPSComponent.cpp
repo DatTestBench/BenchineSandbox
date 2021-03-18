@@ -10,7 +10,7 @@ void FPSComponent::Initialize()
 {
 }
 
-void FPSComponent::Update([[maybe_unused]] f32 dT)
+void FPSComponent::Update([[maybe_unused]] const f32 dT)
 {
 	m_FPS = 1.f / dT;
 }

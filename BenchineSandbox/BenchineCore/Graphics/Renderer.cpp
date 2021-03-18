@@ -106,7 +106,6 @@ void Renderer::Cleanup()
 	m_pWindow = nullptr;
 }
 
-
 void Renderer::RenderTexture(GLTextureWrapper* pTexture, const glm::vec2& pos, const glm::vec2& scale)
 {
 	if (!pTexture->IsCreationOk())
@@ -120,7 +119,6 @@ void Renderer::RenderTexture(GLTextureWrapper* pTexture, const glm::vec2& pos, c
 	glTranslatef(pos.x, pos.y, 0.f);
 	glScalef(scale.x, scale.y, 1.f);
 
-
 	// Tell opengl which texture we will use
 	glBindTexture(GL_TEXTURE_2D, pTexture->GetId());
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
@@ -129,21 +127,17 @@ void Renderer::RenderTexture(GLTextureWrapper* pTexture, const glm::vec2& pos, c
 	{
 		glBegin(GL_QUADS);
 		{
-
 			for (auto [uv, vertexPos] : vertexBuffer)
 			{
 				glTexCoord2f(uv.x, uv.y);
 				glVertex3f(vertexPos.x, vertexPos.y, 1.f - 1.f / static_cast<GLfloat>(pTexture->GetRenderPriority()));
 			}
-
 		}
 		glEnd();
 	}
 	glPopMatrix();
 	glDisable(GL_TEXTURE_2D);
-
 }
-
 
 std::array<VertexUV, 4> Renderer::CreateRenderParams(GLTextureWrapper* pTexture)
 {
@@ -156,9 +150,8 @@ std::array<VertexUV, 4> Renderer::CreateRenderParams(GLTextureWrapper* pTexture)
 
 	const auto targetPos = pTexture->GetPositionOffset();
 
-
 	// Determine the texturecoordinates that should be rendered;
-	f32 uvLeft{}, uvRight{}, uvTop{}, uvBottom{};
+	f32 uvLeft, uvRight, uvTop, uvBottom;
 
 	if (!(source.Width > 0U && source.Height > 0U)) // No source specified
 	{
@@ -182,31 +175,31 @@ std::array<VertexUV, 4> Renderer::CreateRenderParams(GLTextureWrapper* pTexture)
 
 	switch (pTexture->GetOffsetMode())
 	{
-	case TextureOffsetMode::CENTER:
+	case TextureOffsetMode::Center:
 		vertexLeft = targetPos.x - targetWidth / 2.f;
 		vertexRight = targetPos.x + targetWidth / 2.f;
 		vertexTop = targetPos.y + targetHeight / 2.f;
 		vertexBottom = targetPos.y - targetHeight/ 2.f;
 		break;
-	case TextureOffsetMode::BASE:
+	case TextureOffsetMode::Base:
 		vertexLeft = targetPos.x - targetWidth / 2.f;
 		vertexRight = targetPos.x + targetWidth / 2.f;
 		vertexTop = targetPos.y + targetHeight;
 		vertexBottom = targetPos.y;
 		break;
-	case TextureOffsetMode::TOP:
+	case TextureOffsetMode::Top:
 		vertexLeft = targetPos.x - targetWidth / 2.f;
 		vertexRight = targetPos.x + targetWidth / 2.f;
 		vertexTop = targetPos.y;
 		vertexBottom = targetPos.y - targetHeight;
 		break;
-	case TextureOffsetMode::TOPLEFT:
+	case TextureOffsetMode::Topleft:
 		vertexLeft = targetPos.x;
 		vertexRight = targetPos.x + targetWidth;
 		vertexTop = targetPos.y;
 		vertexBottom = targetPos.y - targetHeight;
 		break;
-	case TextureOffsetMode::BOTTOMLEFT:
+	case TextureOffsetMode::Bottomleft:
 		vertexLeft = targetPos.x;
 		vertexRight = targetPos.x + targetWidth;
 		vertexTop = targetPos.y + targetHeight;

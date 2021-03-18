@@ -6,15 +6,17 @@
 
 enum class CollisionMode
 {
-	STATIC,
-	DYNAMIC,
-	TRIGGER
+	Static,
+	Dynamic,
+	Trigger
 };
+
+using CollisionCallback = std::function<void(PolygonCollisionResult, PhysicsComponent2D*, PhysicsComponent2D*)>;
 
 class PhysicsComponent2D final : public BaseComponent
 {
 public:
-	PhysicsComponent2D(CollisionMode collisionMode = CollisionMode::STATIC);
+	explicit PhysicsComponent2D(CollisionMode collisionMode = CollisionMode::Static);
 	virtual ~PhysicsComponent2D() override;
 	DEL_ROF(PhysicsComponent2D)
 
@@ -29,12 +31,12 @@ public:
 		m_Collider = collider;
 	}
 	void SetVelocity(const glm::vec2& velocity) noexcept { m_Velocity = velocity; }
-	void SetCallback(std::function<void(PolygonCollisionResult, PhysicsComponent2D*, PhysicsComponent2D*)> callback, bool callbackOverride = false) noexcept
+	void SetCallback(const CollisionCallback callback, const bool callbackOverride = false) noexcept
 	{
 		m_PhysicsCallback = callback;
 		m_CallBackOverriden = callbackOverride;
 	}
-	void HandleCollision(PhysicsComponent2D* pOtherActor);
+	void HandleCollision(PhysicsComponent2D* pOtherComponent);
 
 protected:
 	void Initialize() override;
@@ -43,7 +45,7 @@ protected:
 private:
 
 	CollisionMode m_CollisionMode;
-	std::function<void(PolygonCollisionResult, PhysicsComponent2D*, PhysicsComponent2D*)> m_PhysicsCallback;
+	CollisionCallback m_PhysicsCallback;
 	bool m_CallBackOverriden;
 	glm::vec2 m_Velocity;
 	Collider2D m_Collider;

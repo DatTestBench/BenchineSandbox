@@ -1,5 +1,7 @@
 #include "BenchinePCH.h"
 #include "Core/Benchine.h"
+
+#include "Core/Memory.hpp"
 #include "Helpers/Singleton.hpp"
 void Benchine::Initialize()
 {
@@ -8,7 +10,6 @@ void Benchine::Initialize()
 		throw std::runtime_error(std::string("Benchine::Initialize() > SDL_Init Error") + SDL_GetError());
 	}
 	RENDERER->Initialize(WindowSettings("Window", 1600U, 960U, true));
-
 }
 
 void Benchine::LoadGame() const
@@ -18,7 +19,7 @@ void Benchine::LoadGame() const
 
 void Benchine::Cleanup() const
 {
-	delete m_pGame;
+	SafeDelete(m_pGame);
 	SceneManager::Destroy();
 	ResourceManager::Destroy();
 	InputManager::Destroy();
