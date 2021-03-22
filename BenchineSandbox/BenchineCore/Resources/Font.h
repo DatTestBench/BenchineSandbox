@@ -5,6 +5,11 @@ class GLTextureWrapper;
 class Font
 {
 public:
+	/**
+	 * \brief Wrapper around TTF_Fonts
+	 * \param fullPath Path to the font file
+	 * \param size Font size
+	 */
 	explicit Font(const std::string& fullPath, u32 size);
 	~Font();
 	DEL_ROF(Font)

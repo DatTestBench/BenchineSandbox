@@ -19,7 +19,7 @@ Font::~Font()
 
 GLTextureWrapper* Font::GenerateFontTexture(const std::string& text, const SDL_Color& color)
 {
-	SafeDelete(m_pTexture);
+	SafeDeleteNoWarn(m_pTexture, "m_pTexture will be nullptr on first innit as this is used to construct the object");
 	const auto pSurface = TTF_RenderText_Blended(m_pFont, text.c_str(), color);
 
 	LOG_CONDITIONAL(pSurface == nullptr, Error, "Surface Invalid: {0}", TTF_GetError());

@@ -16,20 +16,8 @@ public:
 	void Render() const;
 	void DoPhysics();
 
-
-	/**
-	 * Adds a gameobject to the current scene
-	 * @param pGameObject The gameobject that will be added to the scene
-	 * @return The gameobject that was passed, returned for further use;
-	 * */
 	GameObject* AddGameObject(GameObject* pGameObject) noexcept;
-
 	GameObject* AddGameObjectLate(GameObject* pGameObject) noexcept;
-	/**
-	 * Adds a gameobject to the current scene
-	 * @param pGameObject The gameobject that will be added to the scene
-	 * @return The (now deleted, and nullptr), gameobject. Use this to set local references to null in the caller, without needing to mess about with manual nullptr setting
-	 * */
 	GameObject* RemoveGameObject(GameObject* pGameObject) noexcept;
 
 	void AddRenderComponent(RenderComponent* pRenderComponent) noexcept;

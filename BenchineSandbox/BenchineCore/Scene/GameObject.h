@@ -31,9 +31,9 @@ public:
 		return pComponent;
 	}
 
-	void SetParentScene(Scene* pScene);
-	void SetParentObject(GameObject* pObject);
-	void SetRenderComponent(RenderComponent* pRenderComponent) { m_pRenderComponent = pRenderComponent; }
+	void SetParentScene(Scene* pScene) noexcept;
+	void SetParentObject(GameObject* pObject) noexcept;
+	void SetRenderComponent(RenderComponent* pRenderComponent) noexcept { m_pRenderComponent = pRenderComponent; }
 	[[nodiscard]] constexpr auto GetTransform() const noexcept -> TransformComponent* { return m_pTransform; }
 	[[nodiscard]] constexpr auto GetRenderComponent() const noexcept -> RenderComponent* { return m_pRenderComponent; }
 	[[nodiscard]] constexpr auto MarkedForDelete() const noexcept -> bool { return m_MarkedForDelete; }

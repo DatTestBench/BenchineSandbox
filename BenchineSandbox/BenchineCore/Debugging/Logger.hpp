@@ -9,7 +9,6 @@
 #include "fmt/color.h"
 #include "Helpers/Singleton.hpp"
 #include "Core/BenchineCore.hpp"
-//#include "fmt/format.h"
 
 enum class LogLevel : u16
 {
@@ -29,20 +28,14 @@ enum class Verbosity : u16
 	Full = 3
 };
 
-#define DEBUG_OVERRIDE 1
+//#define DEBUG_OVERRIDE 0
 
-#define LOG_CONSOLE_ONLY 1
-#define LOG_LOGGER_ONLY 2
-#define LOG_BOTH 3
-
-#define LOG_OUTPUT LOG_LOGGER_ONLY
-
-#if !NDEBUG || DEBUG_OVERRIDE
+#ifdef B_DEBUG
 	#define LOG_CONDITIONAL(condition, level, ...) if (condition) LOG(level, __VA_ARGS__)
 	#define LOG(level, ...) Logger::GetInstance()->Log<LogLevel::level>(__FILE__, __FUNCTION__, __LINE__, fmt::format(__VA_ARGS__))
 #else
-	#define LOG_CONDITIONAL(condition, level, ...) UNUSED(condition); UNUSED(level); UNUSED(__VA_ARGS__)
-    #define	LOG(level, ...) UNUSED(level); UNUSED(__VA_ARGS__)
+	#define LOG_CONDITIONAL(condition, level, ...) UNUSED(condition); UNUSED(LogLevel::level); UNUSED(__VA_ARGS__)
+    #define	LOG(level, ...) UNUSED(LogLevel::level); UNUSED(__VA_ARGS__)
 #endif
 
 struct LogEntry
@@ -54,6 +47,15 @@ struct LogEntry
 	std::string message;
 	bool markedForClear;
 	bool consoleLogged;
+	
+	/**
+	 * \brief Entry of a log line. Contains all the necessary information for each log entry.
+	 * \param lvl Log level
+	 * \param fl File name
+	 * \param func Function name
+	 * \param ln Line number
+	 * \param msg Log message
+	 */
 	LogEntry(const LogLevel lvl, const std::string& fl, const std::string& func, const u32 ln, const std::string& msg = "")
 		: level(lvl)
 		, file(fl)
@@ -74,12 +76,12 @@ public:
 	}
 
 	/**
-	* Log Function 
-	* @template Level LogLevel
-	* @param file
-	* @param function
-	* @param line
-	* @param message Log message
+	* \brief Log Function 
+	* \template Level Log level
+	* \param file File name
+	* \param function Function name
+	* \param line Line where this log was called
+	* \param message Log message
 	* */
 	template <LogLevel Level>
 	static void Log(const std::string& file, const std::string& function, uint32_t line, const std::string& message)
@@ -88,13 +90,16 @@ public:
 		GetInstance()->m_LogList.emplace_back(Level, file, function, line, message);
 	}
 
-	/**
-	 * ImGui code to output the logger window
-	 * */
+	// ImGui code to output the logger window
 	void OutputLog() noexcept;
 
 	struct OutputWrapper
 	{
+		/**
+		 * \brief Wrapper around ImGui and fmt/std::format logging colors.
+		 * \param imCol ImGui color value
+		 * \param fmtCol fmt/std::format color value
+		 */
 		OutputWrapper(const ImVec4& imCol, const fmt::color& fmtCol)
 			: ImGuiColor(imCol)
 			, FmtColor(fmtCol)
@@ -108,8 +113,8 @@ public:
 private:
 	std::list<LogEntry> m_LogList;
 	bool m_ShowHeaders = true;
-	LogLevel m_CurrentLevel = LogLevel::Full;
-	Verbosity m_VerbosityLevel = Verbosity::Full;
+	LogLevel m_LogLevel = LogLevel::Full;
+	Verbosity m_VerbosityLevel = Verbosity::HeaderAndLocationCompact;
 
 	inline static const std::array<OutputWrapper, 6> COLOR_LUT
 	{

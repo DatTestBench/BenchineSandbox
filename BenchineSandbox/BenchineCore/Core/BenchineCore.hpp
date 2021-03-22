@@ -21,6 +21,14 @@ using i64	= int64_t;
 using f32	= float;
 using f64 	= double;
 
+// Debug macros
+
+//todo add compiler specific flags
+
+#if _DEBUG
+#define B_DEBUG
+#endif 
+
 auto EnumIndex(const auto& e) noexcept
 {
 	return magic_enum::enum_integer(e);
@@ -63,7 +71,7 @@ className(className&&) noexcept = delete; \
 className& operator= (const className&) = delete; \
 className& operator= (className&&) noexcept = delete;
 
-#define UNUSED(var) var;
+#define UNUSED(var) ((void)(var));
 
 // Helper functions
 

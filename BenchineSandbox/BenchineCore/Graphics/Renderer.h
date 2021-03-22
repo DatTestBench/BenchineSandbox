@@ -20,6 +20,13 @@ public:
 
 	[[nodiscard]] constexpr auto GetWindowSettings() const noexcept -> const WindowSettings& { return m_WindowSettings; }
 
+
+	/**
+	 * \brief Render GLTextureWrapper to the screen
+	 * \param pTexture Texture to render
+	 * \param pos Position
+	 * \param scale 2D texture scale
+	 */
 	static void RenderTexture(GLTextureWrapper* pTexture, const glm::vec2& pos, const glm::vec2& scale);
 
 private:

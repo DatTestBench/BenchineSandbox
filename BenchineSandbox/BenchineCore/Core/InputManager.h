@@ -2,7 +2,6 @@
 #include <XInput.h>
 #include <bitset>
 #include <map>
-#include <tuple>
 #include <vector>
 #include <functional>
 
@@ -78,6 +77,13 @@ struct Controller
 	std::array<InputState, magic_enum::enum_count<GamepadButton>()> ButtonStates;
 };
 
+struct MouseState
+{
+	i32 x;
+	i32 y;
+	u32 state;
+};
+
 class InputManager final : public Singleton<InputManager>
 {
 public:
@@ -91,7 +97,7 @@ public:
 
 	bool ProcessInput();
 	bool IsPressed(GamepadButton button, uint32_t controllerId);
-	std::tuple<i32, i32, u32> GetMouseState();
+	static MouseState GetMouseState();
 
 
 private:

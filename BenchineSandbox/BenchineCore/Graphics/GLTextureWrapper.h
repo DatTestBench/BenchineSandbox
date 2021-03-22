@@ -14,6 +14,12 @@ enum class TextureOffsetMode
 class GLTextureWrapper final
 {
 public:
+	/**
+	 * \brief Wrapper around OpenGL textures using SDL_Surfaces
+	 * \param pSurface SDL_Surface to use for the texture
+	 * \param offsetMode Location offset mode
+	 * \param renderPriority "Layer" on the screen where the texture will be displayed, higher priority == closer to the top
+	 */
 	explicit GLTextureWrapper(SDL_Surface* pSurface, TextureOffsetMode offsetMode = TextureOffsetMode::Center, u32 renderPriority = 1);
 	~GLTextureWrapper();
 	DEL_ROF(GLTextureWrapper)

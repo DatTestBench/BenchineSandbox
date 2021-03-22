@@ -3,6 +3,10 @@
 class SoundStream
 {
 public:
+	/**
+     * \brief Wrapper around Mix_Music
+     * \param fullPath Sound file path
+     */
     explicit SoundStream(const std::string& fullPath);
     ~SoundStream();
     DEL_ROF(SoundStream)

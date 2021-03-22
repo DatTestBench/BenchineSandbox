@@ -3,6 +3,10 @@ struct Mix_Chunk;
 class SoundByte
 {
 public:
+	/**
+     * \brief Wrapper around Mix_Chunk
+     * \param fullPath Sound file path 
+     */
     explicit SoundByte(const std::string& fullPath);
     ~SoundByte();
     DEL_ROF(SoundByte)

@@ -182,11 +182,11 @@ void InputManager::LogKeyReleased(const SDL_Scancode key)
 }
 
 
-std::tuple<i32, i32, u32> InputManager::GetMouseState()
+MouseState InputManager::GetMouseState()
 {
 	i32 x, y;
 	u32 mouseState = SDL_GetMouseState(&x, &y);
-	return std::tuple<i32, i32, u32>(x, y, mouseState);
+	return MouseState(x, y, mouseState);
 }
 
 void InputManager::ClearInputs()
