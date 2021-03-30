@@ -1,5 +1,8 @@
 #include "BenchinePCH.h"
 #include "RenderComponent.h"
+
+#include <ranges>
+
 #include "Graphics/Renderer.h"
 #include "Scene/GameObject.h"
 #include "Components/TransformComponent.h"
@@ -23,7 +26,7 @@ void RenderComponent::Render() const
 {
 	const auto renderPos = GetGameObject()->GetTransform()->GetPosition();
 	const auto renderScale = GetGameObject()->GetTransform()->GetScale();
-	for (auto [order, texture] : m_RenderBuffer)
+	for (auto texture : m_RenderBuffer | std::views::values)
 	{
 		Renderer::GetInstance()->RenderTexture(texture, renderPos, renderScale);
 	}

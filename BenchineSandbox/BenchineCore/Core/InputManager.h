@@ -33,25 +33,35 @@ enum class GamepadButton : u16
 	Y,
 	NONE
 };
+
+enum class ControllerId
+{
+	Player1,
+	Player2,
+	Player3,
+	Player4,
+	Invalid
+};
+
 struct InputBinding
 {
 	std::string_view ActionId;
-	std::function<void()> CallBack;
+	std::function<void()> Callback;
 	InputState State;
 	i32 KeyCode; // Remapped to an SDL keycode
 	i32 MouseCode;
 	GamepadButton Button;
-	i32 ControllerId;
+	ControllerId Controller;
 	bool IsActive;
 
-	explicit InputBinding(const std::string_view id, const std::function<void()> callBack, const InputState state, const i32 keyCode = -1, const i32 mouseCode = -1, const GamepadButton button = GamepadButton::NONE, const i32 controllerId = 0)
+	explicit InputBinding(const std::string_view id, const std::function<void()> callBack, const InputState state, const i32 keyCode = -1, const i32 mouseCode = -1, const GamepadButton button = GamepadButton::NONE, const ControllerId controllerId = ControllerId::Invalid)
 		: ActionId(id)
-		, CallBack(callBack)
+		, Callback(callBack)
 		, State(state)
 		, KeyCode(SDL_GetScancodeFromKey(keyCode))
 		, MouseCode(mouseCode)
 		, Button(button)
-		, ControllerId(controllerId)
+		, Controller(controllerId)
 		, IsActive(false)
 	{
 	}

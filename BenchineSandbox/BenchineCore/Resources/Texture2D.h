@@ -12,8 +12,8 @@ public:
 	~Texture2D();
 	DEL_ROF(Texture2D)
 
-	[[nodiscard]] constexpr auto GetTextureWrapper() const noexcept -> GLTextureWrapper* { return m_pTexture; }
+	[[nodiscard]] auto GetTextureWrapper() const noexcept -> GLTextureWrapper* { return m_pTexture.get(); }
 private:
-	GLTextureWrapper* m_pTexture;
+	std::unique_ptr<GLTextureWrapper> m_pTexture;
 };
 

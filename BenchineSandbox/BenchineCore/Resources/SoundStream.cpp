@@ -2,23 +2,20 @@
 #include "Resources/SoundStream.h"
 
 SoundStream::SoundStream(const std::string& fullPath)
-	: m_pMixMusic(Mix_LoadMUS(fullPath.c_str()))
+	: m_pMixMusic(Mix_LoadMUS(fullPath.c_str()), [](Mix_Music* ptr){ Mix_FreeMusic(ptr); ptr = nullptr; })
 {
-
 	LOG_CONDITIONAL(m_pMixMusic == nullptr, Error, "Failed to load soundstream: {0}", Mix_GetError());
 }
 
 SoundStream::~SoundStream()
 {
-	Mix_FreeMusic(m_pMixMusic);
-	m_pMixMusic = nullptr;
 }
 
 void SoundStream::Play(const bool shouldRepeat) const noexcept
 {
 	if (m_pMixMusic != nullptr)
 	{
-		if (Mix_PlayMusic(m_pMixMusic, shouldRepeat ? -1 : 1))
+		if (Mix_PlayMusic(m_pMixMusic.get(), shouldRepeat ? -1 : 1))
 		{
 			LOG(Warning, "Couldn't play music");
 		}

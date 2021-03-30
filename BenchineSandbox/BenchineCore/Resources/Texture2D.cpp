@@ -3,6 +3,7 @@
 
 #include "Core/Memory.hpp"
 #include "Graphics/GLTextureWrapper.h"
+
 Texture2D::Texture2D(const std::string& fullPath)
 	: m_pTexture(nullptr)
 {
@@ -10,11 +11,10 @@ Texture2D::Texture2D(const std::string& fullPath)
 
 	LOG_CONDITIONAL(pSurface == nullptr, Error, IMG_GetError());
 
-	m_pTexture = new GLTextureWrapper(pSurface);
+	m_pTexture = std::make_unique<GLTextureWrapper>(pSurface);
 	SDL_FreeSurface(pSurface);
 }
 
 Texture2D::~Texture2D()
 {
-	SafeDelete(m_pTexture);
 }

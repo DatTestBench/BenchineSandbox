@@ -21,7 +21,7 @@ public:
 
 	[[nodiscard]] constexpr auto GetFrameWidth() const noexcept -> u32 { return m_pSpriteSheet->GetTextureWrapper()->GetWidth() / m_Cols; }
 	[[nodiscard]] constexpr auto GetFrameHeight() const noexcept -> u32 { return m_pSpriteSheet->GetTextureWrapper()->GetHeight() / m_Rows; }
-	[[nodiscard]] constexpr auto GetTextureWrapper() const noexcept -> GLTextureWrapper* { return m_pSpriteSheet->GetTextureWrapper(); }
+	[[nodiscard]] auto GetTextureWrapper() const noexcept -> GLTextureWrapper* { return m_pSpriteSheet->GetTextureWrapper(); }
 
 	void SetCurrentZone(u32 zone) noexcept;
 

@@ -1,7 +1,6 @@
 #pragma once
 #include <string>
 #include "Core/Memory.hpp"
-
 #include "Resources/ResourceLoader.h"
 
 /*Resource Types*/
@@ -17,14 +16,7 @@ public:
 	Font* Load(const std::string& filePath) override
 	{
 		const auto fullPath = m_DataPath + filePath;
-		Font* pFont = new Font(fullPath, 32);
-		
-		return pFont;
-	}
-
-	void Release(Font* pResource) override
-	{
-		SafeDelete(pResource);
+		return new Font(fullPath, 32);
 	}
 };
 
@@ -35,14 +27,7 @@ public:
 	Texture2D* Load(const std::string& filePath) override
 	{
 		const auto fullPath = m_DataPath + filePath;
-		Texture2D* pTexture = new Texture2D(fullPath);
-
-		return pTexture;
-	}
-
-	void Release(Texture2D* pResource) override
-	{
-		SafeDelete(pResource);
+		return new Texture2D(fullPath);
 	}
 };
 
@@ -53,14 +38,7 @@ public:
 	SoundByte* Load(const std::string& filePath) override
 	{
 		const auto fullPath = m_DataPath + filePath;
-		SoundByte* pSoundByte = new SoundByte(fullPath);
-
-		return pSoundByte;
-	}
-
-	void Release(SoundByte* pSoundByte) override
-	{
-		SafeDelete(pSoundByte);
+		return new SoundByte(fullPath);
 	}
 };
 
@@ -71,13 +49,6 @@ public:
 	SoundStream* Load(const std::string& filePath) override
 	{
 		const auto fullPath = m_DataPath + filePath;
-		SoundStream* pSoundStream = new SoundStream(fullPath);
-
-		return pSoundStream;
-	}
-
-	void Release(SoundStream* pSoundStream) override
-	{
-		SafeDelete(pSoundStream);
+		return new SoundStream(fullPath);
 	}
 };

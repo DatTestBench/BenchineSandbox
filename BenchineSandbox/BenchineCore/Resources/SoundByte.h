@@ -13,8 +13,8 @@ public:
 
     void Play(u32 repeats = 0U) const;
     void SetVolume(u32 volume) const;
-    [[nodiscard]] constexpr auto GetVolume() const noexcept -> i32;
+    [[nodiscard]] auto GetVolume() const noexcept -> i32;
 private:
-    Mix_Chunk* m_pMixChunk;
+    std::unique_ptr<Mix_Chunk, void(*)(Mix_Chunk*)> m_pMixChunk;
 };
 

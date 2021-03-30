@@ -1,6 +1,8 @@
 #include "BenchinePCH.h"
 #include "Core/InputManager.h"
 #include <future>
+#include <ranges>
+
 
 #include "BenchineCore.hpp"
 
@@ -95,18 +97,19 @@ bool InputManager::ProcessInput()
 
 
 
-	for (auto& [id, bind] : m_InputBinds)
+	//for (auto bind : m_InputBinds | std::views::values)
+	for (auto& [actionId, callback, state, keyCode, mouseCode, button, controller, isActive] : m_InputBinds | std::views::values)
 	{
 		// Keyboard Checks
 		bool keyBoardActive = false;
 
-		if (bind.State == InputState::Down)
+		if (state == InputState::Down)
 		{
-			const u8* state = SDL_GetKeyboardState(nullptr);
-			if (state[bind.KeyCode])
+			const u8* keyboardState = SDL_GetKeyboardState(nullptr);
+			if (keyboardState[keyCode])
 			{
 				//auto a = std::async(bind.second.CallBack);
-				bind.CallBack();
+				callback();
 				keyBoardActive = true;
 			}
 		}
@@ -114,10 +117,10 @@ bool InputManager::ProcessInput()
 		{
 			for (auto& keyEvent : m_KeyEvents)
 			{
-				if (keyEvent.KeyCode == bind.KeyCode && keyEvent.State == bind.State)
+				if (keyEvent.KeyCode == keyCode && keyEvent.State == state)
 				{
 					//auto a = std::async(bind.second.CallBack);
-					bind.CallBack();
+					callback();
 					keyBoardActive = true;
 					keyEvent.Processed = true;
 				}
@@ -126,17 +129,17 @@ bool InputManager::ProcessInput()
 
 		// XINPUT Checks
 		bool controllerActive = false;
-		if (bind.Button != GamepadButton::NONE)
+		if (button != GamepadButton::NONE)
 		{
-			if (m_Controllers.at(static_cast<u32>(bind.ControllerId)).Buttons.at(EnumIndex(bind.Button)) 
-				&& (m_Controllers.at(static_cast<u32>(bind.ControllerId)).ButtonStates.at(EnumIndex(bind.Button)) == bind.State))
+			if (m_Controllers.at(EnumIndex(controller)).Buttons.at(EnumIndex(button)) 
+				&& (m_Controllers.at(EnumIndex(controller)).ButtonStates.at(EnumIndex(button)) == state))
 			{
 				//auto a = std::async(bind.second.CallBack);
-				bind.CallBack();
+				callback();
 				controllerActive = true;
 			}
 		}
-		bind.IsActive = keyBoardActive || controllerActive;
+		isActive = keyBoardActive || controllerActive;
 	}
 
 	return false;
@@ -185,7 +188,7 @@ void InputManager::LogKeyReleased(const SDL_Scancode key)
 MouseState InputManager::GetMouseState()
 {
 	i32 x, y;
-	u32 mouseState = SDL_GetMouseState(&x, &y);
+	const u32 mouseState = SDL_GetMouseState(&x, &y);
 	return MouseState(x, y, mouseState);
 }
 

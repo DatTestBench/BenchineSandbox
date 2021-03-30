@@ -1,25 +1,27 @@
 #include "BenchinePCH.h"
 #include "Resources/ResourceManager.h"
 
+#include <ranges>
 #include "Core/Memory.hpp"
 #include "Resources/Loaders.h"
 
-std::map<std::type_index, BaseLoader*> ResourceManager::m_Loaders = std::map<std::type_index, BaseLoader*>();
+std::map<std::type_index, std::unique_ptr<BaseLoader>> ResourceManager::m_Loaders = std::map<std::type_index, std::unique_ptr<BaseLoader>>();
 
 ResourceManager::~ResourceManager()
 {
-	for (auto [type, pLoader] : m_Loaders)
+	// Interesting: This actually needs to be a reference as otherwise the unique_ptr goes out of scope. Didn't expect that to happen with std::views, thought those would be non owning
+	for (auto& pLoader : m_Loaders | std::views::values)
 	{
 		pLoader->ReleaseResources();
-		SafeDelete(pLoader);
 	}
 }
 
 void ResourceManager::Initialize(const std::string& dataPath)
 {
-	// Set datapath for all the resource loaders
+	// TODO This is also messy. Look for a workaround.
+	// Set data-path for all the resource loaders
 	BaseLoader::SetDataPath(dataPath);
-	// Set datapath for external use
+	// Set data-path for external use
 	m_DataPath = dataPath;
 	// load support for png and jpg, this takes a while!
 
@@ -36,8 +38,8 @@ void ResourceManager::Initialize(const std::string& dataPath)
 					Error, "Failed to load support for sound: {0}", Mix_GetError());
 
 	// Initialize Loaders
-	AddLoader<Font>(new FontLoader());
-	AddLoader<Texture2D>(new TextureLoader());
-	AddLoader<SoundByte>(new SoundByteLoader());
-	AddLoader<SoundStream>(new SoundStreamLoader());
+	AddLoader<Font, FontLoader>();
+	AddLoader<Texture2D, TextureLoader>();
+	AddLoader<SoundByte, SoundByteLoader>();
+	AddLoader<SoundStream, SoundStreamLoader>();
 }

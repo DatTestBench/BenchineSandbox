@@ -7,7 +7,7 @@
 #include <functional>
 #include <algorithm>
 
-ControllerComponent::ControllerComponent(const u32 playerId)
+ControllerComponent::ControllerComponent(const ControllerId playerId)
 	: m_Velocity(0, 0)
 	, m_Movement(0, 0)
 	, m_pPhysicsComponent(nullptr)
@@ -24,13 +24,13 @@ void ControllerComponent::Initialize()
 		LOG(Error, "No PhysicsComponent specified, please attach a PhysicsComponent when using a ControllerComponent");
 	}
 
-	if (m_PlayerId == 0)
+	if (m_PlayerId == ControllerId::Player1)
 	{
 		INPUT->AddInputBinding(InputBinding("MoveLeft", std::bind(&ControllerComponent::MoveLeft, this), InputState::Down, 'a', -1, GamepadButton::DPAD_LEFT, m_PlayerId));
 		INPUT->AddInputBinding(InputBinding("MoveRight", std::bind(&ControllerComponent::MoveRight, this), InputState::Down, 'd', -1, GamepadButton::DPAD_RIGHT, m_PlayerId));
 		INPUT->AddInputBinding(InputBinding("Jump", std::bind(&ControllerComponent::Jump, this), InputState::Pressed, 'w', -1, GamepadButton::A, m_PlayerId));
 	}
-	else if (m_PlayerId == 1)
+	else if (m_PlayerId == ControllerId::Player2)
 	{
 		INPUT->AddInputBinding(InputBinding("MoveLeft", std::bind(&ControllerComponent::MoveLeft, this), InputState::Down, SDLK_LEFT, -1, GamepadButton::DPAD_LEFT, m_PlayerId));
 		INPUT->AddInputBinding(InputBinding("MoveRight", std::bind(&ControllerComponent::MoveRight, this), InputState::Down, SDLK_RIGHT, -1, GamepadButton::DPAD_RIGHT, m_PlayerId));

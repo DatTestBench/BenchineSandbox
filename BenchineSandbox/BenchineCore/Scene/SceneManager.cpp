@@ -1,6 +1,7 @@
 #include "BenchinePCH.h"
 #include "Scene/SceneManager.h"
 
+#include <ranges>
 #include "Core/Memory.hpp"
 #include "Scene/Scene.h"
 #include "Scene/DefaultScene.h"
@@ -14,7 +15,7 @@ SceneManager::SceneManager(Token)
 
 SceneManager::~SceneManager()
 {
-	for (auto [sceneName, pScene] : m_pScenes)
+	for (auto pScene : m_pScenes | std::views::values)
 	{
 		SafeDelete(pScene);
 	}
@@ -36,7 +37,7 @@ void SceneManager::Initialize()
 		m_pCurrentScene = pDefaultScene;
 	}
 
-	for (auto [sceneName, pScene] : m_pScenes)
+	for (auto pScene : m_pScenes | std::views::values)
 	{
 		pScene->BaseInitialize();
 	}

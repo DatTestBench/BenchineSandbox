@@ -158,7 +158,6 @@
     <ClInclude Include="Debugging\Logger.hpp" />
     <ClInclude Include="Resources\Font.h" />
     <ClInclude Include="Graphics\Renderer.h" />
-    <ClInclude Include="Resources\Resources.h" />
     <ClInclude Include="Resources\SoundByte.h" />
     <ClInclude Include="Resources\SoundStream.h" />
     <ClInclude Include="Resources\Texture2D.h" />

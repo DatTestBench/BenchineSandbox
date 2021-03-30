@@ -1,10 +1,9 @@
 #pragma once
+#include <filesystem>
 #include <unordered_map>
 
-#include <filesystem>
-
 #include "Debugging/Logger.hpp"
-#include "Helpers/GeneralHelpers.hpp"
+
 class BaseLoader
 {
 public:
@@ -13,13 +12,13 @@ public:
 	DEL_ROF(BaseLoader)
 
 	static void SetDataPath(const std::string& dataPath) { m_DataPath = dataPath; }
-	[[nodiscard]] static auto GetDataPath() noexcept-> const std::string& { return m_DataPath; }
+	[[nodiscard]] static auto GetDataPath() noexcept -> std::string { return m_DataPath; }
 	virtual void ReleaseResources() = 0;
 protected:
-	static std::string m_DataPath; // due to the need of appending this with the specific resource path, usage of string_view is impossible
+	static std::string m_DataPath;
 };
 
-template <class T>
+template <class Resource>
 class ResourceLoader : public BaseLoader
 {
 public:
@@ -27,45 +26,49 @@ public:
 	virtual ~ResourceLoader() override = default;
 	DEL_ROF(ResourceLoader)
 
-	T* GetResource(const std::string& filePath)
+	Resource* GetResource(const std::string& filePath)
 	{
-		for (std::pair<std::string_view, T*> pResource : m_pResources)
+		// Look if the resource already exists
+		for (auto& [name, resource] : m_pResources)
 		{
-			if (pResource.first.compare(filePath) == 0)
+			if (name.compare(filePath) == 0)
 			{
-				return pResource.second;
+				return resource.get();
 			}
 		}
 
 		// https://stackoverflow.com/questions/12774207/fastest-way-to-check-if-a-file-exist-using-standard-c-c11-c
 		if (!std::filesystem::exists(m_DataPath + filePath))
 		{
-			LOG(Error, "file at following location not found {0}\n", m_DataPath + filePath);
+			LOG(Error, "File at following location not found {0}", m_DataPath + filePath);
 			return nullptr;
 		}
 
-		T* pResource = Load(filePath);
-		if (pResource != nullptr)
+		if (Resource* pResource = Load(filePath))
 		{
 			m_pResources.try_emplace(filePath, pResource);
+			return pResource;
 		}
-		return pResource;
+		
+		LOG(Error, "Somehow we got here, this wasn't supposed to happen, resource is nullptr");
+		return nullptr;
 	}
 
 	void ReleaseResources() override
 	{
-		for (std::pair<std::string_view, T*> pResource : m_pResources)
-		{
-			Release(pResource.second);
-		}
-		m_pResources.clear();
+		LOG(Debug, "Releasing nothing");
+		// TODO, test if the smart pointers actually clear everything properly
+//		for (auto& resource : m_pResources | std::views::values)
+//		{
+//			Release(resource);
+//		}
+//		m_pResources.clear();
 	}
-	
+
 protected:
-	virtual T* Load(const std::string& filePath) = 0;
-	virtual void Release(T* pResource) = 0;
-	static std::unordered_map<std::string_view, T*> m_pResources;
+	virtual Resource* Load(const std::string& filePath) = 0;
+	static std::unordered_map<std::string_view, std::unique_ptr<Resource>> m_pResources;
 };
 
-template <class T>
-std::unordered_map<std::string_view, T*> ResourceLoader<T>::m_pResources = std::unordered_map<std::string_view, T*>();
+template <class Resource>
+std::unordered_map<std::string_view, std::unique_ptr<Resource>> ResourceLoader<Resource>::m_pResources = std::unordered_map<std::string_view, std::unique_ptr<Resource>>();

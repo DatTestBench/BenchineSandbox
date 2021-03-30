@@ -14,7 +14,7 @@ public:
 	 * Getter
 	 * @return SpritesheetTexture
 	 * */
-	[[nodiscard]] constexpr auto GetTextureWrapper() const noexcept -> GLTextureWrapper* { return m_pTexture->GetTextureWrapper(); }
+	[[nodiscard]] auto GetTextureWrapper() const noexcept -> GLTextureWrapper* { return m_pTexture->GetTextureWrapper(); }
 
 protected:
 	void Initialize() override;

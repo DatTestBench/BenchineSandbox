@@ -6,7 +6,7 @@
 #include "Sandbox.h"
 #include "Core/Benchine.h"
 
-int main(int, char* [])
+int main()
 {
 	Benchine engine;
 	engine.Run<Sandbox>();

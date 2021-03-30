@@ -86,7 +86,8 @@ public:
 	template <LogLevel Level>
 	static void Log(const std::string& file, const std::string& function, uint32_t line, const std::string& message)
 	{
-		static_assert(Level != LogLevel::Full, "LEVEL_FULL is not a valid LogLevel");
+		// TODO figure out if I want a static_assert or a fancy concept for this
+		static_assert(Level != LogLevel::Full, "Full is not a valid LogLevel");
 		GetInstance()->m_LogList.emplace_back(Level, file, function, line, message);
 	}
 

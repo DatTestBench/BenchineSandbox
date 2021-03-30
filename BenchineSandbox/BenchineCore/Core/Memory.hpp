@@ -33,7 +33,7 @@ inline bool SafeDeleteInternal(T* pObject)
 	LOG_CONDITIONAL(!SafeDeleteInternal(pObject), Warning, "Trying to delete {0} with {1} which is already nullptr.", NAMEOF(pObject), NAMEOF_TYPE_EXPR(pObject))
 
 #ifdef MEM_SAFE_DELETE_LOG_REASON
-// The braces need to be there as log can expand to multiple statements (UNUSED(LogLevel::level); UNUSED(__VA_ARGS__))
+// The braces need to be there as LOG can expand to multiple statements (UNUSED(LogLevel::level); UNUSED(__VA_ARGS__))
 #	define SafeDeleteNoWarn(pObject, ...) \
 		if constexpr (NUM_ARGS(__VA_ARGS__) == 0) \
 		{ \

@@ -16,8 +16,8 @@ public:
     static void Pause() noexcept;
     static void Resume() noexcept;
     static void SetVolume(u32 volume) noexcept;
-    static auto GetVolume()noexcept -> i32;
+    static auto GetVolume() noexcept -> i32;
 
 private:
-    Mix_Music* m_pMixMusic;
+    std::unique_ptr<Mix_Music, void(*)(Mix_Music*)> m_pMixMusic;
 };
