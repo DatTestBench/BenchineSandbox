@@ -7,9 +7,8 @@ SoundStream::SoundStream(const std::string& fullPath)
 	LOG_CONDITIONAL(m_pMixMusic == nullptr, Error, "Failed to load soundstream: {0}", Mix_GetError());
 }
 
-SoundStream::~SoundStream()
-{
-}
+// Smart pointer shenanigans, see Font.cpp
+SoundStream::~SoundStream() {}
 
 void SoundStream::Play(const bool shouldRepeat) const noexcept
 {

@@ -14,14 +14,9 @@ TestScene::TestScene(const std::string_view& sceneName)
 {
 }
 
-TestScene::~TestScene()
-{
-}
-
 void TestScene::Initialize()
 {
 	const auto font = RESOURCES->Load<Font>("Lingua.otf");
-
 	m_pFPSCounter = AddGameObject(new GameObject());
 	m_pFPSCounter->GetTransform()->SetPosition(0.f, static_cast<f32>(RENDERER->GetWindowSettings().Height));
 	m_pFPSCounter->AddComponent(new RenderComponent());

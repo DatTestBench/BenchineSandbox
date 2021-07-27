@@ -5,8 +5,6 @@ class LifetimeComponent final : public BaseComponent
 {
 public:
 	explicit LifetimeComponent(f32 lifeTime);
-	virtual ~LifetimeComponent() override = default;
-	DEL_ROF(LifetimeComponent)
 
 	void Update(f32 dT) override;
 

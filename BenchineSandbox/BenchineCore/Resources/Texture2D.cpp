@@ -15,6 +15,5 @@ Texture2D::Texture2D(const std::string& fullPath)
 	SDL_FreeSurface(pSurface);
 }
 
-Texture2D::~Texture2D()
-{
-}
+// Smart pointer shenanigans, see Font.cpp
+Texture2D::~Texture2D() {}

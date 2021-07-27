@@ -8,8 +8,6 @@ class TextComponent final : public BaseComponent
 public:
 
 	TextComponent(const std::string& text, Font* font);
-	virtual ~TextComponent() override;
-	DEL_ROF(TextComponent)
 
 	void Update([[maybe_unused]] f32 dT) override;
 

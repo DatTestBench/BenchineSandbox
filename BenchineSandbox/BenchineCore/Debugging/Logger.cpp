@@ -38,10 +38,8 @@ void Logger::OutputLog() noexcept
 			ImGui::EndCombo();
 		}
 
-		u32 logLine = 1;
-
-		const std::regex pattern(".*\\\\([a-zA-Z]*\\.(?:cpp|h(?:pp)?))");
-		for (auto& log : m_LogList)
+		static const std::regex pattern(".*\\\\([a-zA-Z]*\\.(?:cpp|h(?:pp)?))");
+		for (u32 logLine = 1; auto& log : m_LogList)
 		{
 			if (log.level == m_LogLevel || m_LogLevel == LogLevel::Full)
 			{
@@ -72,13 +70,7 @@ void Logger::OutputLog() noexcept
 				default:
 					break;
 				}
-
-				if (!log.consoleLogged)
-				{
-					print(fg(COLOR_LUT.at(EnumIndex(log.level)).FmtColor), textOutput);
-					log.consoleLogged = true;
-				}
-
+				
 				ImGui::TextColored(COLOR_LUT.at(EnumIndex(log.level)).ImGuiColor, textOutput.c_str());
 			}
 		}

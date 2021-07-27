@@ -89,13 +89,11 @@
     </ClCompile>
     <ClCompile Include="Components\AIControllerComponent.cpp" />
     <ClCompile Include="Components\BaseComponent.cpp" />
-    <ClCompile Include="Components\BubbleComponent.cpp" />
     <ClCompile Include="Components\ControllerComponent.cpp" />
     <ClCompile Include="Components\FPSComponent.cpp" />
     <ClCompile Include="Components\LifetimeComponent.cpp" />
     <ClCompile Include="Components\PhysicsComponent2D.cpp" />
     <ClCompile Include="Components\RenderComponent.cpp" />
-    <ClCompile Include="Components\ScoreComponent.cpp" />
     <ClCompile Include="Components\SpriteComponent.cpp" />
     <ClCompile Include="Components\TextComponent.cpp" />
     <ClCompile Include="Components\TextureComponent.cpp" />
@@ -127,14 +125,12 @@
     <ClInclude Include="BenchinePCH.h" />
     <ClInclude Include="Components\AIControllerComponent.h" />
     <ClInclude Include="Components\BaseComponent.h" />
-    <ClInclude Include="Components\BubbleComponent.h" />
     <ClInclude Include="Components\Components.h" />
     <ClInclude Include="Components\ControllerComponent.h" />
     <ClInclude Include="Components\FPSComponent.h" />
     <ClInclude Include="Components\LifetimeComponent.h" />
     <ClInclude Include="Components\PhysicsComponent2D.h" />
     <ClInclude Include="Components\RenderComponent.h" />
-    <ClInclude Include="Components\ScoreComponent.h" />
     <ClInclude Include="Components\SpriteComponent.h" />
     <ClInclude Include="Components\TextComponent.h" />
     <ClInclude Include="Components\TextureComponent.h" />

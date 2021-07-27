@@ -7,9 +7,8 @@ SoundByte::SoundByte(const std::string& fullPath)
 	LOG_CONDITIONAL(m_pMixChunk == nullptr, Error, "Failed to load soundbyte: {0}", Mix_GetError());
 }
 
-SoundByte::~SoundByte()
-{
-}
+// Smart pointer shenanigans, see Font.cpp
+SoundByte::~SoundByte() {}
 
 void SoundByte::Play(const u32 repeats) const
 {
@@ -44,9 +43,7 @@ auto SoundByte::GetVolume() const noexcept -> i32
 	{
 		return Mix_VolumeChunk(m_pMixChunk.get(), -1);
 	}
-	else
-	{
-		LOG(Warning, "SoundByte is nullptr");
-		return -1;
-	}
+
+	LOG(Warning, "SoundByte is nullptr");
+	return -1;
 }

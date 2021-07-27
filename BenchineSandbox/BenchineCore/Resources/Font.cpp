@@ -14,9 +14,7 @@ Font::Font(const std::string& fullPath, const u32 size)
 // Interesting: this destructor needs to be here. If the destructor = default, m_pTexture's default destructor will not compile.
 // https://stackoverflow.com/questions/6012157/is-stdunique-ptrt-required-to-know-the-full-definition-of-t
 // https://stackoverflow.com/questions/13414652/forward-declaration-with-unique-ptr
-Font::~Font()
-{
-}
+Font::~Font() {}
 
 GLTextureWrapper* Font::GenerateFontTexture(const std::string& text, const SDL_Color& color)
 {
@@ -27,6 +25,5 @@ GLTextureWrapper* Font::GenerateFontTexture(const std::string& text, const SDL_C
 	m_pTexture.reset(new GLTextureWrapper(pSurface));
 
 	SDL_FreeSurface(pSurface);
-
 	return m_pTexture.get();
 }

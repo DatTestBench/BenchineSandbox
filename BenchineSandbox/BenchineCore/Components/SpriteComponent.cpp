@@ -8,7 +8,7 @@ SpriteComponent::SpriteComponent(Texture2D* pSpriteSheet, const u32 nrCols, cons
 	, m_Cols(nrCols)
 	, m_Rows(nrRows)
 	, m_Zones(nrZones)
-	, m_CurrentZone(0)
+	, m_CurrentZone()
 	, m_Fps(fps)
 	, m_CurrentElapsed()
 	, m_CurrentFrame()
@@ -23,7 +23,7 @@ void SpriteComponent::Initialize()
 
 	src.Pos.x = 0;
 	const u32 zoneSize = m_Rows / m_Zones;
-	src.Pos.y = static_cast<u32>(src.Height * ((m_CurrentFrame / m_Cols) + (m_CurrentZone * zoneSize)));
+	src.Pos.y = src.Height * ((m_CurrentFrame / m_Cols) + (m_CurrentZone * zoneSize));
 
 	m_pSpriteSheet->GetTextureWrapper()->SetSource(src);
 	GetGameObject()->GetRenderComponent()->AddTexture(m_pSpriteSheet->GetTextureWrapper());
@@ -65,7 +65,7 @@ void SpriteComponent::SetCurrentZone(u32 zone) noexcept
 	}
 }
 
-void SpriteComponent::AddAnimation(const std::string& name, u32 zone) noexcept
+void SpriteComponent::AddAnimation(const std::string& name, const u32 zone) noexcept
 {
 	m_AnimationMap.emplace(std::pair(name, zone));
 }

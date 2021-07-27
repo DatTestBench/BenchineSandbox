@@ -6,8 +6,6 @@ class TestScene final : public Scene
 {
 public:
 	explicit TestScene(const std::string_view& sceneName);
-	virtual ~TestScene() override;
-	DEL_ROF(TestScene)
 
 protected:
 	void Initialize() override;

@@ -14,8 +14,6 @@ public:
 	 * @param fps Framerate of the animation
 	 * */
 	SpriteComponent(Texture2D* pSpriteSheet, u32 nrCols, u32 nrRows, u32 nrZones, f32 fps);
-	virtual ~SpriteComponent() override = default;
-	DEL_ROF(SpriteComponent)
 
 	void Update(f32 dT) override;
 

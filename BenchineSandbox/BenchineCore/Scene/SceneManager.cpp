@@ -66,11 +66,9 @@ void SceneManager::AddScene(Scene* pScene)
 
 void SceneManager::LoadScene(const std::string_view& sceneName)
 {
-	const auto pSceneToLoad = m_pScenes.find(sceneName);
-
-	if (pSceneToLoad != m_pScenes.cend())
+	if (const auto pSceneToLoad = m_pScenes.find(sceneName); pSceneToLoad != m_pScenes.cend())
 	{
-		m_pSceneToLoad = (*pSceneToLoad).second;
+		m_pSceneToLoad = pSceneToLoad->second;
 		return;
 	}
 
@@ -79,11 +77,9 @@ void SceneManager::LoadScene(const std::string_view& sceneName)
 
 void SceneManager::SetStartScene(const std::string_view& sceneName)
 {
-	const auto pStartScene = m_pScenes.find(sceneName);
-
-	if (pStartScene != m_pScenes.cend())
+	if (const auto pStartScene = m_pScenes.find(sceneName); pStartScene != m_pScenes.cend())
 	{
-		m_pCurrentScene = (*pStartScene).second;
+		m_pCurrentScene = pStartScene->second;
 		return;
 	}
 
@@ -91,9 +87,11 @@ void SceneManager::SetStartScene(const std::string_view& sceneName)
 
 	if (m_pScenes.empty())
 	{
+		LOG(Error, "No scenes present");
 		return;
 	}
-	m_pCurrentScene = (*m_pScenes.begin()).second;
+	
+	m_pCurrentScene = m_pScenes.begin()->second;
 }
 
 void SceneManager::RenderCurrentScene() const

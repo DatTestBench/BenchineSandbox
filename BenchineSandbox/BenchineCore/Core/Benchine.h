@@ -1,16 +1,16 @@
 #pragma once
 struct SDL_Window;
 #include "Core/BaseGame.h"
-
+#include "Helpers/Concepts.hpp"
 
 class Benchine
 {
 public:
-	template<typename T> // Templated to allow the use of any kind of basegame
+	template<IsGame GameInstance> // Templated to allow the use of any kind of basegame
 	void Run()
 	{
-		m_pGame = new T();
-
+		//m_pGame = std::make_unique<GameInstance>();
+		m_pGame = new GameInstance();
 		Initialize(); // Setup SDL
 
 		RESOURCES->Initialize("../Resources/");
@@ -22,7 +22,8 @@ public:
 		auto lastTime = std::chrono::high_resolution_clock::now();
 		
 		auto pLogger = Logger::GetInstance();
-		
+
+		// todo(long term): fix timestep
 		while (!quit)
 		{
 			
@@ -44,9 +45,10 @@ public:
 private:	
 	static void Initialize();
 	void LoadGame() const;
-	void Cleanup() const;
+	void Cleanup();
 
 	static const i32 MsPerFrame = 16; //16 for 60 fps, 33 for 30 fps
 
+	// TODO: potentially unique_ptr
 	BaseGame* m_pGame = nullptr;
 };

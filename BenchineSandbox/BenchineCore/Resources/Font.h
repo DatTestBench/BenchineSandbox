@@ -13,6 +13,7 @@ public:
 	explicit Font(const std::string& fullPath, u32 size);
 	~Font();
 	DEL_ROF(Font)
+	
 	[[nodiscard]] auto GetFont() const noexcept -> _TTF_Font* { return m_pFont.get(); }
 	[[nodiscard]] auto GetTextureWrapper() const noexcept -> GLTextureWrapper* { return m_pTexture.get(); }
 	GLTextureWrapper* GenerateFontTexture(const std::string& text, const SDL_Color& color);

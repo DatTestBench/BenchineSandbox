@@ -5,8 +5,6 @@
 #include "Core/Memory.hpp"
 #include "Resources/Loaders.h"
 
-std::map<std::type_index, std::unique_ptr<BaseLoader>> ResourceManager::m_Loaders = std::map<std::type_index, std::unique_ptr<BaseLoader>>();
-
 ResourceManager::~ResourceManager()
 {
 	// Interesting: This actually needs to be a reference as otherwise the unique_ptr goes out of scope. Didn't expect that to happen with std::views, thought those would be non owning

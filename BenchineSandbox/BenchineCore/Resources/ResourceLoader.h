@@ -57,18 +57,9 @@ public:
 	void ReleaseResources() override
 	{
 		LOG(Debug, "Releasing nothing");
-		// TODO, test if the smart pointers actually clear everything properly
-//		for (auto& resource : m_pResources | std::views::values)
-//		{
-//			Release(resource);
-//		}
-//		m_pResources.clear();
 	}
 
 protected:
 	virtual Resource* Load(const std::string& filePath) = 0;
-	static std::unordered_map<std::string_view, std::unique_ptr<Resource>> m_pResources;
+	std::unordered_map<std::string_view, std::unique_ptr<Resource>> m_pResources;
 };
-
-template <class Resource>
-std::unordered_map<std::string_view, std::unique_ptr<Resource>> ResourceLoader<Resource>::m_pResources = std::unordered_map<std::string_view, std::unique_ptr<Resource>>();

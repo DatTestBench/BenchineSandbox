@@ -15,10 +15,6 @@ PhysicsComponent2D::PhysicsComponent2D(const CollisionMode collisionMode)
 {
 }
 
-PhysicsComponent2D::~PhysicsComponent2D()
-{
-}
-
 void PhysicsComponent2D::Initialize()
 {
 	switch (m_CollisionMode)
@@ -35,7 +31,7 @@ void PhysicsComponent2D::Initialize()
 	}
 }
 
-void PhysicsComponent2D::Update([[maybe_unused]] const f32 dT)
+void PhysicsComponent2D::Update(const f32)
 {
 	m_IsOnGround = false;
 	const auto tMat = glm::translate(glm::mat3(1.f), static_cast<glm::vec2>(GetTransform()->GetPosition()));
@@ -43,7 +39,7 @@ void PhysicsComponent2D::Update([[maybe_unused]] const f32 dT)
 
 	const auto transformMat = tMat * sMat;
 
-	// Try and fix with ranges?
+	// todo: Try and fix with ranges?
 	for (size_t v = 0; v < m_BaseCollider.size(); ++v)
 	{
 		m_Collider.at(v) = transformMat * glm::vec3(m_BaseCollider.at(v), 1.f);

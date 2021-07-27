@@ -109,7 +109,6 @@ public:
 	bool IsPressed(GamepadButton button, uint32_t controllerId);
 	static MouseState GetMouseState();
 
-
 private:
 
 	void LogKeyPressed(SDL_Scancode key);

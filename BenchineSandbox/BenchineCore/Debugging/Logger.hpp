@@ -4,23 +4,25 @@
 // General Includes
 #include <list>
 #include <array>
+#include <string_view>
+#include <source_location>
 
 // Project Includes
 #include "fmt/color.h"
 #include "Helpers/Singleton.hpp"
 #include "Core/BenchineCore.hpp"
 
-enum class LogLevel : u16
+enum class LogLevel : u8
 {
 	Success = 0,
 	Debug = 1,
 	Info = 2,
 	Warning = 3,
 	Error = 4,
-	Full = 5, // Only used to for displaying in the log window, should not be passed to logentries
+	Full = 5
 };
 
-enum class Verbosity : u16
+enum class Verbosity : u8
 {
 	MessageOnly = 0,
 	HeaderOnly = 1,
@@ -28,14 +30,13 @@ enum class Verbosity : u16
 	Full = 3
 };
 
-//#define DEBUG_OVERRIDE 0
-
 #ifdef B_DEBUG
 	#define LOG_CONDITIONAL(condition, level, ...) if (condition) LOG(level, __VA_ARGS__)
-	#define LOG(level, ...) Logger::GetInstance()->Log<LogLevel::level>(__FILE__, __FUNCTION__, __LINE__, fmt::format(__VA_ARGS__))
+	//#define LOG(level, ...) Logger::GetInstance()->Log<LogLevel::level>(__FILE__, __FUNCTION__, __LINE__, fmt::format(__VA_ARGS__))
+	#define LOG(level, ...) Logger::GetInstance()->Log<LogLevel::level>(fmt::format(__VA_ARGS__))
 #else
-	#define LOG_CONDITIONAL(condition, level, ...) UNUSED(condition); UNUSED(LogLevel::level); UNUSED(__VA_ARGS__)
-    #define	LOG(level, ...) UNUSED(LogLevel::level); UNUSED(__VA_ARGS__)
+	#define LOG_CONDITIONAL(condition, level, ...) UNUSED(condition, LogLevel::level, __VA_ARGS__)
+    #define	LOG(level, ...) UNUSED(LogLevel::level, __VA_ARGS__)
 #endif
 
 struct LogEntry
@@ -71,10 +72,28 @@ struct LogEntry
 class Logger final : public Singleton<Logger>
 {
 public:
-	explicit Logger(Token)
-	{
-	}
+	explicit Logger(Token){}
 
+	#ifdef _SOURCE_LOCATION_
+	/**
+	* \brief Log Function 
+	* \template Level Log level
+	* \param message Log message
+	* \param location Leave default https://en.cppreference.com/w/cpp/utility/source_location
+	* */
+	template <LogLevel Level>
+	static void Log(const std::string& message, const std::source_location& location = std::source_location::current())
+	{
+		// TODO figure out if I want a static_assert or a fancy concept for this
+		static_assert(Level != LogLevel::Full, "Full is not a valid LogLevel");
+		GetInstance()->m_LogList.emplace_back(Level, location.file_name(), location.function_name(), location.line(), message);
+
+		// Console output log
+		const std::string fileName = std::string(location.file_name()).substr(std::string(location.file_name()).find_last_of('\\') + 1);
+		const std::string textOutput = fmt::format("[{0}] {1} {2}:({3}) > {4}\n", magic_enum::enum_name(Level), fileName, location.function_name(), location.line(), message);
+		fmt::print(fg(COLOR_LUT.at(EnumIndex(Level)).FmtColor), textOutput);
+	}
+	#else
 	/**
 	* \brief Log Function 
 	* \template Level Log level
@@ -84,12 +103,19 @@ public:
 	* \param message Log message
 	* */
 	template <LogLevel Level>
-	static void Log(const std::string& file, const std::string& function, uint32_t line, const std::string& message)
+    static void Log(const std::string& file, const std::string& function, const u32 line, const std::string& message)
 	{
 		// TODO figure out if I want a static_assert or a fancy concept for this
 		static_assert(Level != LogLevel::Full, "Full is not a valid LogLevel");
 		GetInstance()->m_LogList.emplace_back(Level, file, function, line, message);
+
+		// Console output log
+		const std::string fileName = file.substr(file.find_last_of('\\') + 1);
+		const std::string fileName = std::string(location.file_name()).substr(std::string(location.file_name()).find_last_of('\\') + 1);
+		const std::string textOutput = fmt::format("[{0}] {1} {2}:({3}) > {4}\n", magic_enum::enum_name(Level), fileName, function, line, message);
+		fmt::print(fg(COLOR_LUT.at(EnumIndex(Level)).FmtColor), textOutput);
 	}
+	#endif
 
 	// ImGui code to output the logger window
 	void OutputLog() noexcept;

@@ -39,8 +39,7 @@
 	}
 	else
 	{
-		std::ifstream inputFile(fullPath);
-		if (!inputFile.is_open())
+		if (std::ifstream inputFile(fullPath); !inputFile.is_open())
 		{
 			LOG(Error, "Failed to open file at location: {0}", fullPath);
 		}
@@ -57,8 +56,7 @@
 void JsonHelper::WriteJson(const json& j, const std::string& filePath) noexcept
 {
     const auto fullPath = RESOURCES->GetDataPath() + filePath;
-	std::ofstream outputFile(fullPath);
-	if (!outputFile.is_open())
+	if (std::ofstream outputFile(fullPath); !outputFile.is_open())
 	{
 		LOG(Error, "Failed to open file at location: {0}", fullPath);
 	}

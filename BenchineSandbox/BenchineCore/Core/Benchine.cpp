@@ -17,9 +17,11 @@ void Benchine::LoadGame() const
 	m_pGame->BaseInitialize();
 }
 
-void Benchine::Cleanup() const
+void Benchine::Cleanup()
 {
 	SafeDelete(m_pGame);
+	
+	// Cleanup singletons
 	SceneManager::Destroy();
 	ResourceManager::Destroy();
 	InputManager::Destroy();

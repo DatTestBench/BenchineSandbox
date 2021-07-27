@@ -4,6 +4,7 @@
 // General includes
 #include <fmt/core.h>
 #include <glm/glm.hpp>
+
 struct fuckyou{}; // removing this breaks everything for some reason https://developercommunity.visualstudio.com/t/unexpected-error-c2131-expression-did-not-evaluate/1343697?viewtype=all (yes I could just move the includes, but I can't be bothered)
 #include <magic_enum/magic_enum.hpp>
 
@@ -25,13 +26,13 @@ using f64 	= double;
 
 //todo add compiler specific flags
 
-#if _DEBUG
+#if _DEBUG || true
 #define B_DEBUG
 #endif 
 
 auto EnumIndex(const auto& e) noexcept
 {
-	return magic_enum::enum_integer(e);
+	return magic_enum::enum_index(e).value();
 }
 
 template <typename EnumName>
@@ -71,7 +72,11 @@ className(className&&) noexcept = delete; \
 className& operator= (const className&) = delete; \
 className& operator= (className&&) noexcept = delete;
 
-#define UNUSED(var) ((void)(var));
+template <typename ...Args>
+void UNUSED(Args&& ...)
+{
+}
+//#define UNUSED(...) ((void)(__VA_ARGS__));
 
 // Helper functions
 

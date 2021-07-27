@@ -1,8 +1,8 @@
 #pragma once
 #include "Components/BaseComponent.h"
-#include "Helpers/Sat.hpp"
-#include "Helpers/GeneralHelpers.hpp"
 #include <functional>
+#include "Helpers/GeneralHelpers.hpp"
+#include "Helpers/Sat.hpp"
 
 enum class CollisionMode
 {
@@ -17,8 +17,6 @@ class PhysicsComponent2D final : public BaseComponent
 {
 public:
 	explicit PhysicsComponent2D(CollisionMode collisionMode = CollisionMode::Static);
-	virtual ~PhysicsComponent2D() override;
-	DEL_ROF(PhysicsComponent2D)
 
 	[[nodiscard]] constexpr auto GetVelocity() const noexcept -> glm::vec2 { return m_Velocity; }
 	[[nodiscard]] constexpr auto GetBaseCollider() const noexcept -> const Collider2D& { return m_BaseCollider; }

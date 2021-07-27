@@ -47,16 +47,13 @@ bool InputManager::ProcessInput()
 		}
 	}
 
-	// XINPUT https://docs.microsoft.com/en-us/windows/win32/xinput/getting-started-with-xinput
-	DWORD dwResult{};
-
 	for (DWORD i = 0; i < XUSER_MAX_COUNT; i++)
 	{
 		XINPUT_STATE state;
 		ZeroMemory(&state, sizeof(XINPUT_STATE));
 
 		// Get the state of the controller
-		dwResult = XInputGetState(i, &state); // TODO: This thing is awfully slow, find a way to not have to recheck it every frame;
+		const DWORD dwResult = XInputGetState(i, &state); // TODO: This thing is awfully slow, find a way to not have to recheck it every frame;
 		if (dwResult == ERROR_SUCCESS && !m_Controllers.at(i).IsConnected)
 		{
 			// Controller Connected
@@ -165,7 +162,7 @@ bool InputManager::IsBindingActive(std::string_view)
 	//return m_InputBinds.at(actionId).IsActive;
 }
 
-bool InputManager::IsPressed(GamepadButton button, const u32 controllerId)
+bool InputManager::IsPressed(const GamepadButton button, const u32 controllerId)
 {
 
 	if (m_Controllers.at(controllerId).IsConnected)
@@ -183,7 +180,6 @@ void InputManager::LogKeyReleased(const SDL_Scancode key)
 {
 	m_KeyEvents.emplace_back(KeyEvent(key, InputState::Released));
 }
-
 
 MouseState InputManager::GetMouseState()
 {

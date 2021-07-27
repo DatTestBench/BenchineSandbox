@@ -7,10 +7,6 @@ NodeEditorScene::NodeEditorScene(const std::string_view& sceneName)
 {
 }
 
-NodeEditorScene::~NodeEditorScene()
-{
-}
-
 void NodeEditorScene::Initialize()
 {
 	m_Editor.Initialize();

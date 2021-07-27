@@ -4,6 +4,8 @@
 #include "Components/TransformComponent.h"
 #include "glm/geometric.hpp"
 
+// TODO: see if the following could be merged into one function that calls the other
+
 // Collision for GameObjects
 PolygonCollisionResult sat::PolygonCollision(PhysicsComponent2D* pActorA, PhysicsComponent2D* pActorB)
 {
@@ -12,8 +14,8 @@ PolygonCollisionResult sat::PolygonCollision(PhysicsComponent2D* pActorA, Physic
 
 	const auto& colliderA = pActorA->GetCollider(); 
 	const auto& colliderB = pActorB->GetCollider();
-	size_t vertexCountA = colliderA.size();
-	size_t vertexCountB = colliderB.size();
+	const size_t vertexCountA = colliderA.size();
+	const size_t vertexCountB = colliderB.size();
 
 	f32 minIntervalDistance = std::numeric_limits<f32>::infinity();
 	glm::vec2 translationAxis{}, currentVertex{}, nextVertex{};
@@ -54,7 +56,7 @@ PolygonCollisionResult sat::PolygonCollision(PhysicsComponent2D* pActorA, Physic
 		// Check if the current interval distance is the minimum one. If so store
 		// the interval distance and the current distance.
 		// This will be used to calculate the minimum translation vector
-		f32 intervalDistance = abs(IntervalDistance(projectionA, projectionB));
+		const f32 intervalDistance = abs(IntervalDistance(projectionA, projectionB));
 		if (intervalDistance < minIntervalDistance)
 		{
 			minIntervalDistance = intervalDistance;
@@ -148,7 +150,7 @@ Projection2D sat::ProjectPolygon(const glm::vec2& axis, const Collider2D& polygo
 {
 	// To project a point on an axis use the dot product
 	f32 dotProduct = glm::dot(axis, polygon.at(0));
-	Projection2D projectionBounds{dotProduct};
+	Projection2D projectionBounds{ dotProduct };
 	for (size_t i = 0; i < polygon.size(); ++i)
 	{
 		dotProduct = glm::dot(axis, polygon.at(i));

@@ -1,15 +1,15 @@
 #include "BenchinePCH.h"
 #include "Components/ControllerComponent.h"
-#include "Components/PhysicsComponent2D.h"
-#include "Components/TransformComponent.h"
-#include "Components/SpriteComponent.h"
-#include "Resources/SoundByte.h"
-#include <functional>
 #include <algorithm>
+#include <functional>
+#include "Components/PhysicsComponent2D.h"
+#include "Components/SpriteComponent.h"
+#include "Components/TransformComponent.h"
+#include "Resources/SoundByte.h"
 
 ControllerComponent::ControllerComponent(const ControllerId playerId)
-	: m_Velocity(0, 0)
-	, m_Movement(0, 0)
+	: m_Velocity()
+	, m_Movement()
 	, m_pPhysicsComponent(nullptr)
 	, m_PlayerId(playerId)
 	, m_MovementState(MovementDirection::Right)
@@ -19,10 +19,7 @@ ControllerComponent::ControllerComponent(const ControllerId playerId)
 void ControllerComponent::Initialize()
 {
 	m_pPhysicsComponent = GetGameObject()->GetComponent<PhysicsComponent2D>();
-	if (m_pPhysicsComponent == nullptr)
-	{
-		LOG(Error, "No PhysicsComponent specified, please attach a PhysicsComponent when using a ControllerComponent");
-	}
+	LOG_CONDITIONAL(m_pPhysicsComponent == nullptr, Error, "No PhysicsComponent specified, please attach a PhysicsComponent when using a ControllerComponent");
 
 	if (m_PlayerId == ControllerId::Player1)
 	{
@@ -40,6 +37,7 @@ void ControllerComponent::Initialize()
 
 void ControllerComponent::Update(const f32 dT)
 {
+	// todo magic numbers, probably can't be fixed until we have an actual editor
 	const f32 velocity = 100.f;
 	const f32 gravity = 750.f;
 	const f32 friction = 500.f;
@@ -90,6 +88,7 @@ void ControllerComponent::MoveRight()
 
 void ControllerComponent::Jump()
 {
+	// todo: fix
 	//if (m_pPhysicsComponent->IsOnGround())
 	{
 		LOG(Info, "Velocity: {0}, {1}", m_Velocity.x, m_Velocity.y);

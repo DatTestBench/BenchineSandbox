@@ -7,17 +7,12 @@ enum class MovementDirection
 	Right
 };
 
-
 class ControllerComponent final : public BaseComponent
 {
 public:
 	explicit ControllerComponent(ControllerId playerId);
-	virtual ~ControllerComponent() override = default;
-	DEL_ROF(ControllerComponent)
 
 	void Update(f32 dT) override;
-
-
 
 protected:
 	void Initialize() override;

@@ -5,8 +5,6 @@ class NodeEditorScene final : public Scene
 {
 public:
 	explicit NodeEditorScene(const std::string_view& sceneName);
-	virtual ~NodeEditorScene();
-	DEL_ROF(NodeEditorScene)
 
 protected:
 	void Initialize() override;

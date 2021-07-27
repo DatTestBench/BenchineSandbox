@@ -7,8 +7,16 @@ TransformComponent::TransformComponent()
 {
 }
 
+TransformComponent::TransformComponent(const glm::vec3& pos, const glm::vec2& scale)
+	: m_Position(pos)
+	, m_Scale(scale)
+{
+}
+
+
 void TransformComponent::SetPosition(const f32 x, const f32 y, const f32 z) noexcept
 {
+	// Note: in a perfect world this would be `m_Position = {.x = x, .y = y, .z = z};`, but due to nameless union fuckery under the hood this doesn't work with glm
 	m_Position.x = x;
 	m_Position.y = y;
 	m_Position.z = z;
@@ -35,6 +43,6 @@ void TransformComponent::SetScale(const glm::vec2& scale) noexcept
 void TransformComponent::Initialize()
 {
 }
-void TransformComponent::Update([[maybe_unused]] f32 dT)
+void TransformComponent::Update(const f32)
 {
 }

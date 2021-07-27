@@ -12,7 +12,7 @@ public:
 		, m_pWindow(nullptr)
 	{
 	}
-	virtual ~Renderer();
+	~Renderer();
 
 	void Initialize(const WindowSettings& windowSettings);
 	void SetupRender() const;

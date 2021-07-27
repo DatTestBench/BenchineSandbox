@@ -25,26 +25,18 @@ void Renderer::Initialize(const WindowSettings& windowSettings)
 		windowSettings.Height,
 		SDL_WINDOW_OPENGL);
 
-	if (m_pWindow == nullptr)
-	{
-		throw std::runtime_error(std::string("SDL_CreateWindow Error: ") + SDL_GetError());
-	}
+	LOG_CONDITIONAL(m_pWindow == nullptr, Error, "SDL_CreateWindow Error: {0}", SDL_GetError());
 
 	// Create OpenGL context 
 	m_pContext = SDL_GL_CreateContext(m_pWindow);
-	if (m_pContext == nullptr)
-	{
-		throw std::runtime_error(std::string("SDL_GL_CreateContext Error: ") + SDL_GetError());
-	}
+
+	LOG_CONDITIONAL(m_pContext == nullptr, Error, "SDL_GL_CreateContext Error: {0}", SDL_GetError());
 
 	// Set the swap interval for the current OpenGL context,
 	// synchronize it with the vertical retrace
 	if (m_WindowSettings.EnableVSync)
 	{
-		if (SDL_GL_SetSwapInterval(1) < 0)
-		{
-			throw std::runtime_error(std::string("SDL_GL_SetSwapInterval Error: ") + SDL_GetError());
-		}
+		LOG_CONDITIONAL(SDL_GL_SetSwapInterval(1) < 0, Error, "SDL_GL_SetSwapInterval Error: {0}", SDL_GetError());
 	}
 	else
 	{
@@ -207,7 +199,7 @@ std::array<VertexUV, 4> Renderer::CreateRenderParams(GLTextureWrapper* pTexture)
 		break;
 	}
 
-	return std::array<VertexUV, 4>
+	return std::array
 	{
 		VertexUV(glm::vec2(uvLeft, uvBottom), glm::vec2(vertexLeft, vertexBottom)),
 		VertexUV(glm::vec2(uvLeft, uvTop), glm::vec2(vertexLeft, vertexTop)),

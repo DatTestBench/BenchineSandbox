@@ -7,8 +7,7 @@ class TransformComponent final : public BaseComponent
 {
 public:
 	TransformComponent();
-	virtual ~TransformComponent() override = default;
-	DEL_ROF(TransformComponent)
+	explicit TransformComponent(const glm::vec3& pos, const glm::vec2& scale);
 
 	void SetPosition(f32 x, f32 y, f32 z = 1.f) noexcept;
 	void Move(f32 x, f32 y, f32 z) noexcept;
@@ -20,7 +19,7 @@ public:
 
 protected:
 	void Initialize() override;
-	void Update([[maybe_unused]] f32 dT) override;
+	void Update(f32 dT) override;
 private:
 	glm::vec3 m_Position;
 	glm::vec2 m_Scale;

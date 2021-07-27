@@ -21,8 +21,6 @@
 #define NOMINMAX
 #include <windows.h>
 
-
-
 // IMGUI
 #pragma warning (push, 0)
 #include "ImGui/imgui.h"

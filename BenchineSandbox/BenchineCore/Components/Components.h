@@ -15,6 +15,4 @@
 #include "Components/FPSComponent.h"
 #include "Components/ControllerComponent.h"
 #include "Components/LifetimeComponent.h"
-#include "Components/ScoreComponent.h"
 #include "Components/AIControllerComponent.h"
-#include "Components/BubbleComponent.h"
