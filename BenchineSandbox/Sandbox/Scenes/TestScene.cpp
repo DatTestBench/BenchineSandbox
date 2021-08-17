@@ -1,5 +1,8 @@
 #include "SandboxPCH.h"
 #include "Scenes/TestScene.h"
+
+#include "NodeEditor/BNEditor.h"
+#include "NodeEditor/BNNodes.h"
 #include "Resources/Font.h"
 
 struct LinkInfo
@@ -11,6 +14,7 @@ TestScene::TestScene(const std::string_view& sceneName)
 	, m_pFPSCounter(nullptr)
 	, m_pFPSComponent(nullptr)
 	, m_pFPSText(nullptr)
+	, m_Editor("TestEditor")
 {
 }
 
@@ -25,6 +29,12 @@ void TestScene::Initialize()
 	m_pFPSText->SetColor(0, 255, 0);
 	m_pFPSText->GetTexture()->SetOffsetMode(TextureOffsetMode::Topleft);
 	m_pFPSText->GetTexture()->SetRenderPriority(10U);
+
+	m_Editor.AddNode(new Nodes::DummyNode("Test1"));
+	m_Editor.AddNode(new Nodes::DummyNode("Test2"));
+	m_Editor.AddNode(new Nodes::DummyNode("Test3"));
+	m_Editor.AddNode(new Nodes::DummyNode("Test4"));
+
 }
 
 void ImGuiEx_BeginColumn()
@@ -44,11 +54,9 @@ void ImGuiEx_EndColumn()
 	ImGui::EndGroup();
 }
 
-void TestScene::Update([[maybe_unused]] const f32 dT)
+void TestScene::Update(const f32 dT)
 {
-	auto& io = ImGui::GetIO();
 	m_pFPSText->SetText(std::to_string(m_pFPSComponent->GetFPS()));
-	ImGui::Text("FPS: %.2f (%.2gms)", io.Framerate, io.Framerate ? 1000.0f / io.Framerate : 0.0f);
 
-	ImGui::Separator();
+	m_Editor.Update(dT);	
 }

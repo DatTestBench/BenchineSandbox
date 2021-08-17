@@ -18,7 +18,7 @@ void Sandbox::Initialize()
 	LOG(Success, "{0} Test", "Success");
 }
 
-void Sandbox::Update([[maybe_unused]] const f32 dT)
+void Sandbox::Update(const f32)
 {
 }
 

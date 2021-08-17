@@ -12,7 +12,7 @@ void NodeEditorScene::Initialize()
 	m_Editor.Initialize();
 }
 
-void NodeEditorScene::Update([[maybe_unused]] const f32 dT)
+void NodeEditorScene::Update(const f32 dT)
 {
 	m_Editor.Update(dT);
 }

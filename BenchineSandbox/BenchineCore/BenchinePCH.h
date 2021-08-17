@@ -26,6 +26,7 @@
 #include "ImGui/imgui_impl_opengl2.h"
 #include "ImGui/imgui_impl_sdl.h"
 #pragma warning (pop)
+#include "ImNodes/imnodes.h"
 
 // SDL
 #include <SDL.h>

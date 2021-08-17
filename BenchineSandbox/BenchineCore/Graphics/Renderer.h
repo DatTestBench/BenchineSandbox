@@ -20,7 +20,6 @@ public:
 
 	[[nodiscard]] constexpr auto GetWindowSettings() const noexcept -> const WindowSettings& { return m_WindowSettings; }
 
-
 	/**
 	 * \brief Render GLTextureWrapper to the screen
 	 * \param pTexture Texture to render

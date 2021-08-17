@@ -16,3 +16,7 @@ concept IsResourceLoader = std::is_base_of_v<BaseLoader, LoaderType>;
 class BaseGame;
 template <class GameInstance>
 concept IsGame = std::is_base_of_v<BaseGame, GameInstance>;
+
+class Node;
+template <class NodeType>
+concept IsNode = std::is_base_of_v<Node, NodeType>;

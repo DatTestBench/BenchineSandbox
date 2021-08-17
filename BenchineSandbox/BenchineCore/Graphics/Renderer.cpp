@@ -1,7 +1,8 @@
 #include "BenchinePCH.h"
 
-#include "glm/geometric.hpp"
 #include "Graphics/GLTextureWrapper.h"
+
+
 Renderer::~Renderer()
 {
 	Cleanup();
@@ -40,7 +41,7 @@ void Renderer::Initialize(const WindowSettings& windowSettings)
 	}
 	else
 	{
-		SDL_GL_SetSwapInterval(0);
+		LOG_CONDITIONAL(SDL_GL_SetSwapInterval(0) < 0, Error, "SDL_GL_SetSwapInterval Error: {0}", SDL_GetError());
 	}
 
 	// Set the Projection matrix to the identity matrix
@@ -65,6 +66,7 @@ void Renderer::Initialize(const WindowSettings& windowSettings)
 	SDL_GL_MakeCurrent(m_pWindow, m_pContext);
 
 	ImGui::CreateContext();
+	ImNodes::CreateContext();
 	ImGui_ImplSDL2_InitForOpenGL(m_pWindow, m_pContext);
 	ImGui_ImplOpenGL2_Init();
 
@@ -91,6 +93,7 @@ void Renderer::Cleanup()
 {	
 	ImGui_ImplOpenGL2_Shutdown();
 	ImGui_ImplSDL2_Shutdown();
+	ImNodes::DestroyContext();
 	ImGui::DestroyContext();
 
 	SDL_GL_DeleteContext(m_pContext);
@@ -162,7 +165,6 @@ std::array<VertexUV, 4> Renderer::CreateRenderParams(GLTextureWrapper* pTexture)
 		uvBottom = static_cast<f32>(source.Pos.y + static_cast<i32>(source.Height)) / static_cast<f32>(textureHeight);
 	}
 
-
 	f32 vertexLeft{}, vertexBottom{}, vertexRight{}, vertexTop{};
 
 	switch (pTexture->GetOffsetMode())
@@ -199,11 +201,11 @@ std::array<VertexUV, 4> Renderer::CreateRenderParams(GLTextureWrapper* pTexture)
 		break;
 	}
 
-	return std::array
+	return std::move(std::array
 	{
 		VertexUV(glm::vec2(uvLeft, uvBottom), glm::vec2(vertexLeft, vertexBottom)),
 		VertexUV(glm::vec2(uvLeft, uvTop), glm::vec2(vertexLeft, vertexTop)),
 		VertexUV(glm::vec2(uvRight, uvTop), glm::vec2(vertexRight, vertexTop)),
 		VertexUV(glm::vec2(uvRight, uvBottom), glm::vec2(vertexRight, vertexBottom))
-	};
+	});
 }

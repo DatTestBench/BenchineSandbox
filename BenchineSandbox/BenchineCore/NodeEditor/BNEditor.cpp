@@ -5,26 +5,36 @@
 BNEditor::BNEditor(const std::string& editorName)
 	: m_EditorName(editorName)
 	, m_FirstFrame(true)
-	, m_NextLinkId(1U)
-{
-}
-
-BNEditor::~BNEditor()
 {
 }
 
 void BNEditor::Initialize()
 {
+	// TODO this will eventually have to be called after all the nodes are initialized, so we can just do RebuildGraph once at startup
+	// Currently it will just RebuildGraph every time a node is added
+	m_IsInitialized = true;
 }
 
-void BNEditor::Update([[maybe_unused]] f32 dT)
+void BNEditor::Update(f32)
 {
-	auto& io = ImGui::GetIO();
-	ImGui::Text("FPS: %.2f (%.2gms)", io.Framerate, io.Framerate ? 1000.f / io.Framerate : 0.f);
+	if (ImGui::Begin(m_EditorName.c_str()))
+	{
+		ImNodes::BeginNodeEditor();
+		for (auto&& pNode : m_pNodes)
+		{
+			pNode->BuildBase();
+		}
+
+		ImNodes::EndNodeEditor();
+	}
+	ImGui::End();
 }
 
-const Node* BNEditor::AddNode(const Node& node) noexcept
+
+void BNEditor::RebuildGraph()
 {
-	m_Nodes.emplace_back(node);
-	return &node;
+	for (auto&& pNode : m_pNodes)
+	{
+		pNode->InitBase();
+	}
 }

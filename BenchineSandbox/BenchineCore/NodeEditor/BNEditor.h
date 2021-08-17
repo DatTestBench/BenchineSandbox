@@ -1,40 +1,37 @@
 #pragma once
 #include <string>
+
 #include "NodeEditor/BNEditorHelpers.h"
 
 class BNEditor final
 {
 public:
-	BNEditor(const std::string& editorName);
-	~BNEditor();
-	DEL_ROF(BNEditor)
+	explicit BNEditor(const std::string& editorName);
 
 	void Initialize();
 	void Update(f32 dT);
-	const Node* AddNode(const Node& node) noexcept;
+	
+	template <IsNode NodeType>
+	NodeType* AddNode(NodeType* pNode)
+	{
+		m_pNodes.emplace_back(pNode);
+		RebuildGraph();
+		return pNode;
+	}
+	
+	[[nodiscard]] constexpr auto IsInitialized() const noexcept -> bool { return m_IsInitialized; }
 
 private:
 	std::string m_EditorName;
 	bool m_FirstFrame; // Flag set for first frame only, some actions need to be executed only once
-	u32 m_NextLinkId;
-
-	std::vector<Node> m_Nodes;
-	std::vector<Link> m_Links;
-
-#pragma region InternalHelpers
-	/*FindNode*/
-
-	/*FindLink*/
-
-	/*FindPin*/
-
-	/*IsPinLinked*/
-
-	/*CanConnect*/
-
-	/*SetPinSides*/
 	
-#pragma endregion InternalHelpers
+	std::vector<std::unique_ptr<Node>> m_pNodes;
+	std::vector<std::unique_ptr<Link>> m_pLinks;
+
+	bool m_IsInitialized = false;
+
+	void RebuildGraph();
+
 
 	
 
