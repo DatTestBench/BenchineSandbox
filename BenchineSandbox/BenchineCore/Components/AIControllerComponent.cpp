@@ -1,11 +1,8 @@
-#include "BenchinePCH.h"
 #include "Components/AIControllerComponent.h"
+
 #include "Components/PhysicsComponent2D.h"
 
-AIControllerComponent::AIControllerComponent()
-	: m_pPhysicsComponent(nullptr)
-{
-}
+#include "Debugging/Logger.hpp"
 
 void AIControllerComponent::Initialize()
 {

@@ -9,6 +9,6 @@
 int main()
 {
 	Benchine engine;
-	engine.Run<Sandbox>();
+	engine.Run<Sandbox>("Sandbox");
 	return 0;
 }

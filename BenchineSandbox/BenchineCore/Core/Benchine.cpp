@@ -1,8 +1,16 @@
-#include "BenchinePCH.h"
-#include "Core/Benchine.h"
+#include "Benchine.h"
 
-#include "Core/Memory.hpp"
-#include "Helpers/Singleton.hpp"
+#include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_mixer.h>
+#include <SDL_ttf.h>
+#include <stdexcept>
+
+#include "Core/InputManager.h"
+#include "Debugging/Logger.hpp"
+#include "Graphics/Renderer.h"
+#include "Resources/ResourceManager.h"
+#include "Scene/SceneManager.h"
 void Benchine::Initialize()
 {
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
@@ -19,8 +27,6 @@ void Benchine::LoadGame() const
 
 void Benchine::Cleanup()
 {
-	SafeDelete(m_pGame);
-	
 	// Cleanup singletons
 	SceneManager::Destroy();
 	ResourceManager::Destroy();

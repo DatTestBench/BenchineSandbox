@@ -1,6 +1,8 @@
-#include "BenchinePCH.h"
 #include "NodeEditor/BNEditor.h"
 
+#include "ImGui/imgui.h"
+
+#include "NodeEditor/BNEditorHelpers.h"
 
 BNEditor::BNEditor(const std::string& editorName)
 	: m_EditorName(editorName)

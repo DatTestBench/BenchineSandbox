@@ -1,11 +1,8 @@
-#include "BenchinePCH.h"
 #include "Scene/SceneManager.h"
-
 #include <ranges>
-#include "Core/Memory.hpp"
-#include "Scene/Scene.h"
 #include "Scene/DefaultScene.h"
-
+#include "Core/Memory.hpp"
+#include "Debugging/Logger.hpp"
 SceneManager::SceneManager(Token)
 	: m_pCurrentScene(nullptr)
 	, m_pSceneToLoad(nullptr)

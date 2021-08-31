@@ -1,10 +1,13 @@
-#include "BenchinePCH.h"
 #include "Core/InputManager.h"
-#include <future>
+
+import EnumHelpers;
+
+#include <SDL_events.h>
+#include <windows.h>
 #include <ranges>
-
-
-#include "BenchineCore.hpp"
+#include "Core/CoreBasicTypes.hpp"
+#include "Debugging/Logger.hpp"
+#include "ImGui/imgui.h"
 
 bool InputManager::ProcessInput()
 {

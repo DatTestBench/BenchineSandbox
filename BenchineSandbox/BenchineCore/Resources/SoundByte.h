@@ -1,4 +1,8 @@
 #pragma once
+#include <memory>
+#include <string>
+#include "Core/CoreMacros.hpp"
+#include "Core/CoreBasicTypes.hpp"
 struct Mix_Chunk;
 class SoundByte
 {

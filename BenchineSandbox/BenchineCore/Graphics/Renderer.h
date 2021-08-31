@@ -1,6 +1,26 @@
 #pragma once
+
+#include <SDL.h>
+// ReSharper disable once CppUnusedIncludeDirective
+#include <SDL_opengl.h>
+
+#include "Core/CoreTypes.hpp"
 #include "Helpers/Singleton.hpp"
-#include "Helpers/GeneralHelpers.hpp"
+
+
+enum class RenderDepth : u32
+{
+	//Layer furthest back, use for something like distant landscale, walls, ect
+	Background = 1U,
+	//Second Layer, use for something like level geometry you want the player to move in front of
+	Midgroundlayer1 = 2U,
+	//Third layer, use for something like objects that should be in front of level geometry, but behind the player
+	Midgroundlayer2 = 3U,
+	//Fourth layer, use for stuff like players
+	Playerlayer = 4U,
+	//Fifth layer, use for foreground objects or level geometry you want to be in front of the player
+	Foregroundlayer = 5U
+};
 
 struct SDL_Window;
 class GLTextureWrapper;
@@ -38,3 +58,4 @@ private:
 	static std::array<VertexUV, 4> CreateRenderParams(GLTextureWrapper* pTexture);
 };
 
+#define RENDERER Renderer::GetInstance()

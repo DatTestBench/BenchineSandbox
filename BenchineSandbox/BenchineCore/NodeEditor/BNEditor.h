@@ -1,8 +1,12 @@
 #pragma once
+#include <memory>
 #include <string>
+#include <vector>
 
-#include "NodeEditor/BNEditorHelpers.h"
-
+#include "Core/CoreBasicTypes.hpp"
+#include "Helpers/Concepts.hpp"
+struct Link;
+class Node;
 class BNEditor final
 {
 public:
@@ -31,8 +35,4 @@ private:
 	bool m_IsInitialized = false;
 
 	void RebuildGraph();
-
-
-	
-
 };

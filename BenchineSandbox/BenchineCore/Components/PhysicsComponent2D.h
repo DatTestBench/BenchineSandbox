@@ -1,8 +1,9 @@
 #pragma once
 #include "Components/BaseComponent.h"
+
 #include <functional>
-#include "Helpers/GeneralHelpers.hpp"
-#include "Helpers/Sat.hpp"
+
+#include "Helpers/SAT.hpp"
 
 enum class CollisionMode
 {
@@ -16,7 +17,7 @@ using CollisionCallback = std::function<void(PolygonCollisionResult, PhysicsComp
 class PhysicsComponent2D final : public BaseComponent
 {
 public:
-	explicit PhysicsComponent2D(CollisionMode collisionMode = CollisionMode::Static);
+	explicit PhysicsComponent2D(CollisionMode collisionMode);
 
 	[[nodiscard]] constexpr auto GetVelocity() const noexcept -> glm::vec2 { return m_Velocity; }
 	[[nodiscard]] constexpr auto GetBaseCollider() const noexcept -> const Collider2D& { return m_BaseCollider; }
@@ -42,11 +43,14 @@ protected:
 
 private:
 
+	// Params
 	CollisionMode m_CollisionMode;
+
+	// Internal
+	glm::vec2 m_Velocity = {};
 	CollisionCallback m_PhysicsCallback;
-	bool m_CallBackOverriden;
-	glm::vec2 m_Velocity;
+	bool m_CallBackOverriden = false;
 	Collider2D m_Collider;
 	Collider2D m_BaseCollider;
-	bool m_IsOnGround;
+	bool m_IsOnGround = false;
 };

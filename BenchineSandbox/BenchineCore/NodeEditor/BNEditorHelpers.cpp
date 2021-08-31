@@ -1,6 +1,4 @@
-#include "BenchinePCH.h"
 #include "NodeEditor/BNEditorHelpers.h"
-
 void Node::InitBase()
 {
 	// NOTE: this is not ideal but it'll do for now

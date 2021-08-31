@@ -1,6 +1,7 @@
 #pragma once
-#include "Helpers/GeneralHelpers.hpp"
+#include <glm/vec2.hpp>
 
+#include "Core/CoreTypes.hpp"
 //Adapted from : https://www.codeproject.com/Articles/15573/2D-Polygon-Collision-Detection
 //				 http://www.dyn4j.org/2010/01/sat/
 
@@ -16,8 +17,8 @@ struct PolygonCollisionResult
 
 namespace sat
 {
-	PolygonCollisionResult PolygonCollision(PhysicsComponent2D* pActorA, PhysicsComponent2D* pActorB);
-	PolygonCollisionResult PolygonCollision(PhysicsComponent2D* pActor, const Collider2D& staticPoly);
+	PolygonCollisionResult PolygonCollision(const PhysicsComponent2D* pActorA, const PhysicsComponent2D* pActorB);
+	PolygonCollisionResult PolygonCollision(const ::PhysicsComponent2D* pActor, const Collider2D& staticPoly);
 	// Maps the polygon min / max bounds onto an axis
 	Projection2D ProjectPolygon(const glm::vec2& axis, const Collider2D& vertexSet);
 	f32 IntervalDistance(const Projection2D& projectionA, const Projection2D& projectionB);

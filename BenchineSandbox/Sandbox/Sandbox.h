@@ -3,7 +3,7 @@
 class Sandbox final : public BaseGame
 {
 public:
-	Sandbox() = default;
+	explicit Sandbox(const std::string_view name) : BaseGame(name) {}
 
 protected:
 	void Initialize() override;

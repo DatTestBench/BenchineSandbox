@@ -1,11 +1,8 @@
-#include "BenchinePCH.h"
 #include "Debugging/Logger.hpp"
 
 #include <regex>
-#include <magic_enum/magic_enum.hpp>
 
-#include "Core/BenchineCore.hpp"
-
+#include "Core/CoreBasicTypes.hpp"
 void Logger::OutputLog() noexcept
 {
 	m_LogList.remove_if([] (const LogEntry& entry) { return entry.markedForClear; });

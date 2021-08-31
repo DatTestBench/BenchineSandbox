@@ -1,9 +1,9 @@
-#include "BenchinePCH.h"
 #include "Resources/Texture2D.h"
 
-#include "Core/Memory.hpp"
-#include "Graphics/GLTextureWrapper.h"
+#include <SDL_image.h>
 
+#include "Debugging/Logger.hpp"
+#include "Graphics/GLTextureWrapper.h"
 Texture2D::Texture2D(const std::string& fullPath)
 	: m_pTexture(nullptr)
 {

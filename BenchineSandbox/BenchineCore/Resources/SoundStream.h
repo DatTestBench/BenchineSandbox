@@ -1,5 +1,11 @@
 #pragma once
-//struct Mix_Music;
+#include <memory>
+#include <SDL_mixer.h>
+#include <string>
+
+#include "Core/CoreBasicTypes.hpp"
+#include "Core/CoreMacros.hpp"
+
 class SoundStream
 {
 public:

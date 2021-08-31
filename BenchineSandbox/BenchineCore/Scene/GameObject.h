@@ -1,10 +1,13 @@
 #pragma once
+#include <list>
+#include <vector>
+#include <typeinfo>
 
-#include "Helpers/Utils.hpp"
-#include "Scene/Scene.h"
-
+#include "Core/CoreBasicTypes.hpp"
 #include "Helpers/Concepts.hpp"
+#include "Core/CoreMacros.hpp"
 
+class Scene;
 class TransformComponent;
 class RenderComponent;
 class BaseComponent;
@@ -27,7 +30,7 @@ public:
 	Component* AddComponent(Component* pComponent)
 	{
 		m_pComponents.push_back(pComponent);
-		pComponent->m_pGameObject = this;
+		pComponent->m_pRootObject = this;
 		return pComponent;
 	}
 

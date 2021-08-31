@@ -1,5 +1,7 @@
 #pragma once
-
+#include <memory>
+#include <string>
+#include "Core/CoreMacros.hpp"
 class GLTextureWrapper;
 class Texture2D
 {

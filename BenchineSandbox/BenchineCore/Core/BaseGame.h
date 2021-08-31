@@ -1,12 +1,12 @@
 #pragma once
-#include "Core/BenchineCore.hpp"
-// Using a base game so the engine can be reused for games other than BubbleBobble without having to rewrite the Runner
+#include <string_view>
+
+#include "Core/CoreBasicTypes.hpp"
 class BaseGame
 {
 public:
-	BaseGame() = default;
+	explicit BaseGame(const std::string_view name) : m_Name(name) {}
 	virtual ~BaseGame() = default;
-	DEL_ROF(BaseGame)
 
 	void BaseInitialize();
 	void BaseUpdate(f32 dT);

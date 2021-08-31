@@ -1,7 +1,8 @@
-#include "BenchinePCH.h"
 #include "Resources/Font.h"
 
-#include "Core/Memory.hpp"
+#include <SDL_ttf.h>
+
+#include "Debugging/Logger.hpp"
 #include "Graphics/GLTextureWrapper.h"
 
 Font::Font(const std::string& fullPath, const u32 size)

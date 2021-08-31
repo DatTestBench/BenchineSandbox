@@ -1,16 +1,10 @@
-#include "BenchinePCH.h"
 #include "Components/TextComponent.h"
 #include "Components/RenderComponent.h"
-#include "Components/TransformComponent.h"
+#include "Graphics/GLTextureWrapper.h"
 #include "Resources/Font.h"
-#include "Scene/GameObject.h"
-
 TextComponent::TextComponent(const std::string& text, Font* font)
-	: m_NeedsUpdate(true)
-	, m_Text(text)
+	: m_Text(text)
 	, m_pFont(font)
-	, m_Color(255, 255, 255, 255)
-	, m_pTexture(nullptr)
 {
 	m_pTexture = m_pFont->GenerateFontTexture(m_Text, m_Color);
 }

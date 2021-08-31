@@ -1,12 +1,10 @@
 #pragma once
-#include <glm/vec3.hpp>
-
 #include "Components/BaseComponent.h"
-
+#include "glm/glm.hpp"
 class TransformComponent final : public BaseComponent
 {
 public:
-	TransformComponent();
+	TransformComponent() = default;
 	explicit TransformComponent(const glm::vec3& pos, const glm::vec2& scale);
 
 	void SetPosition(f32 x, f32 y, f32 z = 1.f) noexcept;
@@ -21,6 +19,6 @@ protected:
 	void Initialize() override;
 	void Update(f32 dT) override;
 private:
-	glm::vec3 m_Position;
-	glm::vec2 m_Scale;
+	glm::vec3 m_Position = { 0.f, 0.f, 1.f};
+	glm::vec2 m_Scale = { 1.f, 1.f };
 };

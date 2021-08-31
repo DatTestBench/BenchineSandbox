@@ -1,11 +1,9 @@
-#include "BenchinePCH.h"
-#include "RenderComponent.h"
+#include "Components/RenderComponent.h"
 
-#include <ranges>
-
-#include "Graphics/Renderer.h"
-#include "Scene/GameObject.h"
 #include "Components/TransformComponent.h"
+#include "Graphics/Renderer.h"
+#include "Scene/Scene.h"
+#include <ranges>
 
 RenderComponent::~RenderComponent()
 {
@@ -18,7 +16,7 @@ void RenderComponent::Initialize()
 	GetGameObject()->SetRenderComponent(this);
 }
 
-void RenderComponent::Update([[maybe_unused]] const f32 dT)
+void RenderComponent::Update(const f32)
 {
 }
 

@@ -1,13 +1,14 @@
-#include "BenchinePCH.h"
 #include "Helpers/SAT.hpp"
+
+#include "MathHelper.hpp"
 #include "Components/PhysicsComponent2D.h"
-#include "Components/TransformComponent.h"
-#include "glm/geometric.hpp"
-
+#include "Core/BenchineCore.hpp"
+#include "Core/BenchineCore.hpp"
+#include "Core/BenchineCore.hpp"
+#include "Core/BenchineCore.hpp"
 // TODO: see if the following could be merged into one function that calls the other
-
 // Collision for GameObjects
-PolygonCollisionResult sat::PolygonCollision(PhysicsComponent2D* pActorA, PhysicsComponent2D* pActorB)
+PolygonCollisionResult sat::PolygonCollision(const PhysicsComponent2D* pActorA, const PhysicsComponent2D* pActorB)
 {
 	PolygonCollisionResult result{};
 	result.intersect = true;
@@ -78,7 +79,7 @@ PolygonCollisionResult sat::PolygonCollision(PhysicsComponent2D* pActorA, Physic
 
 
 // Collision for GameObject to static collider
-PolygonCollisionResult sat::PolygonCollision(PhysicsComponent2D* pActor, const Collider2D& staticPoly)
+PolygonCollisionResult sat::PolygonCollision(const PhysicsComponent2D* pActor, const Collider2D& staticPoly)
 {
 	//glm::vec2 velocityDelta = pActor->GetVelocity();
 

@@ -1,18 +1,22 @@
-#include "BenchinePCH.h"
 #include "Components/ControllerComponent.h"
-#include <algorithm>
-#include <functional>
+
+#include <SDL_keycode.h>
+
 #include "Components/PhysicsComponent2D.h"
 #include "Components/SpriteComponent.h"
-#include "Components/TransformComponent.h"
+#include "Components/TransformComponent.h" // TODO: Find a way to not require this include
+
+#include "Core/InputManager.h"
+
+#include "Debugging/Logger.hpp"
+
+#include "Graphics/Renderer.h"
+
+#include "Resources/ResourceManager.h"
 #include "Resources/SoundByte.h"
 
 ControllerComponent::ControllerComponent(const ControllerId playerId)
-	: m_Velocity()
-	, m_Movement()
-	, m_pPhysicsComponent(nullptr)
-	, m_PlayerId(playerId)
-	, m_MovementState(MovementDirection::Right)
+	: m_PlayerId(playerId)
 {
 }
 
@@ -37,21 +41,17 @@ void ControllerComponent::Initialize()
 
 void ControllerComponent::Update(const f32 dT)
 {
-	// todo magic numbers, probably can't be fixed until we have an actual editor
-	const f32 velocity = 100.f;
-	const f32 gravity = 750.f;
-	const f32 friction = 500.f;
 	if (!m_pPhysicsComponent->IsOnGround())
 	{
-		m_Velocity.y = std::clamp(m_Velocity.y - gravity * dT, -200.f, 1000.f);
+		m_Velocity.y = std::clamp(m_Velocity.y - m_cGravity * dT, -200.f, 1000.f);
 	}
 
 	if (abs(m_Velocity.x) > 0.1f)
 	{
-		m_Velocity.x = m_Velocity.x < 0 ? std::min(m_Velocity.x + friction * dT, 0.f) : std::max(m_Velocity.x - friction * dT, 0.f);
+		m_Velocity.x = m_Velocity.x < 0 ? std::min(m_Velocity.x + m_cFriction * dT, 0.f) : std::max(m_Velocity.x - m_cFriction * dT, 0.f);
 	}
 
-	m_Velocity += m_Movement * velocity;
+	m_Velocity += m_Movement * m_cBaseVelocity;
 
 	m_pPhysicsComponent->SetVelocity(m_Velocity);
 	GetTransform()->Move(m_Velocity * dT);

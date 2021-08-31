@@ -1,9 +1,15 @@
 #include "SandboxPCH.h"
 #include "Scenes/TestScene.h"
 
+#include "Components/FPSComponent.h"
+#include "Components/RenderComponent.h"
+#include "Components/TextComponent.h"
+#include "Components/TransformComponent.h"
+#include "Graphics/GLTextureWrapper.h"
 #include "NodeEditor/BNEditor.h"
 #include "NodeEditor/BNNodes.h"
 #include "Resources/Font.h"
+#include "Scene/GameObject.h"
 
 struct LinkInfo
 {

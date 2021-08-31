@@ -1,6 +1,4 @@
-#include "BenchinePCH.h"
 #include "Components/LifetimeComponent.h"
-
 LifetimeComponent::LifetimeComponent(const f32 lifeTime)
 	: m_LifeTime(lifeTime)
 {

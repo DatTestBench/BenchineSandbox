@@ -1,11 +1,5 @@
 #pragma once
-
-#define DEL_ROF(className) \
-className(const className&) = delete; \
-className(className&&) noexcept = delete; \
-className& operator= (const className&) = delete; \
-className& operator= (className&&) noexcept = delete;
-
+#include "Core/CoreMacros.hpp"
 // Templated singleton, using a token to circumvent having to make instances friend of the base singleton (having the child constructor public), while still making sure the child can only be initialized once using a token struct
 // Based on this rather interesting stackexchange answer: https://codereview.stackexchange.com/a/173942
 template <typename T>

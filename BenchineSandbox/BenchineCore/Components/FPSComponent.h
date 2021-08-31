@@ -1,11 +1,10 @@
 #pragma once
 #include "Components/BaseComponent.h"
+
 class FPSComponent final : public BaseComponent
 {
 public:
-	FPSComponent();
-
-	void Update([[maybe_unused]] f32 dT) override;
+	void Update(f32 dT) override;
 
 	[[nodiscard]] constexpr auto GetFPS() const noexcept -> f32 { return m_FPS; }
 
@@ -13,5 +12,5 @@ protected:
 	void Initialize() override;
 
 private:
-	f32 m_FPS;
+	f32 m_FPS = {};
 };

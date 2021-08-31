@@ -1,5 +1,9 @@
 #pragma once
+
 #include "Components/BaseComponent.h"
+
+#include <SDL_pixels.h>
+#include <string>
 
 class GLTextureWrapper;
 class Font;
@@ -7,7 +11,7 @@ class TextComponent final : public BaseComponent
 {
 public:
 
-	TextComponent(const std::string& text, Font* font);
+	explicit TextComponent(const std::string& text, Font* font);
 
 	void Update([[maybe_unused]] f32 dT) override;
 
@@ -21,9 +25,9 @@ protected:
 	void Initialize() override;
 
 private:
-	bool m_NeedsUpdate;
+	bool m_NeedsUpdate = true;
 	std::string m_Text;
 	Font* m_pFont;
-	SDL_Color m_Color;
+	SDL_Color m_Color = {255, 255, 255, 255};
 	GLTextureWrapper* m_pTexture;
 };

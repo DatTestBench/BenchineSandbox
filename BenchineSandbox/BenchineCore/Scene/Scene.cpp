@@ -1,12 +1,13 @@
-#include "BenchinePCH.h"
-#include "Scene/Scene.h"
-#include "Scene/GameObject.h"
-#include "Components/RenderComponent.h"
-#include "Components/PhysicsComponent2D.h"
-#include <future>
-#include <deque>
+#include "Scene.h"
 
+#include <deque>
+#include <future>
+#include <string_view>
+
+#include "Components/PhysicsComponent2D.h"
+#include "Components/RenderComponent.h"
 #include "Core/Memory.hpp"
+#include "Debugging/Logger.hpp"
 Scene::Scene(const std::string_view& sceneName)
 	: m_Name(sceneName)
 {
@@ -58,7 +59,7 @@ void Scene::BaseUpdate(const f32 dT)
 
 void Scene::Render() const
 {
-	for (auto pRenderComponent : m_pRenderComponents)
+	for (const auto pRenderComponent : m_pRenderComponents)
 	{
 		if (pRenderComponent != nullptr)
 		{
@@ -78,7 +79,7 @@ void Scene::DoPhysics()
 	std::deque<std::future<void>> futures;
 	u32 threadCounter = 0;
 
-	for (auto dynamicObject : m_pDynamicObjects)
+	for (const auto dynamicObject : m_pDynamicObjects)
 	{
 		if (threadCounter >= maxThreads)
 		{
@@ -89,7 +90,7 @@ void Scene::DoPhysics()
 
 		futures.emplace_back(std::async(std::launch::async, [=]()
 		{
-			for (auto staticObject : m_pStaticObjects)
+			for (const auto staticObject : m_pStaticObjects)
 			{
 				dynamicObject->HandleCollision(staticObject);
 			}
@@ -105,7 +106,7 @@ void Scene::DoPhysics()
 
 		futures.emplace_back(std::async(std::launch::async, [=]()
 		{
-			for (auto otherObject : m_pDynamicObjects)
+			for (const auto otherObject : m_pDynamicObjects)
 			{
 				if (dynamicObject != otherObject)
 					dynamicObject->HandleCollision(otherObject);
@@ -113,7 +114,7 @@ void Scene::DoPhysics()
 		}));
 	}
 
-	for (auto trigger : m_pTriggers)
+	for (const auto trigger : m_pTriggers)
 	{
 		if (threadCounter >= maxThreads)
 		{
@@ -124,7 +125,7 @@ void Scene::DoPhysics()
 
 		futures.emplace_back(std::async(std::launch::async, [=]()
 		{
-			for (auto dynamicObject : m_pDynamicObjects)
+			for (const auto dynamicObject : m_pDynamicObjects)
 			{
 				trigger->HandleCollision(dynamicObject);
 			}
@@ -168,7 +169,7 @@ GameObject* Scene::RemoveGameObject(GameObject* pGameObject) noexcept
 		m_pRenderComponents.remove(pRenderComponent);
 	}
 
-	auto pPhysicsComponents = pGameObject->GetComponents<PhysicsComponent2D>();
+	const auto pPhysicsComponents = pGameObject->GetComponents<PhysicsComponent2D>();
 	if (!pPhysicsComponents.empty())
 	{
 		for (auto pPhysicsComponent : pPhysicsComponents)

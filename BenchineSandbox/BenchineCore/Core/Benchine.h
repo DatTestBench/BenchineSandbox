@@ -1,16 +1,25 @@
 #pragma once
-struct SDL_Window;
-#include "Core/BaseGame.h"
-#include "Helpers/Concepts.hpp"
+#include <chrono>
+#include <memory>
 
+#include "BaseGame.h"
+#include "CoreBasicTypes.hpp"
+#include "InputManager.h"
+#include "Debugging/Logger.hpp"
+#include "Graphics/Renderer.h"
+#include "Helpers/Concepts.hpp"
+#include "Resources/ResourceManager.h"
+#include "Scene/SceneManager.h"
+
+struct SDL_Window;
 class Benchine
 {
 public:
 	template<IsGame GameInstance> // Templated to allow the use of any kind of basegame
-	void Run()
+	void Run(const std::string_view name)
 	{
-		//m_pGame = std::make_unique<GameInstance>();
-		m_pGame = new GameInstance();
+		m_pGame = std::make_unique<GameInstance>(name);
+		//m_pGame = new GameInstance();
 		Initialize(); // Setup SDL
 
 		RESOURCES->Initialize("../Resources/");
@@ -20,10 +29,10 @@ public:
 		bool quit = false;
 
 		auto lastTime = std::chrono::high_resolution_clock::now();
-		
-		auto pLogger = Logger::GetInstance();
 
-		// todo(long term): fix timestep
+		const auto pLogger = LOGGER;
+
+		// TODO(long term): fix timestep
 		while (!quit)
 		{
 			
@@ -33,7 +42,7 @@ public:
 			quit = INPUT->ProcessInput();
 			
 			RENDERER->SetupRender();
-			SceneManager::GetInstance()->RenderCurrentScene();
+			SCENES->RenderCurrentScene();
 			pLogger->OutputLog();
 			m_pGame->BaseUpdate(deltaTime);
 			RENDERER->PresentRender();
@@ -45,10 +54,10 @@ public:
 private:	
 	static void Initialize();
 	void LoadGame() const;
-	void Cleanup();
+	static void Cleanup();
 
-	static const i32 MsPerFrame = 16; //16 for 60 fps, 33 for 30 fps
+	static constexpr i32 MsPerFrame = 16; //16 for 60 fps, 33 for 30 fps
 
 	// TODO: potentially unique_ptr
-	BaseGame* m_pGame = nullptr;
+	std::unique_ptr<BaseGame> m_pGame = nullptr;
 };

@@ -1,6 +1,9 @@
 #pragma once
-#include "Components/BaseComponent.h"
+#include "BaseComponent.h"
 #include "Resources/Texture2D.h"
+
+#include <map>
+
 #include "Graphics/GLTextureWrapper.h"
 class SpriteComponent final : public BaseComponent
 {
@@ -13,7 +16,7 @@ public:
 	 * @param nrZones Amount of different zones in the spritesheet, to use for different sprites in spritesheets
 	 * @param fps Framerate of the animation
 	 * */
-	SpriteComponent(Texture2D* pSpriteSheet, u32 nrCols, u32 nrRows, u32 nrZones, f32 fps);
+	explicit SpriteComponent(Texture2D* pSpriteSheet, u32 nrCols, u32 nrRows, u32 nrZones, f32 fps);
 
 	void Update(f32 dT) override;
 
@@ -30,15 +33,16 @@ protected:
 	void Initialize() override;
 
 private:
+	
 	Texture2D* m_pSpriteSheet;
 	u32 m_Cols;
 	u32 m_Rows;
 	u32 m_Zones;
-	u32 m_CurrentZone;
+	u32 m_CurrentZone = {};
 
 	std::map<std::string, u32> m_AnimationMap;
 
 	f32 m_Fps;
-	f32 m_CurrentElapsed;
-	u32 m_CurrentFrame;
+	f32 m_CurrentElapsed = {};
+	u32 m_CurrentFrame = {};
 };

@@ -1,7 +1,6 @@
 #pragma once
-#include "NodeEditor/BNEditor.h"
-
 #define NODE_BASE(nodeName) explicit nodeName(const std::string_view name) : Node(name) {}
+#include "BNEditorHelpers.h"
 
 namespace Nodes
 {

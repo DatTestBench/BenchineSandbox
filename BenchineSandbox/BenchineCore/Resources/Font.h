@@ -1,5 +1,10 @@
 #pragma once
+#include <memory>
+#include <SDL_pixels.h>
+#include <string>
 
+#include "Core/CoreBasicTypes.hpp"
+#include "Core/CoreMacros.hpp"
 struct _TTF_Font;
 class GLTextureWrapper;
 class Font

@@ -1,7 +1,9 @@
-#include "BenchinePCH.h"
 #include "Debugging/DebugRenderer.h"
-#include <glm/gtc/constants.hpp>
 
+#include <SDL_opengl.h>
+
+#include "Logger.hpp"
+#include "glm/glm/gtc/constants.hpp"
 //POINTS
 #pragma region Points
 void DebugRenderer::DrawPoint(const f32 x, const f32 y, const f32 pointSize)

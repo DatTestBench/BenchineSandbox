@@ -1,6 +1,8 @@
-#include "BenchinePCH.h"
 #include "Resources/SoundByte.h"
 
+#include <SDL_mixer.h>
+
+#include "Debugging/Logger.hpp"
 SoundByte::SoundByte(const std::string& fullPath)
 	: m_pMixChunk(Mix_LoadWAV(fullPath.c_str()), [](Mix_Chunk* ptr){ Mix_FreeChunk(ptr); ptr = nullptr; })
 {

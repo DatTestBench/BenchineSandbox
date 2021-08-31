@@ -1,16 +1,17 @@
-#ifndef LOGGER_HPP
-#define LOGGER_HPP
+#pragma once
+import EnumHelpers;
 
-// General Includes
-#include <list>
-#include <array>
-#include <string_view>
+#include <string>
+
+#include "ImGui/imgui.h"
+#include "Helpers/Singleton.hpp"
 #include <source_location>
 
-// Project Includes
+#include "Core/CoreBasicTypes.hpp"
+#include "magic_enum/magic_enum.hpp"
+#include "fmt/format.h"
 #include "fmt/color.h"
-#include "Helpers/Singleton.hpp"
-#include "Core/BenchineCore.hpp"
+
 
 enum class LogLevel : u8
 {
@@ -32,7 +33,6 @@ enum class Verbosity : u8
 
 #ifdef B_DEBUG
 	#define LOG_CONDITIONAL(condition, level, ...) if (condition) LOG(level, __VA_ARGS__)
-	//#define LOG(level, ...) Logger::GetInstance()->Log<LogLevel::level>(__FILE__, __FUNCTION__, __LINE__, fmt::format(__VA_ARGS__))
 	#define LOG(level, ...) Logger::GetInstance()->Log<LogLevel::level>(fmt::format(__VA_ARGS__))
 #else
 	#define LOG_CONDITIONAL(condition, level, ...) UNUSED(condition, LogLevel::level, __VA_ARGS__)
@@ -69,12 +69,12 @@ struct LogEntry
 	}
 };
 
+
 class Logger final : public Singleton<Logger>
 {
 public:
 	explicit Logger(Token){}
-
-	#ifdef _SOURCE_LOCATION_
+	
 	/**
 	* \brief Log Function 
 	* \template Level Log level
@@ -93,29 +93,6 @@ public:
 		const std::string textOutput = fmt::format("[{0}] {1} {2}:({3}) > {4}\n", magic_enum::enum_name(Level), fileName, location.function_name(), location.line(), message);
 		fmt::print(fg(COLOR_LUT.at(EnumIndex(Level)).FmtColor), textOutput);
 	}
-	#else
-	/**
-	* \brief Log Function 
-	* \template Level Log level
-	* \param file File name
-	* \param function Function name
-	* \param line Line where this log was called
-	* \param message Log message
-	* */
-	template <LogLevel Level>
-    static void Log(const std::string& file, const std::string& function, const u32 line, const std::string& message)
-	{
-		// TODO figure out if I want a static_assert or a fancy concept for this
-		static_assert(Level != LogLevel::Full, "Full is not a valid LogLevel");
-		GetInstance()->m_LogList.emplace_back(Level, file, function, line, message);
-
-		// Console output log
-		const std::string fileName = file.substr(file.find_last_of('\\') + 1);
-		const std::string fileName = std::string(location.file_name()).substr(std::string(location.file_name()).find_last_of('\\') + 1);
-		const std::string textOutput = fmt::format("[{0}] {1} {2}:({3}) > {4}\n", magic_enum::enum_name(Level), fileName, function, line, message);
-		fmt::print(fg(COLOR_LUT.at(EnumIndex(Level)).FmtColor), textOutput);
-	}
-	#endif
 
 	// ImGui code to output the logger window
 	void OutputLog() noexcept;
@@ -154,4 +131,4 @@ private:
 	};
 };
 
-#endif // !LOGGER_HPP
+#define LOGGER Logger::GetInstance()

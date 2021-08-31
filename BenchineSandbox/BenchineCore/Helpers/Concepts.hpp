@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <type_traits>
 
 class BaseComponent;
 template<typename Component>

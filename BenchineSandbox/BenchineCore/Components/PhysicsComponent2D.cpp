@@ -1,17 +1,12 @@
-#include "BenchinePCH.h"
 #include "Components/PhysicsComponent2D.h"
-#include "Components/TransformComponent.h"
 
+#include "TransformComponent.h"
 #include "Debugging/DebugRenderer.h"
+#include "Scene/Scene.h"
 #include <glm/gtx/matrix_transform_2d.hpp>
-#include <glm/trigonometric.hpp>
 
 PhysicsComponent2D::PhysicsComponent2D(const CollisionMode collisionMode)
 	: m_CollisionMode(collisionMode)
-	, m_PhysicsCallback([] (PolygonCollisionResult, PhysicsComponent2D*, PhysicsComponent2D*){})
-	, m_CallBackOverriden(false)
-	, m_Velocity()
-	, m_IsOnGround(false)
 {
 }
 

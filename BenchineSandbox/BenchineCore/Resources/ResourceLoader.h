@@ -1,9 +1,8 @@
 #pragma once
 #include <filesystem>
-#include <unordered_map>
-
+#include <string>
+#include "Core/CoreMacros.hpp"
 #include "Debugging/Logger.hpp"
-
 class BaseLoader
 {
 public:

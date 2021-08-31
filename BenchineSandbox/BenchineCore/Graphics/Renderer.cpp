@@ -1,8 +1,12 @@
-#include "BenchinePCH.h"
+#include "Graphics/Renderer.h"
 
+#include <GL/GLU.h>
+
+#include "Debugging/Logger.hpp"
+#include "ImGui/imgui_impl_opengl2.h"
+#include "ImGui/imgui_impl_sdl.h"
+#include "ImNodes/imnodes.h"
 #include "Graphics/GLTextureWrapper.h"
-
-
 Renderer::~Renderer()
 {
 	Cleanup();

@@ -1,8 +1,8 @@
 ﻿#pragma once
-#include <nameof/nameof.hpp>
+#include "nameof/nameof.hpp"
 
 template <class T>
-inline bool SafeDeleteInternal(T& pObject)
+bool SafeDeleteInternal(T& pObject)
 {
 	if (pObject != nullptr)
 	{
@@ -14,7 +14,7 @@ inline bool SafeDeleteInternal(T& pObject)
 }
 
 template <class T>
-inline bool SafeDeleteInternal(T* pObject)
+bool SafeDeleteInternal(T* pObject)
 {
 	if (pObject != nullptr)
 	{

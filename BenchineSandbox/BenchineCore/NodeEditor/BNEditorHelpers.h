@@ -1,7 +1,11 @@
 #pragma once
-#include <vector>
-#include "ImNodes/imnodes.h"
+#include <string>
+
+#include "Core/CoreBasicTypes.hpp"
 #include "ImGui/imgui.h"
+#include "ImNodes/imnodes.h"
+#include "fmt/format.h"
+class Node;
 // Enums
 enum class NodeType
 {

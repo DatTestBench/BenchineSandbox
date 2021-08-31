@@ -1,5 +1,6 @@
-#include "BenchinePCH.h"
 #include "Core/BaseGame.h"
+
+#include "Scene/SceneManager.h"
 
 void BaseGame::BaseInitialize()
 {
@@ -9,7 +10,7 @@ void BaseGame::BaseInitialize()
 
 void BaseGame::BaseUpdate(const f32 dT)
 {
-	SceneManager::GetInstance()->Update(dT);
+	SCENES->Update(dT);
 	// User Defined Update
 	Update(dT);
 }

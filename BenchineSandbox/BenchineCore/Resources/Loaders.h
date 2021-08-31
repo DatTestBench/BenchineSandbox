@@ -1,13 +1,9 @@
 #pragma once
-#include <string>
-#include "Core/Memory.hpp"
-#include "Resources/ResourceLoader.h"
-
-/*Resource Types*/
-#include "Resources/Font.h"
-#include "Resources/Texture2D.h"
 #include "Resources/SoundByte.h"
 #include "Resources/SoundStream.h"
+#include "Resources/Texture2D.h"
+#include "Resources/Font.h"
+#include "Resources/ResourceLoader.h"
 
 class Font;
 class FontLoader final : public ResourceLoader<Font>

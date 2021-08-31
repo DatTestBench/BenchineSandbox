@@ -1,11 +1,12 @@
 #pragma once
 #include <map>
+#include <memory>
+#include <string>
 #include <typeindex>
 
+#include "ResourceLoader.h"
 #include "Helpers/Singleton.hpp"
-#include "Resources/ResourceLoader.h"
 #include "Helpers/Concepts.hpp"
-
 class ResourceManager final : public Singleton<ResourceManager>
 {
 public:
@@ -33,3 +34,5 @@ private:
 	std::string m_DataPath;
 	std::map<std::type_index, std::unique_ptr<BaseLoader>> m_Loaders;
 };
+
+#define RESOURCES ResourceManager::GetInstance()

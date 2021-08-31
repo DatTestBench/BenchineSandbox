@@ -1,5 +1,6 @@
-#include "BenchinePCH.h"
 #include "Resources/SoundStream.h"
+
+#include "Debugging/Logger.hpp"
 
 SoundStream::SoundStream(const std::string& fullPath)
 	: m_pMixMusic(Mix_LoadMUS(fullPath.c_str()), [](Mix_Music* ptr){ Mix_FreeMusic(ptr); ptr = nullptr; })

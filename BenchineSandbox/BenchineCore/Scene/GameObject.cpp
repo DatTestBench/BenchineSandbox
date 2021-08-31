@@ -1,10 +1,9 @@
-#include "BenchinePCH.h"
 #include "Scene/GameObject.h"
+
+#include "Core/Memory.hpp"
+#include "Debugging/Logger.hpp"
 #include "Components/BaseComponent.h"
 #include "Components/TransformComponent.h"
-#include "Core/Memory.hpp"
-#include "Resources/ResourceManager.h"
-
 GameObject::GameObject()
 	: m_IsInitialized(false)
 	, m_pTransform(nullptr)
@@ -31,7 +30,7 @@ void GameObject::BaseInitialize()
 	Initialize();
 
 	// Component Initialization
-	for (auto pComponent : m_pComponents)
+	for (const auto pComponent : m_pComponents)
 	{
 		pComponent->BaseInitialize();
 	}
@@ -44,7 +43,7 @@ void GameObject::BaseUpdate(const f32 dT)
 	Update(dT);
 
 	// Component Update
-	for (auto pComponent : m_pComponents)
+	for (const auto pComponent : m_pComponents)
 	{
 		pComponent->Update(dT);
 	}

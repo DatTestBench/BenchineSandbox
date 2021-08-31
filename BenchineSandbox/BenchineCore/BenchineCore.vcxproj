@@ -53,7 +53,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>BenchinePCH.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <TreatWarningAsError>true</TreatWarningAsError>
@@ -72,7 +72,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>BenchinePCH.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <TreatWarningAsError>true</TreatWarningAsError>
@@ -85,10 +85,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BenchinePCH.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="Components\AIControllerComponent.cpp" />
     <ClCompile Include="Components\BaseComponent.cpp" />
     <ClCompile Include="Components\ControllerComponent.cpp" />
@@ -100,6 +96,7 @@
     <ClCompile Include="Components\TextComponent.cpp" />
     <ClCompile Include="Components\TextureComponent.cpp" />
     <ClCompile Include="Components\TransformComponent.cpp" />
+    <ClCompile Include="Helpers\EnumHelpers.ixx" />
     <ClCompile Include="Debugging\DebugRenderer.cpp" />
     <ClCompile Include="Graphics\GLTextureWrapper.cpp" />
     <ClCompile Include="Helpers\GeneralHelpers.cpp" />
@@ -124,7 +121,6 @@
     <ClCompile Include="Scene\SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BenchinePCH.h" />
     <ClInclude Include="Components\AIControllerComponent.h" />
     <ClInclude Include="Components\BaseComponent.h" />
     <ClInclude Include="Components\Components.h" />
@@ -138,12 +134,20 @@
     <ClInclude Include="Components\TextureComponent.h" />
     <ClInclude Include="Components\TransformComponent.h" />
     <ClInclude Include="Core\BenchineCore.hpp" />
+    <ClInclude Include="Core\CoreHelpers.hpp" />
+    <ClInclude Include="Core\CoreMacros.hpp" />
+    <ClInclude Include="Core\CoreBasicTypes.hpp" />
+    <ClInclude Include="Core\CoreTypes.hpp" />
     <ClInclude Include="Core\Memory.hpp" />
     <ClInclude Include="Debugging\DebugRenderer.h" />
     <ClInclude Include="Graphics\GLTextureWrapper.h" />
+    <ClInclude Include="Helpers\CollisionHelper.hpp" />
     <ClInclude Include="Helpers\Concepts.hpp" />
     <ClInclude Include="Helpers\GeneralHelpers.hpp" />
+    <ClInclude Include="Helpers\JsonHelper.hpp" />
+    <ClInclude Include="Helpers\MathHelper.hpp" />
     <ClInclude Include="Helpers\SAT.hpp" />
+    <ClInclude Include="Helpers\SvgHelper.hpp" />
     <ClInclude Include="NodeEditor\BNEditor.h" />
     <ClInclude Include="NodeEditor\BNEditorHelpers.h" />
     <ClInclude Include="NodeEditor\BNNodes.h" />

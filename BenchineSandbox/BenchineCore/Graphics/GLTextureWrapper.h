@@ -1,7 +1,11 @@
 #pragma once
-// Wrapper the OpenGL texture system, to work with SDL_Surface
-#include "Helpers/GeneralHelpers.hpp"
 
+#include <SDL_surface.h>
+#include <glm/vec2.hpp>
+
+#include "Core/CoreTypes.hpp"
+#include "Core/CoreMacros.hpp"
+// Wrapper the OpenGL texture system, to work with SDL_Surface
 enum class TextureOffsetMode
 {
 	Center,
@@ -24,7 +28,7 @@ public:
 	~GLTextureWrapper();
 	DEL_ROF(GLTextureWrapper)
 
-	[[nodiscard]] constexpr auto GetId() const noexcept-> GLuint { return m_Id; }
+	[[nodiscard]] constexpr auto GetId() const noexcept-> u32 { return m_Id; }
 	[[nodiscard]] constexpr auto GetWidth() const noexcept-> u32 { return m_Width; }
 	[[nodiscard]] constexpr auto GetHeight() const noexcept-> u32 { return m_Height; }
 	[[nodiscard]] constexpr auto GetTargetWidth() const noexcept-> f32 { return m_TargetWidth; }
@@ -45,7 +49,7 @@ public:
 
 
 private:
-	GLuint m_Id;
+	u32 m_Id;
 
 	u32 m_Width;
 	u32 m_Height;
@@ -58,5 +62,5 @@ private:
 	TextureOffsetMode m_OffsetMode;
 
 	bool m_CreationOk;
-	void CreateTextureFromSurface(SDL_Surface* pSurface);
+	void CreateTextureFromSurface(const SDL_Surface* pSurface);
 };

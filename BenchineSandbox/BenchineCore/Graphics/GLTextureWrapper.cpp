@@ -1,6 +1,8 @@
-#include "BenchinePCH.h"
-#include "GLTextureWrapper.h"
+#include "Graphics/GLTextureWrapper.h"
 
+#include <SDL_opengl.h>
+
+#include "Debugging/Logger.hpp"
 GLTextureWrapper::GLTextureWrapper(SDL_Surface* pSurface, const TextureOffsetMode offsetMode, const u32 renderPriority)
 	: m_Id()
 	, m_Width()
@@ -21,7 +23,7 @@ GLTextureWrapper::~GLTextureWrapper()
 }
 
 //https://geometrian.com/programming/tutorials/texturegl/index.php
-void GLTextureWrapper::CreateTextureFromSurface(SDL_Surface* pSurface)
+void GLTextureWrapper::CreateTextureFromSurface(const SDL_Surface* pSurface)
 {
 	m_CreationOk = true;
 

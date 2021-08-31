@@ -1,6 +1,9 @@
 #pragma once
 #include "Helpers/Singleton.hpp"
+#include <map>
+#include <string_view>
 
+#include "Core/CoreBasicTypes.hpp"
 class Scene;
 class SceneManager final : public Singleton<SceneManager>
 {
@@ -23,3 +26,5 @@ private:
 
 	bool m_IsInitialized;
 };
+
+#define SCENES SceneManager::GetInstance()

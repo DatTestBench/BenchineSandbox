@@ -1,10 +1,14 @@
 #pragma once
-#include "Helpers/GeneralHelpers.hpp"
+#include <vector>
+#include <glm/vec2.hpp>
+
+#include "Core/CoreBasicTypes.hpp"
+#include "Core/CoreTypes.hpp"
 
 #ifdef _DEBUG
 #define DEBUGRENDER(func) DebugRenderer::func;
 #else
-#define DEBUGRENDER(func) do{}while(0);
+#define DEBUGRENDER(func) do{} while(false);
 #endif
 
 namespace DebugRenderer

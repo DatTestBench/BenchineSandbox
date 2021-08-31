@@ -1,13 +1,14 @@
 #pragma once
-#include <XInput.h>
-#include <bitset>
-#include <map>
-#include <vector>
+#include <array>
 #include <functional>
+#include <map>
+#include <SDL_keyboard.h>
+#include <Windows.h>
+#include <XInput.h>
+#include <magic_enum/magic_enum.hpp>
 
-#include "BenchineCore.hpp"
+#include "CoreBasicTypes.hpp"
 #include "Helpers/Singleton.hpp"
-
 enum class InputState
 {
 	Pressed,
@@ -52,7 +53,7 @@ struct InputBinding
 	i32 MouseCode;
 	GamepadButton Button;
 	ControllerId Controller;
-	bool IsActive;
+	bool IsActive = false;
 
 	explicit InputBinding(const std::string_view id, const std::function<void()> callBack, const InputState state, const i32 keyCode = -1, const i32 mouseCode = -1, const GamepadButton button = GamepadButton::NONE, const ControllerId controllerId = ControllerId::Invalid)
 		: ActionId(id)
@@ -62,7 +63,6 @@ struct InputBinding
 		, MouseCode(mouseCode)
 		, Button(button)
 		, Controller(controllerId)
-		, IsActive(false)
 	{
 	}
 };
@@ -71,11 +71,11 @@ struct KeyEvent
 {
 	i32 KeyCode;
 	InputState State;
-	bool Processed;
+	bool Processed = false;
+	
 	KeyEvent(const i32 keyCode, const InputState state)
 		: KeyCode(keyCode)
 		, State(state)
-		, Processed(false)
 	{
 	}
 };
@@ -97,10 +97,7 @@ struct MouseState
 class InputManager final : public Singleton<InputManager>
 {
 public:
-	explicit InputManager(Token)
-		: m_Controllers()
-	{
-	}
+	explicit InputManager(Token) {};
 
 	bool AddInputBinding(InputBinding binding);
 	bool IsBindingActive(std::string_view actionId);
@@ -115,10 +112,12 @@ private:
 	void LogKeyReleased(SDL_Scancode key);
 	std::vector<KeyEvent> m_KeyEvents;
 
-	std::array<Controller, XUSER_MAX_COUNT> m_Controllers;
+	std::array<Controller, XUSER_MAX_COUNT> m_Controllers = {};
 
 	std::multimap<std::string_view, InputBinding> m_InputBinds;
 
 	void ClearInputs();
 	void CheckControllerInput(DWORD index, XINPUT_STATE xInputState, GamepadButton button, i32 xInputConstant);
 };
+
+#define INPUT InputManager::GetInstance()

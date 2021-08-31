@@ -1,8 +1,9 @@
 #pragma once
 #include "Scene/Scene.h"
-#include "Components/Components.h"
 #include "NodeEditor/BNEditor.h"
 
+class FPSComponent;
+class TextComponent;
 class TestScene final : public Scene
 {
 public:

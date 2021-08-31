@@ -1,4 +1,9 @@
 #pragma once
+#include <list>
+#include <string_view>
+
+#include "Core/CoreBasicTypes.hpp"
+#include "Core/CoreMacros.hpp"
 
 class GameObject;
 class RenderComponent;
