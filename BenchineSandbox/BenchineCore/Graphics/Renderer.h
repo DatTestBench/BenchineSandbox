@@ -13,13 +13,13 @@ enum class RenderDepth : u32
 	//Layer furthest back, use for something like distant landscale, walls, ect
 	Background = 1U,
 	//Second Layer, use for something like level geometry you want the player to move in front of
-	Midgroundlayer1 = 2U,
+	MidgroundLayer1 = 2U,
 	//Third layer, use for something like objects that should be in front of level geometry, but behind the player
-	Midgroundlayer2 = 3U,
+	MidgroundLayer2 = 3U,
 	//Fourth layer, use for stuff like players
-	Playerlayer = 4U,
+	PlayerLayer = 4U,
 	//Fifth layer, use for foreground objects or level geometry you want to be in front of the player
-	Foregroundlayer = 5U
+	ForegroundLayer = 5U
 };
 
 struct SDL_Window;
@@ -55,7 +55,7 @@ private:
 	SDL_GLContext m_pContext;
 	SDL_Window* m_pWindow;
 
-	static std::array<VertexUV, 4> CreateRenderParams(GLTextureWrapper* pTexture);
+	static std::array<VertexUV, 4> CreateRenderParams(const GLTextureWrapper* pTexture);
 };
 
 #define RENDERER Renderer::GetInstance()

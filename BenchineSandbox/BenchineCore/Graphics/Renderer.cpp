@@ -2,11 +2,19 @@
 
 #include <GL/GLU.h>
 
+#include "Core/Benchine.h"
+#include "Core/Benchine.h"
+#include "Core/Benchine.h"
+#include "Core/Benchine.h"
+
 #include "Debugging/Logger.hpp"
+
+#include "Graphics/GLTextureWrapper.h"
+
 #include "ImGui/imgui_impl_opengl2.h"
 #include "ImGui/imgui_impl_sdl.h"
+
 #include "ImNodes/imnodes.h"
-#include "Graphics/GLTextureWrapper.h"
 Renderer::~Renderer()
 {
 	Cleanup();
@@ -14,9 +22,6 @@ Renderer::~Renderer()
 
 void Renderer::Initialize(const WindowSettings& windowSettings)
 {
-	// Why does this function throw errors, and not use the logger, you may ask?
-	// As the ImGui logger can't be created if the window creation fails, having the errors logged in the logger would be useless
-
 	// OpenGL versions
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
@@ -138,7 +143,7 @@ void Renderer::RenderTexture(GLTextureWrapper* pTexture, const glm::vec2& pos, c
 	glDisable(GL_TEXTURE_2D);
 }
 
-std::array<VertexUV, 4> Renderer::CreateRenderParams(GLTextureWrapper* pTexture)
+std::array<VertexUV, 4> Renderer::CreateRenderParams(const GLTextureWrapper* pTexture)
 {
 	const auto source = pTexture->GetSource();
 	const auto textureWidth = pTexture->GetWidth();

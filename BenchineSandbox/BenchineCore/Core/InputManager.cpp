@@ -3,15 +3,20 @@
 import EnumHelpers;
 
 #include <SDL_events.h>
-#include <windows.h>
 #include <ranges>
+#ifndef NOMINMAX
+#define NOMINMAX // Fuck you Microsoft
+#endif
+#include <Windows.h>
+
 #include "Core/CoreBasicTypes.hpp"
+
 #include "Debugging/Logger.hpp"
+
 #include "ImGui/imgui.h"
 
 bool InputManager::ProcessInput()
 {
-
 	ImGuiIO& io = ImGui::GetIO();
 	i32 wheel = 0;
 	ClearInputs();
@@ -84,7 +89,6 @@ bool InputManager::ProcessInput()
 		CheckControllerInput(i, state, GamepadButton::B, XINPUT_GAMEPAD_B);
 		CheckControllerInput(i, state, GamepadButton::X, XINPUT_GAMEPAD_X);
 		CheckControllerInput(i, state, GamepadButton::Y, XINPUT_GAMEPAD_Y);
-
 	}
 
 	i32 mouseX, mouseY;
@@ -147,11 +151,9 @@ bool InputManager::ProcessInput()
 
 bool InputManager::AddInputBinding(InputBinding binding)
 {
-	const size_t oldSize = m_InputBinds.size();
-	m_InputBinds.emplace(binding.ActionId, binding);
-	const size_t newSize = m_InputBinds.size();
+	const auto [newBindIt, constructed] = m_InputBinds.try_emplace(binding.ActionId, binding);
 
-	if (oldSize == newSize)
+	if (!constructed)
 	{
 		LOG(Warning, "Input with ID {0} already exists", binding.ActionId);
 		return false;
@@ -167,7 +169,6 @@ bool InputManager::IsBindingActive(std::string_view)
 
 bool InputManager::IsPressed(const GamepadButton button, const u32 controllerId)
 {
-
 	if (m_Controllers.at(controllerId).IsConnected)
 	{
 		return m_Controllers.at(controllerId).Buttons.at(EnumIndex(button));
@@ -177,11 +178,11 @@ bool InputManager::IsPressed(const GamepadButton button, const u32 controllerId)
 
 void InputManager::LogKeyPressed(const SDL_Scancode key)
 {
-	m_KeyEvents.emplace_back(KeyEvent(key, InputState::Pressed));
+	m_KeyEvents.emplace_back(key, InputState::Pressed);
 }
 void InputManager::LogKeyReleased(const SDL_Scancode key)
 {
-	m_KeyEvents.emplace_back(KeyEvent(key, InputState::Released));
+	m_KeyEvents.emplace_back(key, InputState::Released);
 }
 
 MouseState InputManager::GetMouseState()

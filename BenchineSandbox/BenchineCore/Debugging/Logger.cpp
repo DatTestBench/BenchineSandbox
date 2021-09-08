@@ -5,8 +5,9 @@
 #include "Core/CoreBasicTypes.hpp"
 void Logger::OutputLog() noexcept
 {
+	// Remove already displayed logs
 	m_LogList.remove_if([] (const LogEntry& entry) { return entry.markedForClear; });
-
+	
 	if (ImGui::Begin("Log"))
 	{
 		if (ImGui::BeginCombo("LevelSelection", ENUM_TO_C_STR(m_LogLevel)))

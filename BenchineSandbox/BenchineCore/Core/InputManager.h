@@ -3,11 +3,16 @@
 #include <functional>
 #include <map>
 #include <SDL_keyboard.h>
+#ifndef NOMINMAX
+#define NOMINMAX // Fuck you Microsoft
+#endif
 #include <Windows.h>
 #include <XInput.h>
+
 #include <magic_enum/magic_enum.hpp>
 
 #include "CoreBasicTypes.hpp"
+
 #include "Helpers/Singleton.hpp"
 enum class InputState
 {
@@ -114,7 +119,8 @@ private:
 
 	std::array<Controller, XUSER_MAX_COUNT> m_Controllers = {};
 
-	std::multimap<std::string_view, InputBinding> m_InputBinds;
+	//std::multimap<std::string_view, InputBinding> m_InputBinds;
+	std::map<std::string_view, InputBinding> m_InputBinds;
 
 	void ClearInputs();
 	void CheckControllerInput(DWORD index, XINPUT_STATE xInputState, GamepadButton button, i32 xInputConstant);
