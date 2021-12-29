@@ -1,182 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug|x64">
-      <Configuration>Debug</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|x64">
-      <Configuration>Release</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-  </ItemGroup>
-  <PropertyGroup Label="Globals">
-    <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{5EBB7232-0A7A-45EF-94A2-4B33DED233AB}</ProjectGuid>
-    <Keyword>Win32Proj</Keyword>
-    <RootNamespace>BenchineCore</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-  </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
-    <EnableASAN>false</EnableASAN>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
-    <EnableASAN>false</EnableASAN>
-  </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <ImportGroup Label="ExtensionSettings">
-  </ImportGroup>
-  <ImportGroup Label="Shared">
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="BenchineCore.props" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="BenchineCore.props" />
-  </ImportGroup>
-  <PropertyGroup Label="UserMacros" />
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
-      <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
-      <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <PrecompiledHeaderFile>BenchinePCH.h</PrecompiledHeaderFile>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
-      <TreatWarningAsError>true</TreatWarningAsError>
-      <EnableModules>true</EnableModules>
-    </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <PrecompiledHeaderFile>BenchinePCH.h</PrecompiledHeaderFile>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
-      <TreatWarningAsError>true</TreatWarningAsError>
-      <EnableModules>true</EnableModules>
-    </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Components\AIControllerComponent.cpp" />
-    <ClCompile Include="Components\BaseComponent.cpp" />
-    <ClCompile Include="Components\ControllerComponent.cpp" />
-    <ClCompile Include="Components\FPSComponent.cpp" />
-    <ClCompile Include="Components\LifetimeComponent.cpp" />
-    <ClCompile Include="Components\PhysicsComponent2D.cpp" />
-    <ClCompile Include="Components\RenderComponent.cpp" />
-    <ClCompile Include="Components\SpriteComponent.cpp" />
-    <ClCompile Include="Components\TextComponent.cpp" />
-    <ClCompile Include="Components\TextureComponent.cpp" />
-    <ClCompile Include="Components\TransformComponent.cpp" />
-    <ClCompile Include="Helpers\EnumHelpers.ixx" />
-    <ClCompile Include="Debugging\DebugRenderer.cpp" />
-    <ClCompile Include="Graphics\GLTextureWrapper.cpp" />
-    <ClCompile Include="Helpers\GeneralHelpers.cpp" />
-    <ClCompile Include="Helpers\SAT.cpp" />
-    <ClCompile Include="NodeEditor\BNEditor.cpp" />
-    <ClCompile Include="NodeEditor\BNEditorHelpers.cpp" />
-    <ClCompile Include="Resources\Loaders.cpp" />
-    <ClCompile Include="Resources\ResourceLoader.cpp" />
-    <ClCompile Include="Resources\ResourceManager.cpp" />
-    <ClCompile Include="Core\BaseGame.cpp" />
-    <ClCompile Include="Core\Benchine.cpp" />
-    <ClCompile Include="Core\InputManager.cpp" />
-    <ClCompile Include="Debugging\Logger.cpp" />
-    <ClCompile Include="Resources\Font.cpp" />
-    <ClCompile Include="Graphics\Renderer.cpp" />
-    <ClCompile Include="Resources\SoundByte.cpp" />
-    <ClCompile Include="Resources\SoundStream.cpp" />
-    <ClCompile Include="Resources\Texture2D.cpp" />
-    <ClCompile Include="Scene\DefaultScene.cpp" />
-    <ClCompile Include="Scene\GameObject.cpp" />
-    <ClCompile Include="Scene\Scene.cpp" />
-    <ClCompile Include="Scene\SceneManager.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Components\AIControllerComponent.h" />
-    <ClInclude Include="Components\BaseComponent.h" />
-    <ClInclude Include="Components\Components.h" />
-    <ClInclude Include="Components\ControllerComponent.h" />
-    <ClInclude Include="Components\FPSComponent.h" />
-    <ClInclude Include="Components\LifetimeComponent.h" />
-    <ClInclude Include="Components\PhysicsComponent2D.h" />
-    <ClInclude Include="Components\RenderComponent.h" />
-    <ClInclude Include="Components\SpriteComponent.h" />
-    <ClInclude Include="Components\TextComponent.h" />
-    <ClInclude Include="Components\TextureComponent.h" />
-    <ClInclude Include="Components\TransformComponent.h" />
-    <ClInclude Include="Core\BenchineCore.hpp" />
-    <ClInclude Include="Core\CoreHelpers.hpp" />
-    <ClInclude Include="Core\CoreMacros.hpp" />
-    <ClInclude Include="Core\CoreBasicTypes.hpp" />
-    <ClInclude Include="Core\CoreTypes.hpp" />
-    <ClInclude Include="Core\Memory.hpp" />
-    <ClInclude Include="Debugging\DebugRenderer.h" />
-    <ClInclude Include="Graphics\GLTextureWrapper.h" />
-    <ClInclude Include="Helpers\CollisionHelper.hpp" />
-    <ClInclude Include="Helpers\Concepts.hpp" />
-    <ClInclude Include="Helpers\GeneralHelpers.hpp" />
-    <ClInclude Include="Helpers\JsonHelper.hpp" />
-    <ClInclude Include="Helpers\MathHelper.hpp" />
-    <ClInclude Include="Helpers\SAT.hpp" />
-    <ClInclude Include="Helpers\SvgHelper.hpp" />
-    <ClInclude Include="NodeEditor\BNEditor.h" />
-    <ClInclude Include="NodeEditor\BNEditorHelpers.h" />
-    <ClInclude Include="NodeEditor\BNNodes.h" />
-    <ClInclude Include="Resources\Loaders.h" />
-    <ClInclude Include="Resources\ResourceLoader.h" />
-    <ClInclude Include="Resources\ResourceManager.h" />
-    <ClInclude Include="Core\BaseGame.h" />
-    <ClInclude Include="Core\Benchine.h" />
-    <ClInclude Include="Core\InputManager.h" />
-    <ClInclude Include="Debugging\Logger.hpp" />
-    <ClInclude Include="Resources\Font.h" />
-    <ClInclude Include="Graphics\Renderer.h" />
-    <ClInclude Include="Resources\SoundByte.h" />
-    <ClInclude Include="Resources\SoundStream.h" />
-    <ClInclude Include="Resources\Texture2D.h" />
-    <ClInclude Include="Helpers\Singleton.hpp" />
-    <ClInclude Include="Helpers\Utils.hpp" />
-    <ClInclude Include="Scene\DefaultScene.h" />
-    <ClInclude Include="Scene\GameObject.h" />
-    <ClInclude Include="Scene\Scene.h" />
-    <ClInclude Include="Scene\SceneManager.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CoreDependencies\CoreDependencies.vcxproj">
-      <Project>{3c8a9ed8-cb52-4de5-b94f-66fe26bbac1f}</Project>
-      <Name>CoreDependencies</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-  </ImportGroup>
+    <ItemGroup Label="ProjectConfigurations">
+        <ProjectConfiguration Include="Debug|x64">
+            <Configuration>Debug</Configuration>
+            <Platform>x64</Platform>
+        </ProjectConfiguration>
+        <ProjectConfiguration Include="Release|x64">
+            <Configuration>Release</Configuration>
+            <Platform>x64</Platform>
+        </ProjectConfiguration>
+    </ItemGroup>
+    <PropertyGroup Label="Globals">
+        <VCProjectVersion>16.0</VCProjectVersion>
+        <ProjectGuid>{5EBB7232-0A7A-45EF-94A2-4B33DED233AB}</ProjectGuid>
+        <Keyword>Win32Proj</Keyword>
+        <RootNamespace>BenchineCore</RootNamespace>
+        <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    </PropertyGroup>
+    <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+        <ConfigurationType>StaticLibrary</ConfigurationType>
+        <UseDebugLibraries>true</UseDebugLibraries>
+        <PlatformToolset>v142</PlatformToolset>
+        <CharacterSet>Unicode</CharacterSet>
+        <EnableASAN>false</EnableASAN>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+        <ConfigurationType>StaticLibrary</ConfigurationType>
+        <UseDebugLibraries>false</UseDebugLibraries>
+        <PlatformToolset>v142</PlatformToolset>
+        <WholeProgramOptimization>true</WholeProgramOptimization>
+        <CharacterSet>Unicode</CharacterSet>
+        <EnableASAN>false</EnableASAN>
+    </PropertyGroup>
+    <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props"/>
+    <ImportGroup Label="ExtensionSettings">
+    </ImportGroup>
+    <ImportGroup Label="Shared">
+    </ImportGroup>
+    <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+        <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+        <Import Project="BenchineCore.props"/>
+    </ImportGroup>
+    <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+        <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+        <Import Project="BenchineCore.props"/>
+    </ImportGroup>
+    <PropertyGroup Label="UserMacros"/>
+    <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+        <ClCompile>
+            <WarningLevel>Level4</WarningLevel>
+            <Optimization>Disabled</Optimization>
+            <SDLCheck>true</SDLCheck>
+            <ConformanceMode>true</ConformanceMode>
+            <PrecompiledHeader>NotUsing</PrecompiledHeader>
+            <PrecompiledHeaderFile>BenchinePCH.h</PrecompiledHeaderFile>
+            <LanguageStandard>stdcpplatest</LanguageStandard>
+            <TreatWarningAsError>true</TreatWarningAsError>
+            <EnableModules>true</EnableModules>
+        </ClCompile>
+        <Link>
+            <SubSystem>Console</SubSystem>
+            <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
+        </Link>
+    </ItemDefinitionGroup>
+    <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+        <ClCompile>
+            <WarningLevel>Level4</WarningLevel>
+            <Optimization>MaxSpeed</Optimization>
+            <FunctionLevelLinking>true</FunctionLevelLinking>
+            <IntrinsicFunctions>true</IntrinsicFunctions>
+            <SDLCheck>true</SDLCheck>
+            <ConformanceMode>true</ConformanceMode>
+            <PrecompiledHeader>NotUsing</PrecompiledHeader>
+            <PrecompiledHeaderFile>BenchinePCH.h</PrecompiledHeaderFile>
+            <LanguageStandard>stdcpplatest</LanguageStandard>
+            <TreatWarningAsError>true</TreatWarningAsError>
+            <EnableModules>true</EnableModules>
+        </ClCompile>
+        <Link>
+            <SubSystem>Console</SubSystem>
+            <EnableCOMDATFolding>true</EnableCOMDATFolding>
+            <OptimizeReferences>true</OptimizeReferences>
+        </Link>
+    </ItemDefinitionGroup>
+    <ItemGroup>
+        <ClCompile Include="Components\AIControllerComponent.cpp"/>
+        <ClCompile Include="Components\BaseComponent.cpp"/>
+        <ClCompile Include="Components\ControllerComponent.cpp"/>
+        <ClCompile Include="Components\FPSComponent.cpp"/>
+        <ClCompile Include="Components\LifetimeComponent.cpp"/>
+        <ClCompile Include="Components\PhysicsComponent2D.cpp"/>
+        <ClCompile Include="Components\RenderComponent.cpp"/>
+        <ClCompile Include="Components\SpriteComponent.cpp"/>
+        <ClCompile Include="Components\TextComponent.cpp"/>
+        <ClCompile Include="Components\TextureComponent.cpp"/>
+        <ClCompile Include="Components\TransformComponent.cpp"/>
+        <ClCompile Include="Helpers\EnumHelpers.ixx"/>
+        <ClCompile Include="Debugging\DebugRenderer.cpp"/>
+        <ClCompile Include="Graphics\GLTextureWrapper.cpp"/>
+        <ClCompile Include="Helpers\GeneralHelpers.cpp"/>
+        <ClCompile Include="Helpers\SAT.cpp"/>
+        <ClCompile Include="NodeEditor\BNEditor.cpp"/>
+        <ClCompile Include="NodeEditor\BNEditorHelpers.cpp"/>
+        <ClCompile Include="NodeEditor\Link.cpp"/>
+        <ClCompile Include="NodeEditor\Node.cpp"/>
+        <ClCompile Include="NodeEditor\Pin.cpp"/>
+        <ClCompile Include="Resources\Loaders.cpp"/>
+        <ClCompile Include="Resources\ResourceLoader.cpp"/>
+        <ClCompile Include="Resources\ResourceManager.cpp"/>
+        <ClCompile Include="Core\BaseGame.cpp"/>
+        <ClCompile Include="Core\Benchine.cpp"/>
+        <ClCompile Include="Core\InputManager.cpp"/>
+        <ClCompile Include="Debugging\Logger.cpp"/>
+        <ClCompile Include="Resources\Font.cpp"/>
+        <ClCompile Include="Graphics\Renderer.cpp"/>
+        <ClCompile Include="Resources\SoundByte.cpp"/>
+        <ClCompile Include="Resources\SoundStream.cpp"/>
+        <ClCompile Include="Resources\Texture2D.cpp"/>
+        <ClCompile Include="Scene\DefaultScene.cpp"/>
+        <ClCompile Include="Scene\GameObject.cpp"/>
+        <ClCompile Include="Scene\Scene.cpp"/>
+        <ClCompile Include="Scene\SceneManager.cpp"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ClInclude Include="Components\AIControllerComponent.h"/>
+        <ClInclude Include="Components\BaseComponent.h"/>
+        <ClInclude Include="Components\ControllerComponent.h"/>
+        <ClInclude Include="Components\FPSComponent.h"/>
+        <ClInclude Include="Components\LifetimeComponent.h"/>
+        <ClInclude Include="Components\PhysicsComponent2D.h"/>
+        <ClInclude Include="Components\RenderComponent.h"/>
+        <ClInclude Include="Components\SpriteComponent.h"/>
+        <ClInclude Include="Components\TextComponent.h"/>
+        <ClInclude Include="Components\TextureComponent.h"/>
+        <ClInclude Include="Components\TransformComponent.h"/>
+        <ClInclude Include="Core\BenchineCore.hpp"/>
+        <ClInclude Include="Core\CoreHelpers.hpp"/>
+        <ClInclude Include="Core\CoreMacros.hpp"/>
+        <ClInclude Include="Core\CoreBasicTypes.hpp"/>
+        <ClInclude Include="Core\CoreTypes.hpp"/>
+        <ClInclude Include="Core\Memory.hpp"/>
+        <ClInclude Include="Debugging\DebugRenderer.h"/>
+        <ClInclude Include="Graphics\GLTextureWrapper.h"/>
+        <ClInclude Include="Helpers\CollisionHelper.hpp"/>
+        <ClInclude Include="Helpers\Concepts.hpp"/>
+        <ClInclude Include="Helpers\GeneralHelpers.hpp"/>
+        <ClInclude Include="Helpers\JsonHelper.hpp"/>
+        <ClInclude Include="Helpers\MathHelper.hpp"/>
+        <ClInclude Include="Helpers\SAT.hpp"/>
+        <ClInclude Include="Helpers\SvgHelper.hpp"/>
+        <ClInclude Include="NodeEditor\BNEditor.h"/>
+        <ClInclude Include="NodeEditor\BNEditorHelpers.h"/>
+        <ClInclude Include="NodeEditor\BNNodes.h"/>
+        <ClInclude Include="NodeEditor\Link.hpp"/>
+        <ClInclude Include="NodeEditor\Node.hpp"/>
+        <ClInclude Include="NodeEditor\Pin.hpp"/>
+        <ClInclude Include="Resources\Loaders.h"/>
+        <ClInclude Include="Resources\ResourceLoader.h"/>
+        <ClInclude Include="Resources\ResourceManager.h"/>
+        <ClInclude Include="Core\BaseGame.h"/>
+        <ClInclude Include="Core\Benchine.h"/>
+        <ClInclude Include="Core\InputManager.h"/>
+        <ClInclude Include="Debugging\Logger.hpp"/>
+        <ClInclude Include="Resources\Font.h"/>
+        <ClInclude Include="Graphics\Renderer.h"/>
+        <ClInclude Include="Resources\SoundByte.h"/>
+        <ClInclude Include="Resources\SoundStream.h"/>
+        <ClInclude Include="Resources\Texture2D.h"/>
+        <ClInclude Include="Helpers\Singleton.hpp"/>
+        <ClInclude Include="Helpers\Utils.hpp"/>
+        <ClInclude Include="Scene\DefaultScene.h"/>
+        <ClInclude Include="Scene\GameObject.h"/>
+        <ClInclude Include="Scene\Scene.h"/>
+        <ClInclude Include="Scene\SceneManager.h"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\CoreDependencies\CoreDependencies.vcxproj">
+            <Project>{3c8a9ed8-cb52-4de5-b94f-66fe26bbac1f}</Project>
+            <Name>CoreDependencies</Name>
+        </ProjectReference>
+    </ItemGroup>
+    <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
+    <ImportGroup Label="ExtensionTargets">
+    </ImportGroup>
 </Project>

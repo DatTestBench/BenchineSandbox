@@ -18,7 +18,7 @@ struct PolygonCollisionResult
 namespace sat
 {
 	PolygonCollisionResult PolygonCollision(const PhysicsComponent2D* pActorA, const PhysicsComponent2D* pActorB);
-	PolygonCollisionResult PolygonCollision(const ::PhysicsComponent2D* pActor, const Collider2D& staticPoly);
+	PolygonCollisionResult PolygonCollision(const PhysicsComponent2D* pActor, const Collider2D& staticPoly);
 	// Maps the polygon min / max bounds onto an axis
 	Projection2D ProjectPolygon(const glm::vec2& axis, const Collider2D& vertexSet);
 	f32 IntervalDistance(const Projection2D& projectionA, const Projection2D& projectionB);

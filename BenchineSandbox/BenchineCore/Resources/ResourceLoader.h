@@ -22,7 +22,7 @@ class ResourceLoader : public BaseLoader
 {
 public:
 	ResourceLoader() = default;
-	virtual ~ResourceLoader() override = default;
+	~ResourceLoader() override = default;
 	DEL_ROF(ResourceLoader)
 
 	Resource* GetResource(const std::string& filePath)
@@ -48,7 +48,7 @@ public:
 			m_pResources.try_emplace(filePath, pResource);
 			return pResource;
 		}
-		
+
 		LOG(Error, "Somehow we got here, this wasn't supposed to happen, resource is nullptr");
 		return nullptr;
 	}

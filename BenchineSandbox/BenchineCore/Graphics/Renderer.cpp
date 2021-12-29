@@ -3,9 +3,6 @@
 #include <GL/GLU.h>
 
 #include "Core/Benchine.h"
-#include "Core/Benchine.h"
-#include "Core/Benchine.h"
-#include "Core/Benchine.h"
 
 #include "Debugging/Logger.hpp"
 
@@ -78,7 +75,6 @@ void Renderer::Initialize(const WindowSettings& windowSettings)
 	ImNodes::CreateContext();
 	ImGui_ImplSDL2_InitForOpenGL(m_pWindow, m_pContext);
 	ImGui_ImplOpenGL2_Init();
-
 }
 
 void Renderer::SetupRender() const
@@ -99,7 +95,7 @@ void Renderer::PresentRender() const
 }
 
 void Renderer::Cleanup()
-{	
+{
 	ImGui_ImplOpenGL2_Shutdown();
 	ImGui_ImplSDL2_Shutdown();
 	ImNodes::DestroyContext();
@@ -110,13 +106,13 @@ void Renderer::Cleanup()
 	m_pWindow = nullptr;
 }
 
-void Renderer::RenderTexture(GLTextureWrapper* pTexture, const glm::vec2& pos, const glm::vec2& scale)
+void Renderer::RenderTexture(const GLTextureWrapper* pTexture, const glm::vec2& pos, const glm::vec2& scale)
 {
 	if (!pTexture->IsCreationOk())
 	{
 		return;
 	}
-	
+
 	const auto vertexBuffer = CreateRenderParams(pTexture);
 
 	glPushMatrix();
@@ -145,19 +141,27 @@ void Renderer::RenderTexture(GLTextureWrapper* pTexture, const glm::vec2& pos, c
 
 std::array<VertexUV, 4> Renderer::CreateRenderParams(const GLTextureWrapper* pTexture)
 {
-	const auto source = pTexture->GetSource();
 	const auto textureWidth = pTexture->GetWidth();
 	const auto textureHeight = pTexture->GetHeight();
 
-	const auto targetWidth = (pTexture->GetTargetWidth() > 0.f) ? pTexture->GetTargetWidth() : ((source.Width > 0U) ? static_cast<f32>(source.Width) : static_cast<f32>(pTexture->GetWidth()));
-	const auto targetHeight = (pTexture->GetTargetHeight() > 0.f) ? pTexture->GetTargetHeight() : ((source.Height > 0U) ? static_cast<f32>(source.Height) : static_cast<f32>(pTexture->GetHeight()));
+	const auto renderWidth = pTexture->GetRenderWidth();
+	const auto renderHeight = pTexture->GetRenderHeight();
 
 	const auto targetPos = pTexture->GetPositionOffset();
 
 	// Determine the texturecoordinates that should be rendered;
 	f32 uvLeft, uvRight, uvTop, uvBottom;
 
-	if (!(source.Width > 0U && source.Height > 0U)) // No source specified
+	if (auto source = pTexture->GetSource())
+	{
+		const auto [pos, width, height] = source.value();
+		// Convert to the range [0.0, 1.0]
+		uvLeft = static_cast<f32>(pos.x) / static_cast<f32>(textureWidth);
+		uvRight = static_cast<f32>(pos.x + width) / static_cast<f32>(textureWidth);
+		uvTop = static_cast<f32>(pos.y) / static_cast<f32>(textureHeight);
+		uvBottom = static_cast<f32>(pos.y + height) / static_cast<f32>(textureHeight);
+	}
+	else
 	{
 		// Use complete texture
 		uvLeft = 0.0f;
@@ -165,56 +169,48 @@ std::array<VertexUV, 4> Renderer::CreateRenderParams(const GLTextureWrapper* pTe
 		uvTop = 0.0f;
 		uvBottom = 1.0f;
 	}
-	else // source specified
-	{
-		// Convert to the range [0.0, 1.0]
-		uvLeft = static_cast<f32>(source.Pos.x) / static_cast<f32>(textureWidth);
-		uvRight = static_cast<f32>(source.Pos.x + static_cast<i32>(source.Width)) / static_cast<f32>(textureWidth);
-		uvTop = static_cast<f32>(source.Pos.y) / static_cast<f32>(textureHeight);
-		uvBottom = static_cast<f32>(source.Pos.y + static_cast<i32>(source.Height)) / static_cast<f32>(textureHeight);
-	}
 
 	f32 vertexLeft{}, vertexBottom{}, vertexRight{}, vertexTop{};
 
 	switch (pTexture->GetOffsetMode())
 	{
 	case TextureOffsetMode::Center:
-		vertexLeft = targetPos.x - targetWidth / 2.f;
-		vertexRight = targetPos.x + targetWidth / 2.f;
-		vertexTop = targetPos.y + targetHeight / 2.f;
-		vertexBottom = targetPos.y - targetHeight/ 2.f;
+		vertexLeft = targetPos.x - renderWidth / 2.f;
+		vertexRight = targetPos.x + renderWidth / 2.f;
+		vertexTop = targetPos.y + renderHeight / 2.f;
+		vertexBottom = targetPos.y - renderHeight / 2.f;
 		break;
 	case TextureOffsetMode::Base:
-		vertexLeft = targetPos.x - targetWidth / 2.f;
-		vertexRight = targetPos.x + targetWidth / 2.f;
-		vertexTop = targetPos.y + targetHeight;
+		vertexLeft = targetPos.x - renderWidth / 2.f;
+		vertexRight = targetPos.x + renderWidth / 2.f;
+		vertexTop = targetPos.y + renderHeight;
 		vertexBottom = targetPos.y;
 		break;
 	case TextureOffsetMode::Top:
-		vertexLeft = targetPos.x - targetWidth / 2.f;
-		vertexRight = targetPos.x + targetWidth / 2.f;
+		vertexLeft = targetPos.x - renderWidth / 2.f;
+		vertexRight = targetPos.x + renderWidth / 2.f;
 		vertexTop = targetPos.y;
-		vertexBottom = targetPos.y - targetHeight;
+		vertexBottom = targetPos.y - renderHeight;
 		break;
 	case TextureOffsetMode::Topleft:
 		vertexLeft = targetPos.x;
-		vertexRight = targetPos.x + targetWidth;
+		vertexRight = targetPos.x + renderWidth;
 		vertexTop = targetPos.y;
-		vertexBottom = targetPos.y - targetHeight;
+		vertexBottom = targetPos.y - renderHeight;
 		break;
 	case TextureOffsetMode::Bottomleft:
 		vertexLeft = targetPos.x;
-		vertexRight = targetPos.x + targetWidth;
-		vertexTop = targetPos.y + targetHeight;
+		vertexRight = targetPos.x + renderWidth;
+		vertexTop = targetPos.y + renderHeight;
 		vertexBottom = targetPos.y;
 		break;
 	}
 
 	return std::move(std::array
-	{
-		VertexUV(glm::vec2(uvLeft, uvBottom), glm::vec2(vertexLeft, vertexBottom)),
-		VertexUV(glm::vec2(uvLeft, uvTop), glm::vec2(vertexLeft, vertexTop)),
-		VertexUV(glm::vec2(uvRight, uvTop), glm::vec2(vertexRight, vertexTop)),
-		VertexUV(glm::vec2(uvRight, uvBottom), glm::vec2(vertexRight, vertexBottom))
-	});
+		{
+			VertexUV({ uvLeft, uvBottom }, { vertexLeft, vertexBottom }),
+			VertexUV({ uvLeft, uvTop }, { vertexLeft, vertexTop }),
+			VertexUV({ uvRight, uvTop }, { vertexRight, vertexTop }),
+			VertexUV({ uvRight, uvBottom }, { vertexRight, vertexBottom })
+		});
 }

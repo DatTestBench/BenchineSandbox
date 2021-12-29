@@ -33,7 +33,6 @@ protected:
 	void Initialize() override;
 
 private:
-	
 	Texture2D* m_pSpriteSheet;
 	u32 m_Cols;
 	u32 m_Rows;

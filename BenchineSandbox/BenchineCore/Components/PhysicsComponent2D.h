@@ -42,7 +42,6 @@ protected:
 	void Update([[maybe_unused]] f32 dT) override;
 
 private:
-
 	// Params
 	CollisionMode m_CollisionMode;
 

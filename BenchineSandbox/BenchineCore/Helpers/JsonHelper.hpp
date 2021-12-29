@@ -10,7 +10,7 @@ using json = nlohmann::json;
 
 namespace JsonHelper
 {
-	[[nodiscard]] inline auto ReadJson(const std::string& filePath) noexcept-> json
+	[[nodiscard]] inline auto ReadJson(const std::string& filePath) noexcept -> json
 	{
 		const auto fullPath = RESOURCES->GetDataPath() + filePath;
 		json j{};

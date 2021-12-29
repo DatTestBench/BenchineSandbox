@@ -2,11 +2,14 @@
 #include <type_traits>
 
 class BaseComponent;
-template<typename Component>
+template <typename Component>
 concept IsComponent = std::is_base_of_v<BaseComponent, Component>;
 
 template <typename T>
 concept Numeric = std::is_arithmetic_v<T>;
+
+template <typename T>
+concept Numeric32 = Numeric && sizeof(T) == 4;
 
 class BaseLoader;
 template <typename LoaderType>

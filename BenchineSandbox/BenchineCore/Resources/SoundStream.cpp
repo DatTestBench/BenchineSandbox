@@ -3,13 +3,19 @@
 #include "Debugging/Logger.hpp"
 
 SoundStream::SoundStream(const std::string& fullPath)
-	: m_pMixMusic(Mix_LoadMUS(fullPath.c_str()), [](Mix_Music* ptr){ Mix_FreeMusic(ptr); ptr = nullptr; })
+	: m_pMixMusic(Mix_LoadMUS(fullPath.c_str()), [] (Mix_Music* ptr)
+	{
+		Mix_FreeMusic(ptr);
+		ptr = nullptr;
+	})
 {
 	LOG_CONDITIONAL(m_pMixMusic == nullptr, Error, "Failed to load soundstream: {0}", Mix_GetError());
 }
 
 // Smart pointer shenanigans, see Font.cpp
-SoundStream::~SoundStream() {}
+SoundStream::~SoundStream()
+{
+}
 
 void SoundStream::Play(const bool shouldRepeat) const noexcept
 {
@@ -42,7 +48,7 @@ void SoundStream::SetVolume(const u32 volume) noexcept
 {
 	Mix_VolumeMusic(volume);
 }
-auto SoundStream::GetVolume() noexcept -> i32
+i32 SoundStream::GetVolume() noexcept
 {
 	return Mix_VolumeMusic(-1);
 }

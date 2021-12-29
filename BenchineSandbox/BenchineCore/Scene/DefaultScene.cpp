@@ -4,6 +4,10 @@ DefaultScene::DefaultScene(const std::string_view& sceneName)
 {
 }
 
-void DefaultScene::Initialize() {}
+void DefaultScene::Initialize()
+{
+}
 
-void DefaultScene::Update([[maybe_unused]] const f32 dT) {}
+void DefaultScene::Update([[maybe_unused]] const f32 dT)
+{
+}

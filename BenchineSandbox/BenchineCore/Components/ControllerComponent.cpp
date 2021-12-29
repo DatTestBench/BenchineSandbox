@@ -88,7 +88,7 @@ void ControllerComponent::MoveRight()
 
 void ControllerComponent::Jump()
 {
-	// todo: fix
+	// TODO: fix
 	//if (m_pPhysicsComponent->IsOnGround())
 	{
 		LOG(Info, "Velocity: {0}, {1}", m_Velocity.x, m_Velocity.y);

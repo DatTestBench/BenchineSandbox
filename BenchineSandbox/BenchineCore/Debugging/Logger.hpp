@@ -48,7 +48,7 @@ struct LogEntry
 	std::string message;
 	bool markedForClear;
 	bool consoleLogged;
-	
+
 	/**
 	 * \brief Entry of a log line. Contains all the necessary information for each log entry.
 	 * \param lvl Log level
@@ -73,8 +73,10 @@ struct LogEntry
 class Logger final : public Singleton<Logger>
 {
 public:
-	explicit Logger(Token){}
-	
+	explicit Logger(Token)
+	{
+	}
+
 	/**
 	* \brief Log Function 
 	* \template Level Log level
@@ -84,13 +86,22 @@ public:
 	template <LogLevel Level>
 	static void Log(const std::string& message, const std::source_location& location = std::source_location::current())
 	{
-		// TODO figure out if I want a static_assert or a fancy concept for this
+		// TODO: figure out if I want a static_assert or a fancy concept for this
 		static_assert(Level != LogLevel::Full, "Full is not a valid LogLevel");
 		GetInstance()->m_LogList.emplace_back(Level, location.file_name(), location.function_name(), location.line(), message);
 
 		// Console output log
 		const std::string fileName = std::string(location.file_name()).substr(std::string(location.file_name()).find_last_of('\\') + 1);
-		const std::string textOutput = fmt::format("[{0}] {1} {2}:({3}) > {4}\n", magic_enum::enum_name(Level), fileName, location.function_name(), location.line(), message);
+		
+		const std::string textOutput = fmt::format(
+			"[{level}] {filename} {functionName}:({line}) > {message}\n",
+			fmt::arg("level", magic_enum::enum_name(Level)),
+			fmt::arg("fileName", fileName),
+			fmt::arg("functionName", location.function_name()),
+			fmt::arg("line", location.line()),
+			fmt::arg("message", message)
+			);
+		
 		fmt::print(fg(COLOR_LUT.at(EnumIndex(Level)).FmtColor), textOutput);
 	}
 

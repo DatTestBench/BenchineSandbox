@@ -7,7 +7,7 @@ void Logger::OutputLog() noexcept
 {
 	// Remove already displayed logs
 	m_LogList.remove_if([] (const LogEntry& entry) { return entry.markedForClear; });
-	
+
 	if (ImGui::Begin("Log"))
 	{
 		if (ImGui::BeginCombo("LevelSelection", ENUM_TO_C_STR(m_LogLevel)))
@@ -45,7 +45,7 @@ void Logger::OutputLog() noexcept
 					log.markedForClear = true;
 
 				ImGui::SameLine();
-				
+
 				std::string textOutput;
 
 				switch (m_VerbosityLevel)
@@ -68,7 +68,7 @@ void Logger::OutputLog() noexcept
 				default:
 					break;
 				}
-				
+
 				ImGui::TextColored(COLOR_LUT.at(EnumIndex(log.level)).ImGuiColor, textOutput.c_str());
 			}
 		}

@@ -34,7 +34,7 @@ void SceneManager::Initialize()
 		m_pCurrentScene = pDefaultScene;
 	}
 
-	for (auto pScene : m_pScenes | std::views::values)
+	for (const auto pScene : m_pScenes | std::views::values)
 	{
 		pScene->BaseInitialize();
 	}
@@ -87,7 +87,7 @@ void SceneManager::SetStartScene(const std::string_view& sceneName)
 		LOG(Error, "No scenes present");
 		return;
 	}
-	
+
 	m_pCurrentScene = m_pScenes.begin()->second;
 }
 

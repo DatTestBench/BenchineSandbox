@@ -62,26 +62,16 @@ struct Rect
 	{
 	}
 
-	[[nodiscard]] auto Contains(const glm::vec2& point) const -> bool
+	[[nodiscard]] bool Contains(const glm::vec2& point) const noexcept
 	{
 		return point.x >= Pos.x
 		&& point.x <= Pos.x + Width
 		&& point.y >= Pos.y
 		&& point.y <= Pos.y + Height;
 	}
-
-	#pragma warning (disable : 4201)
-	union
-	{
-		glm::vec<2, Type, glm::defaultp> Pos = {};
-		struct
-		{
-			Type X;
-			Type Y;
-		};
-	};
-	#pragma warning (default : 4201)
-	Type Width  = {};
+	
+	glm::vec<2, Type, glm::defaultp> Pos = {};
+	Type Width = {};
 	Type Height = {};
 };
 
@@ -102,28 +92,29 @@ struct FEllipse
 	f32 RadY;
 };
 
-
 // Adding structured bindings for GLM, do note, this will not work in Clang, nor GCC, for those this should be in namespace glm, not namespace std https://stackoverflow.com/questions/60785190/why-can-i-create-user-defined-structured-bindings-for-glmvec-in-msvc-and-icc
 namespace std
 {
-
-	template<std::size_t I, auto N, class T, auto Q>
+	template <std::size_t I, auto N, class T, auto Q>
 	constexpr auto& get(glm::vec<N, T, Q>& v) noexcept { return v[I]; }
-        
-	template<std::size_t I, auto N, class T, auto Q>
+
+	template <std::size_t I, auto N, class T, auto Q>
 	constexpr const auto& get(const glm::vec<N, T, Q>& v) noexcept { return v[I]; }
-        
+
 	//template< std::size_t I, auto N, class T, auto Q>
 	//constexpr auto&& get(glm::vec<N, T, Q>&& v) noexcept { return std::move(v[I]); }
 	//
 	//template< std::size_t I, auto N, class T, auto Q>
 	//constexpr const auto&& get(const glm::vec<N, T, Q>&& v) noexcept { return std::move(v[I]); }
-        
+
 	template <auto N, class T, auto Q>
-	struct tuple_size<glm::vec<N, T, Q>> : std::integral_constant<std::size_t, N> { };
-        
+	struct tuple_size<glm::vec<N, T, Q>> : std::integral_constant<std::size_t, N>
+	{
+	};
+
 	template <std::size_t I, auto N, class T, auto Q>
-	struct tuple_element<I, glm::vec<N, T, Q>> {
-		using type = decltype(get<I>(declval<glm::vec<N,T,Q>>()));
+	struct tuple_element<I, glm::vec<N, T, Q>>
+	{
+		using type = decltype(get<I>(declval<glm::vec<N, T, Q>>()));
 	};
 }

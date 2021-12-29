@@ -3,12 +3,10 @@
 #include <SDL_opengl.h>
 
 #include "Debugging/Logger.hpp"
-GLTextureWrapper::GLTextureWrapper(SDL_Surface* pSurface, const TextureOffsetMode offsetMode, const u32 renderPriority)
+GLTextureWrapper::GLTextureWrapper(const SDL_Surface* pSurface, const TextureOffsetMode offsetMode, const u32 renderPriority)
 	: m_Id()
 	, m_Width()
 	, m_Height()
-	, m_TargetWidth()
-	, m_TargetHeight()
 	, m_RenderPriority(renderPriority)
 	, m_PositionOffset()
 	, m_OffsetMode(offsetMode)
@@ -32,7 +30,7 @@ void GLTextureWrapper::CreateTextureFromSurface(const SDL_Surface* pSurface)
 	m_Height = static_cast<u32>(pSurface->h);
 
 	// Get pixel format information and translate to OpenGl format
-	GLenum pixelFormat = GL_RGB;
+	GLenum pixelFormat;
 	switch (pSurface->format->BytesPerPixel)
 	{
 	case 3:

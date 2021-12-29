@@ -11,11 +11,11 @@
 
 namespace SvgHelper
 {
-	[[nodiscard]] inline auto ReadSvg(const std::string& filePath) noexcept-> std::vector<Polygon2D>
+	[[nodiscard]] inline auto ReadSvg(const std::string& filePath) noexcept -> std::vector<Polygon2D>
 	{
 		const auto fullPath = RESOURCES->GetDataPath() + filePath;
 		const auto image = nsvgParseFromFile(fullPath.c_str(), "px", 96);
-    
+
 		std::vector<Polygon2D> polygons;
 		for (auto shape = image->shapes; shape != nullptr; shape = shape->next)
 		{
@@ -24,7 +24,7 @@ namespace SvgHelper
 			{
 				for (auto i = 0; i < path->npts; ++i)
 				{
-					f32* p  = &path->pts[i*2];
+					f32* p = &path->pts[i * 2];
 					poly.emplace_back(p[0], image->height - p[1]);
 				}
 			}

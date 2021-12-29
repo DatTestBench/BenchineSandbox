@@ -19,6 +19,6 @@ protected:
 	void Initialize() override;
 	void Update(f32 dT) override;
 private:
-	glm::vec3 m_Position = { 0.f, 0.f, 1.f};
+	glm::vec3 m_Position = { 0.f, 0.f, 1.f };
 	glm::vec2 m_Scale = { 1.f, 1.f };
 };

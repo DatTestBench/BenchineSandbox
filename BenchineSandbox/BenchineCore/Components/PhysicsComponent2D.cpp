@@ -29,12 +29,12 @@ void PhysicsComponent2D::Initialize()
 void PhysicsComponent2D::Update(const f32)
 {
 	m_IsOnGround = false;
-	const auto tMat = glm::translate(glm::mat3(1.f), static_cast<glm::vec2>(GetTransform()->GetPosition()));
-	const auto sMat = glm::scale(glm::mat3(1.f), GetTransform()->GetScale());
+	const auto tMat = translate(glm::mat3(1.f), static_cast<glm::vec2>(GetTransform()->GetPosition()));
+	const auto sMat = scale(glm::mat3(1.f), GetTransform()->GetScale());
 
 	const auto transformMat = tMat * sMat;
 
-	// todo: Try and fix with ranges?
+	// TODO: Try and fix with ranges?
 	for (size_t v = 0; v < m_BaseCollider.size(); ++v)
 	{
 		m_Collider.at(v) = transformMat * glm::vec3(m_BaseCollider.at(v), 1.f);

@@ -16,4 +16,6 @@ Texture2D::Texture2D(const std::string& fullPath)
 }
 
 // Smart pointer shenanigans, see Font.cpp
-Texture2D::~Texture2D() {}
+Texture2D::~Texture2D()
+{
+}

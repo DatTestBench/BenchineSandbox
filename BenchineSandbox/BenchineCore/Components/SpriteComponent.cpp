@@ -17,14 +17,14 @@ SpriteComponent::SpriteComponent(Texture2D* pSpriteSheet, const u32 nrCols, cons
 void SpriteComponent::Initialize()
 {
 	IRect src;
-	
+
 	src.Width = GetFrameWidth();
 	src.Height = GetFrameHeight();
-	
+
 	src.Pos.x = 0;
 
 	const u32 zoneSize = m_Rows / m_Zones;
-	src.Pos.y          = src.Height * ((m_CurrentFrame / m_Cols) + (m_CurrentZone * zoneSize));
+	src.Pos.y = src.Height * ((m_CurrentFrame / m_Cols) + (m_CurrentZone * zoneSize));
 
 	m_pSpriteSheet->GetTextureWrapper()->SetSource(src);
 	GetGameObject()->GetRenderComponent()->AddTexture(m_pSpriteSheet->GetTextureWrapper());
@@ -42,11 +42,11 @@ void SpriteComponent::Update(const f32 dT)
 
 		src.Width = GetFrameWidth();
 		src.Height = GetFrameHeight();
-		
+
 		src.Pos.x = static_cast<i32>(src.Width * (m_CurrentFrame % m_Cols));
 
 		const u32 zoneSize = m_Rows / m_Zones;
-		src.Pos.y          = static_cast<i32>(src.Height * ((m_CurrentFrame / m_Cols) + (m_CurrentZone * zoneSize)));
+		src.Pos.y = static_cast<i32>(src.Height * ((m_CurrentFrame / m_Cols) + (m_CurrentZone * zoneSize)));
 
 		m_pSpriteSheet->GetTextureWrapper()->SetSource(src);
 	}

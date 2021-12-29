@@ -27,7 +27,7 @@ void Scene::BaseInitialize()
 	Initialize();
 
 	// Game Object Initialization
-	for (auto pGameObject : m_pGameObjects)
+	for (const auto pGameObject : m_pGameObjects)
 	{
 		pGameObject->BaseInitialize();
 	}
@@ -73,7 +73,7 @@ void Scene::Render() const
 	}
 }
 
-void Scene::DoPhysics()
+void Scene::DoPhysics() const
 {
 	const u32 maxThreads = std::thread::hardware_concurrency();
 	std::deque<std::future<void>> futures;

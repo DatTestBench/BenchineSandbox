@@ -52,7 +52,7 @@ void GameObject::BaseUpdate(const f32 dT)
 void GameObject::SetParentScene(Scene* pScene) noexcept
 {
 	LOG_CONDITIONAL(m_pParentScene != nullptr, Warning, "Object is already parented to another scene, is this reparenting intentional?");
-	
+
 	if (m_pParentObject != nullptr)
 	{
 		LOG(Warning, "Object is already parented to an object, is this reparenting intentional?");
@@ -64,7 +64,7 @@ void GameObject::SetParentScene(Scene* pScene) noexcept
 void GameObject::SetParentObject(GameObject* pObject) noexcept
 {
 	LOG_CONDITIONAL(m_pParentObject != nullptr, Warning, "Object is already parented to another object, is this reparenting intentional?");
-	
+
 	if (m_pParentScene != nullptr)
 	{
 		LOG(Warning, "Object is already parented to a scene, is this reparenting intentional?");

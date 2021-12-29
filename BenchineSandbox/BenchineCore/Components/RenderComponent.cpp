@@ -24,7 +24,7 @@ void RenderComponent::Render() const
 {
 	const auto renderPos = GetGameObject()->GetTransform()->GetPosition();
 	const auto renderScale = GetGameObject()->GetTransform()->GetScale();
-	for (auto texture : m_RenderBuffer | std::views::values)
+	for (const auto texture : m_RenderBuffer | std::views::values)
 	{
 		Renderer::GetInstance()->RenderTexture(texture, renderPos, renderScale);
 	}

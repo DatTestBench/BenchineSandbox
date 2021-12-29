@@ -52,4 +52,3 @@ bool SafeDeleteInternal(T* pObject)
 	} \
 	SafeDeleteInternal(pObject)
 #endif
-

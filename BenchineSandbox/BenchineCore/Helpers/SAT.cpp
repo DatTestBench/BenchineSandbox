@@ -13,7 +13,7 @@ PolygonCollisionResult sat::PolygonCollision(const PhysicsComponent2D* pActorA, 
 	PolygonCollisionResult result{};
 	result.intersect = true;
 
-	const auto& colliderA = pActorA->GetCollider(); 
+	const auto& colliderA = pActorA->GetCollider();
 	const auto& colliderB = pActorB->GetCollider();
 	const size_t vertexCountA = colliderA.size();
 	const size_t vertexCountB = colliderB.size();
@@ -64,7 +64,7 @@ PolygonCollisionResult sat::PolygonCollision(const PhysicsComponent2D* pActorA, 
 			translationAxis = axis;
 
 			glm::vec2 delta = MathHelper::PolyCenter(colliderA) - MathHelper::PolyCenter(colliderB);
-			if (glm::dot(delta, translationAxis) < 0)
+			if (dot(delta, translationAxis) < 0)
 				translationAxis = -translationAxis;
 		}
 	}
@@ -132,9 +132,9 @@ PolygonCollisionResult sat::PolygonCollision(const PhysicsComponent2D* pActor, c
 		{
 			minIntervalDistance = intervalDistance;
 			translationAxis = axis;
-			
+
 			glm::vec2 delta = MathHelper::PolyCenter(collider) - MathHelper::PolyCenter(staticPoly);
-			if (glm::dot(delta, translationAxis) < 0)
+			if (dot(delta, translationAxis) < 0)
 				translationAxis = -translationAxis;
 		}
 	}
@@ -150,11 +150,11 @@ PolygonCollisionResult sat::PolygonCollision(const PhysicsComponent2D* pActor, c
 Projection2D sat::ProjectPolygon(const glm::vec2& axis, const Collider2D& polygon)
 {
 	// To project a point on an axis use the dot product
-	f32 dotProduct = glm::dot(axis, polygon.at(0));
+	f32 dotProduct = dot(axis, polygon.at(0));
 	Projection2D projectionBounds{ dotProduct };
 	for (size_t i = 0; i < polygon.size(); ++i)
 	{
-		dotProduct = glm::dot(axis, polygon.at(i));
+		dotProduct = dot(axis, polygon.at(i));
 		if (dotProduct < projectionBounds.Min)
 			projectionBounds.Min = dotProduct;
 		else if (dotProduct > projectionBounds.Max)
@@ -167,8 +167,7 @@ f32 sat::IntervalDistance(const Projection2D& projectionA, const Projection2D& p
 {
 	if (projectionA.Min < projectionB.Min)
 		return projectionB.Min - projectionA.Max;
-	else
-		return projectionA.Min - projectionB.Max;
+	return projectionA.Min - projectionB.Max;
 }
 
 glm::vec2 sat::MakeAxis(const glm::vec2& vertexA, const glm::vec2& vertexB)
@@ -178,5 +177,5 @@ glm::vec2 sat::MakeAxis(const glm::vec2& vertexA, const glm::vec2& vertexB)
 	// get either perpendicular vector
 	const glm::vec2 normal{ -edge.y, edge.x };
 	//return normalized
-	return glm::normalize(normal);
+	return normalize(normal);
 }

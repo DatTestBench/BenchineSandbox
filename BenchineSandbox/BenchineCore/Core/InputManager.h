@@ -77,7 +77,7 @@ struct KeyEvent
 	i32 KeyCode;
 	InputState State;
 	bool Processed = false;
-	
+
 	KeyEvent(const i32 keyCode, const InputState state)
 		: KeyCode(keyCode)
 		, State(state)
@@ -102,17 +102,18 @@ struct MouseState
 class InputManager final : public Singleton<InputManager>
 {
 public:
-	explicit InputManager(Token) {};
+	explicit InputManager(Token)
+	{
+	}
 
 	bool AddInputBinding(InputBinding binding);
-	bool IsBindingActive(std::string_view actionId);
+	static bool IsBindingActive(std::string_view actionId);
 
 	bool ProcessInput();
 	bool IsPressed(GamepadButton button, uint32_t controllerId);
 	static MouseState GetMouseState();
 
 private:
-
 	void LogKeyPressed(SDL_Scancode key);
 	void LogKeyReleased(SDL_Scancode key);
 	std::vector<KeyEvent> m_KeyEvents;

@@ -4,13 +4,19 @@
 
 #include "Debugging/Logger.hpp"
 SoundByte::SoundByte(const std::string& fullPath)
-	: m_pMixChunk(Mix_LoadWAV(fullPath.c_str()), [](Mix_Chunk* ptr){ Mix_FreeChunk(ptr); ptr = nullptr; })
+	: m_pMixChunk(Mix_LoadWAV(fullPath.c_str()), [] (Mix_Chunk* ptr)
+	{
+		Mix_FreeChunk(ptr);
+		ptr = nullptr;
+	})
 {
 	LOG_CONDITIONAL(m_pMixChunk == nullptr, Error, "Failed to load soundbyte: {0}", Mix_GetError());
 }
 
 // Smart pointer shenanigans, see Font.cpp
-SoundByte::~SoundByte() {}
+SoundByte::~SoundByte()
+{
+}
 
 void SoundByte::Play(const u32 repeats) const
 {
@@ -39,7 +45,7 @@ void SoundByte::SetVolume(const u32 volume) const
 	}
 }
 
-auto SoundByte::GetVolume() const noexcept -> i32
+i32 SoundByte::GetVolume() const noexcept
 {
 	if (m_pMixChunk)
 	{

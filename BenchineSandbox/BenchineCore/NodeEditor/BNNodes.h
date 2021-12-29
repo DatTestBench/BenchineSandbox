@@ -1,6 +1,7 @@
 #pragma once
 #define NODE_BASE(nodeName) explicit nodeName(const std::string_view name) : Node(name) {}
-#include "BNEditorHelpers.h"
+#include "NodeEditor/BNEditorHelpers.h"
+#include "NodeEditor/Node.hpp"
 
 namespace Nodes
 {
@@ -8,7 +9,7 @@ namespace Nodes
 	{
 	public:
 		NODE_BASE(DummyNode)
-	
+
 	protected:
 		void Init() override
 		{

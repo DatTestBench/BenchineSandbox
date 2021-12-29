@@ -10,4 +10,6 @@ void AIControllerComponent::Initialize()
 	LOG_CONDITIONAL(m_pPhysicsComponent == nullptr, Error, "No PhysicsComponent specified, please attach a PhysicsComponent when using a ControllerComponent");
 }
 
-void AIControllerComponent::Update(const f32) {}
+void AIControllerComponent::Update(const f32)
+{
+}

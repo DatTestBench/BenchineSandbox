@@ -20,7 +20,9 @@ public:
 
 protected:
 	static T* m_pInstance;
-	struct Token {};
+	struct Token
+	{
+	};
 	Singleton() = default;
 };
 

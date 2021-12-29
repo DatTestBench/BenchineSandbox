@@ -11,7 +11,6 @@ class PhysicsComponent2D;
 class Scene
 {
 public:
-
 	explicit Scene(const std::string_view& sceneName);
 	virtual ~Scene();
 	DEL_ROF(Scene)
@@ -19,7 +18,7 @@ public:
 	void BaseInitialize();
 	void BaseUpdate(f32 dT);
 	void Render() const;
-	void DoPhysics();
+	void DoPhysics() const;
 
 	GameObject* AddGameObject(GameObject* pGameObject) noexcept;
 	GameObject* AddGameObjectLate(GameObject* pGameObject) noexcept;

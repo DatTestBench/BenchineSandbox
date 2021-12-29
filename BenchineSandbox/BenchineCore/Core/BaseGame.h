@@ -5,7 +5,10 @@
 class BaseGame
 {
 public:
-	explicit BaseGame(const std::string_view name) : m_Name(name) {}
+	explicit BaseGame(const std::string_view name)
+		: m_Name(name)
+	{
+	}
 	virtual ~BaseGame() = default;
 
 	void BaseInitialize();

@@ -15,7 +15,7 @@ struct SDL_Window;
 class Benchine
 {
 public:
-	template<IsGame GameInstance> // Templated to allow the use of any kind of basegame
+	template <IsGame GameInstance> // Templated to allow the use of any kind of basegame
 	void Run(const std::string_view name)
 	{
 		m_pGame = std::make_unique<GameInstance>(name);
@@ -32,15 +32,14 @@ public:
 
 		const auto pLogger = LOGGER;
 
-		// TODO(long term): fix timestep
+		// TODO: (long term) fix timestep
 		while (!quit)
 		{
-			
 			auto currentTime = std::chrono::high_resolution_clock::now();
 			const f32 deltaTime = std::min(std::chrono::duration<f32>(currentTime - lastTime).count(), 0.1f);
 			lastTime = currentTime;
 			quit = INPUT->ProcessInput();
-			
+
 			RENDERER->SetupRender();
 			SCENES->RenderCurrentScene();
 			pLogger->OutputLog();
@@ -48,10 +47,9 @@ public:
 			RENDERER->PresentRender();
 		}
 		Cleanup();
-
 	}
 
-private:	
+private:
 	static void Initialize();
 	void LoadGame() const;
 	static void Cleanup();

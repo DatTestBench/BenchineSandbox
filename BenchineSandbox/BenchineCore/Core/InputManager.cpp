@@ -39,7 +39,6 @@ bool InputManager::ProcessInput()
 		}
 		if (e.type == SDL_MOUSEBUTTONDOWN)
 		{
-
 		}
 		if (e.type == SDL_WINDOWEVENT)
 		{
@@ -135,7 +134,7 @@ bool InputManager::ProcessInput()
 		bool controllerActive = false;
 		if (button != GamepadButton::NONE)
 		{
-			if (m_Controllers.at(EnumIndex(controller)).Buttons.at(EnumIndex(button)) 
+			if (m_Controllers.at(EnumIndex(controller)).Buttons.at(EnumIndex(button))
 				&& (m_Controllers.at(EnumIndex(controller)).ButtonStates.at(EnumIndex(button)) == state))
 			{
 				//auto a = std::async(bind.second.CallBack);
@@ -194,7 +193,7 @@ MouseState InputManager::GetMouseState()
 
 void InputManager::ClearInputs()
 {
-	m_KeyEvents.erase(std::ranges::remove_if(m_KeyEvents, [](const KeyEvent& keyEvent) { return keyEvent.Processed; }).begin(), m_KeyEvents.end());
+	m_KeyEvents.erase(std::ranges::remove_if(m_KeyEvents, [] (const KeyEvent& keyEvent) { return keyEvent.Processed; }).begin(), m_KeyEvents.end());
 }
 
 void InputManager::CheckControllerInput(const DWORD index, const XINPUT_STATE xInputState, const GamepadButton button, const i32 xInputConstant)

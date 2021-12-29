@@ -18,4 +18,3 @@ public:
 private:
 	std::unique_ptr<GLTextureWrapper> m_pTexture;
 };
-

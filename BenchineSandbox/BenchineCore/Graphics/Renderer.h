@@ -46,7 +46,7 @@ public:
 	 * \param pos Position
 	 * \param scale 2D texture scale
 	 */
-	static void RenderTexture(GLTextureWrapper* pTexture, const glm::vec2& pos, const glm::vec2& scale);
+	static void RenderTexture(const GLTextureWrapper* pTexture, const glm::vec2& pos, const glm::vec2& scale);
 
 private:
 	void Cleanup();
