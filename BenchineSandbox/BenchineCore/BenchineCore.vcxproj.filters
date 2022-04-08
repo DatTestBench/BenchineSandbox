@@ -61,6 +61,9 @@
     <ClCompile Include="NodeEditor\BNEditorHelpers.cpp" />
     <ClCompile Include="Components\AIControllerComponent.cpp" />
     <ClCompile Include="Helpers\EnumHelpers.ixx" />
+    <ClCompile Include="NodeEditor\Link.cpp" />
+    <ClCompile Include="NodeEditor\Node.cpp" />
+    <ClCompile Include="NodeEditor\Pin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene\GameObject.h" />
@@ -71,7 +74,6 @@
     <ClInclude Include="Core\Benchine.h" />
     <ClInclude Include="Core\InputManager.h" />
     <ClInclude Include="Components\BaseComponent.h" />
-    <ClInclude Include="Components\Components.h" />
     <ClInclude Include="Components\FPSComponent.h" />
     <ClInclude Include="Components\TextComponent.h" />
     <ClInclude Include="Components\TransformComponent.h" />
@@ -104,5 +106,15 @@
     <ClInclude Include="Helpers\Singleton.hpp" />
     <ClInclude Include="Helpers\Utils.hpp" />
     <ClInclude Include="Core\CoreTypes.hpp" />
+    <ClInclude Include="Core\CoreHelpers.hpp" />
+    <ClInclude Include="Core\CoreMacros.hpp" />
+    <ClInclude Include="Core\CoreBasicTypes.hpp" />
+    <ClInclude Include="Helpers\CollisionHelper.hpp" />
+    <ClInclude Include="Helpers\JsonHelper.hpp" />
+    <ClInclude Include="Helpers\MathHelper.hpp" />
+    <ClInclude Include="Helpers\SvgHelper.hpp" />
+    <ClInclude Include="NodeEditor\Link.hpp" />
+    <ClInclude Include="NodeEditor\Node.hpp" />
+    <ClInclude Include="NodeEditor\Pin.hpp" />
   </ItemGroup>
 </Project>
