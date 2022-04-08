@@ -94,7 +94,7 @@ public:
 		const std::string fileName = std::string(location.file_name()).substr(std::string(location.file_name()).find_last_of('\\') + 1);
 		
 		const std::string textOutput = fmt::format(
-			"[{level}] {filename} {functionName}:({line}) > {message}\n",
+			"[{level}] {fileName} {functionName}:({line}) > {message}\n",
 			fmt::arg("level", magic_enum::enum_name(Level)),
 			fmt::arg("fileName", fileName),
 			fmt::arg("functionName", location.function_name()),
