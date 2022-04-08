@@ -46,7 +46,7 @@ void PhysicsComponent2D::Update(const f32)
 void PhysicsComponent2D::HandleCollision(PhysicsComponent2D* pOtherComponent)
 {
 	const auto collisionResult = sat::PolygonCollision(this, pOtherComponent);
-	if (collisionResult.intersect)
+	if (collisionResult.Intersect)
 	{
 		switch (m_CollisionMode)
 		{
@@ -58,7 +58,7 @@ void PhysicsComponent2D::HandleCollision(PhysicsComponent2D* pOtherComponent)
 			{
 				if (pOtherComponent->GetCollisionMode() == CollisionMode::Static)
 				{
-					GetTransform()->Move(collisionResult.minimumTranslationVector);
+					GetTransform()->Move(collisionResult.MinimumTranslationVector);
 				}
 			}
 			m_PhysicsCallback(collisionResult, this, pOtherComponent);

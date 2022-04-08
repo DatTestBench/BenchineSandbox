@@ -13,11 +13,6 @@ using VertexUV = std::pair<glm::vec2, glm::vec2>;
 
 struct Projection2D
 {
-	explicit Projection2D(const f32 val)
-		: Min(val)
-		, Max(val)
-	{
-	}
 	explicit Projection2D(const f32 min, const f32 max)
 		: Min(min)
 		, Max(max)

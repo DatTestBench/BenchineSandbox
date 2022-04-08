@@ -2,23 +2,22 @@
 
 #include "MathHelper.hpp"
 #include "Components/PhysicsComponent2D.h"
-#include "Core/BenchineCore.hpp"
-#include "Core/BenchineCore.hpp"
-#include "Core/BenchineCore.hpp"
-#include "Core/BenchineCore.hpp"
+
+#include "Core/Benchine.h"
+
 // TODO: see if the following could be merged into one function that calls the other
 // Collision for GameObjects
 PolygonCollisionResult sat::PolygonCollision(const PhysicsComponent2D* pActorA, const PhysicsComponent2D* pActorB)
 {
 	PolygonCollisionResult result{};
-	result.intersect = true;
+	result.Intersect = true;
 
 	const auto& colliderA = pActorA->GetCollider();
 	const auto& colliderB = pActorB->GetCollider();
-	const size_t vertexCountA = colliderA.size();
-	const size_t vertexCountB = colliderB.size();
+	const auto vertexCountA = colliderA.size();
+	const auto vertexCountB = colliderB.size();
 
-	f32 minIntervalDistance = std::numeric_limits<f32>::infinity();
+	auto minIntervalDistance = std::numeric_limits<f32>::infinity();
 	glm::vec2 translationAxis{}, currentVertex{}, nextVertex{};
 
 	// Loop through all the vertices of both polygons
@@ -47,11 +46,11 @@ PolygonCollisionResult sat::PolygonCollision(const PhysicsComponent2D* pActorA, 
 		// Check if the polygon projections are currently intersecting
 		if (IntervalDistance(projectionA, projectionB) > 0)
 		{
-			result.intersect = false;
+			result.Intersect = false;
 		}
 
 		// If the polygon does not intersect, exit the loop
-		if (!result.intersect)
+		if (!result.Intersect)
 			break;
 
 		// Check if the current interval distance is the minimum one. If so store
@@ -63,7 +62,7 @@ PolygonCollisionResult sat::PolygonCollision(const PhysicsComponent2D* pActorA, 
 			minIntervalDistance = intervalDistance;
 			translationAxis = axis;
 
-			glm::vec2 delta = MathHelper::PolyCenter(colliderA) - MathHelper::PolyCenter(colliderB);
+			const glm::vec2 delta = MathHelper::PolyCenter(colliderA) - MathHelper::PolyCenter(colliderB);
 			if (dot(delta, translationAxis) < 0)
 				translationAxis = -translationAxis;
 		}
@@ -71,8 +70,8 @@ PolygonCollisionResult sat::PolygonCollision(const PhysicsComponent2D* pActorA, 
 
 	// The minimum translation vector
 	// can be used to push the polygons apart.
-	if (result.intersect)
-		result.minimumTranslationVector = translationAxis * minIntervalDistance;
+	if (result.Intersect)
+		result.MinimumTranslationVector = translationAxis * minIntervalDistance;
 
 	return result;
 }
@@ -84,7 +83,7 @@ PolygonCollisionResult sat::PolygonCollision(const PhysicsComponent2D* pActor, c
 	//glm::vec2 velocityDelta = pActor->GetVelocity();
 
 	PolygonCollisionResult result{};
-	result.intersect = true;
+	result.Intersect = true;
 
 	const auto& collider = pActor->GetCollider();
 
@@ -119,7 +118,7 @@ PolygonCollisionResult sat::PolygonCollision(const PhysicsComponent2D* pActor, c
 		// Check if the polygon projections are currently intersecting
 		if (IntervalDistance(projectionA, projectionB) > 0)
 		{
-			result.intersect = false;
+			result.Intersect = false;
 			// If the polygon does not intersect, exit the loop
 			break;
 		}
@@ -133,7 +132,7 @@ PolygonCollisionResult sat::PolygonCollision(const PhysicsComponent2D* pActor, c
 			minIntervalDistance = intervalDistance;
 			translationAxis = axis;
 
-			glm::vec2 delta = MathHelper::PolyCenter(collider) - MathHelper::PolyCenter(staticPoly);
+			const glm::vec2 delta = MathHelper::PolyCenter(collider) - MathHelper::PolyCenter(staticPoly);
 			if (dot(delta, translationAxis) < 0)
 				translationAxis = -translationAxis;
 		}
@@ -141,8 +140,8 @@ PolygonCollisionResult sat::PolygonCollision(const PhysicsComponent2D* pActor, c
 
 	// The minimum translation vector
 	// can be used to push the polygons apart.
-	if (result.intersect)
-		result.minimumTranslationVector = translationAxis * minIntervalDistance;
+	if (result.Intersect)
+		result.MinimumTranslationVector = translationAxis * minIntervalDistance;
 
 	return result;
 }
@@ -150,15 +149,12 @@ PolygonCollisionResult sat::PolygonCollision(const PhysicsComponent2D* pActor, c
 Projection2D sat::ProjectPolygon(const glm::vec2& axis, const Collider2D& polygon)
 {
 	// To project a point on an axis use the dot product
-	f32 dotProduct = dot(axis, polygon.at(0));
-	Projection2D projectionBounds{ dotProduct };
-	for (size_t i = 0; i < polygon.size(); ++i)
+	Projection2D projectionBounds{ std::numeric_limits<f32>::max(), std::numeric_limits<f32>::min() };
+	for (const auto& vertex : polygon)
 	{
-		dotProduct = dot(axis, polygon.at(i));
-		if (dotProduct < projectionBounds.Min)
-			projectionBounds.Min = dotProduct;
-		else if (dotProduct > projectionBounds.Max)
-			projectionBounds.Max = dotProduct;
+		const f32 dotProduct = dot(axis, vertex);
+		projectionBounds.Min = std::min(projectionBounds.Min, dotProduct);
+		projectionBounds.Max = std::max(projectionBounds.Max, dotProduct);
 	}
 	return projectionBounds;
 }

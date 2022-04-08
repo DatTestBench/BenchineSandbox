@@ -10,9 +10,9 @@ class PhysicsComponent2D;
 struct PolygonCollisionResult
 {
 	// Are the polygons currently intersecting?
-	bool intersect;
+	bool Intersect;
 	// The translation to apply to the first polygon to push the polygons apart.
-	glm::vec2 minimumTranslationVector;
+	glm::vec2 MinimumTranslationVector;
 };
 
 namespace sat
@@ -20,7 +20,7 @@ namespace sat
 	PolygonCollisionResult PolygonCollision(const PhysicsComponent2D* pActorA, const PhysicsComponent2D* pActorB);
 	PolygonCollisionResult PolygonCollision(const PhysicsComponent2D* pActor, const Collider2D& staticPoly);
 	// Maps the polygon min / max bounds onto an axis
-	Projection2D ProjectPolygon(const glm::vec2& axis, const Collider2D& vertexSet);
+	Projection2D ProjectPolygon(const glm::vec2& axis, const Collider2D& polygon);
 	f32 IntervalDistance(const Projection2D& projectionA, const Projection2D& projectionB);
 	glm::vec2 MakeAxis(const glm::vec2& vertexA, const glm::vec2& vertexB);
 }
